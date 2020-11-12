@@ -1,10 +1,10 @@
 @extends('layouts.theme')
 
 @section('content')
-    <!-- Create Post Component-->
+    <!-- Edit Post Component-->
     <div class="container">
         <div id="app1">
-            <manage-post></manage-post>
+            <manage-post :post="{{ $post }}"></manage-post>
 
         </div>
     </div>

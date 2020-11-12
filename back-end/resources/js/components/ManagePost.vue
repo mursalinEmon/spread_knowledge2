@@ -19,7 +19,13 @@
                                <vue-editor v-model="content" />
                             </div>
                            <div class="form-group">
-                               <button  type="submit" class="btn btn-primary">Submit</button>
+                               <div>
+                                   <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                               </div>
+                                <!-- <div v-else>
+                                    <button type="submit" value="update" class="btn btn-primary">Update</button>
+                                </div> -->
+
                             </div>
 
                         </form>
@@ -40,17 +46,27 @@ import { VueEditor } from "vue2-editor";
 
 export default {
   components: { VueEditor },
+  props:['post'],
   data: () => ({
     content: "",
     title:"",
     id: "",
+    toggleButton: false,
+
 
   }),
 
+  mounted(){
+      this.editpost();
+  },
+
   methods: {
       postBlog(){
-          console.log('hello')
-          axios.post('create-post', {
+
+          if(this.post == ""){
+              this.toggleButton = true;
+
+              axios.post('create-post', {
               title: this.title,
               content: this.content,
 
@@ -63,6 +79,32 @@ export default {
               "",
               "success"
             )}).catch()
+          }
+          else{
+              axios.post('update-post', {
+              title: this.title,
+              content: this.content,
+              id: this.id
+
+          }).then((res)=>{
+              console.log(res);
+              this.title="";
+              this.content="";
+              this.$alert(
+              res.data.message,
+              "",
+              "success"
+            )}).catch()
+          }
+
+      },
+
+
+      editpost(){
+          this.content=this.post.content;
+          this.title=this.post.title;
+          this.id=this.post.id;
+          console.log(this.title);
       },
 
 

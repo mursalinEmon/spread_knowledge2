@@ -109,4 +109,15 @@ class BlogPostController extends Controller
 
         return redirect()->back()->with('message', 'Post deleted Successfully');
     }
+    public function edit_post(Request $request){
+        $post=BlogPost::findOrFail($request->id);
+
+        return view('Blogs\editPost',compact('post'));
+    }
+    public function update_post(Request $request){
+        $post=BlogPost::findOrFail($request->id);
+        $post->update(['title'=>$request->title,'content'=>$request->content]);
+
+        return response(['message' => 'Post updated Successfully']);
+    }
 }

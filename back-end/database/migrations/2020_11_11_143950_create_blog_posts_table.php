@@ -18,6 +18,7 @@ class CreateBlogPostsTable extends Migration
             $table->string('title');
             $table->string('tags')->nullable();
             $table->longText('content');
+            $table->boolean('publish_status')->default(true);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

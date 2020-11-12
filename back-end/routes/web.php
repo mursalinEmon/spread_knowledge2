@@ -27,6 +27,8 @@ Route::get('/create-post','BlogPostController@create')->name('create-post');
 Route::post('/create-post','BlogPostController@store')->name('store-post');
 Route::get('/post-list','BlogPostController@post_list')->name('post-list');
 Route::post('/delete-post','BlogPostController@delete_post')->name('blogpost.delete');
+Route::post('/edit-post','BlogPostController@edit_post')->name('blogpost.edit');
+Route::post('/update-post','BlogPostController@update_post')->name('blogpost.update');
 
 
 

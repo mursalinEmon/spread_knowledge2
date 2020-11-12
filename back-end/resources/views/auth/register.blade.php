@@ -66,7 +66,7 @@
 
                             <div class="col-md-6">
                                 <select class="form-group" id="type" name="type">
-                                    <option value="">Select</option>
+                                    <option class="text-center" value="">Select</option>
                                     <option value="student">Student</option>
                                     <option value="contributor">Contributor</option>
                                 </select>
