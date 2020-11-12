@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="align-items-right mb-4">
-            <a href="{{ route('create-post') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Blog-Post</a>
+            <a href="{{ route('blogpost.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Blog-Post</a>
           </div>
 
           <!-- Content Row -->
@@ -12,7 +12,7 @@
 
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
-               <a href="{{ route('post-list') }}">
+               <a href="{{ route('blogpost.list') }}">
                 <div class="card-body" >
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">

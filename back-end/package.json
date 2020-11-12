@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "vue-bootstrap-typeahead": "^0.2.6",
         "vue-simple-alert": "^1.1.1",
         "vue2-editor": "^2.10.2"
     }

@@ -38,6 +38,7 @@ class BlogPostController extends Controller
     {
         $post = new BlogPost();
         $post->title = $request->title;
+        $post->tags = $request->tags;
         $post->content = $request->content;
         $post->user_id = auth()->user()->id;
         $post->save();
@@ -116,7 +117,7 @@ class BlogPostController extends Controller
     }
     public function update_post(Request $request){
         $post=BlogPost::findOrFail($request->id);
-        $post->update(['title'=>$request->title,'content'=>$request->content]);
+        $post->update(['title'=>$request->title,'content'=>$request->content,'tags'=>$request->tags]);
 
         return response(['message' => 'Post updated Successfully']);
     }

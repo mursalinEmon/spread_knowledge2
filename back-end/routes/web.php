@@ -23,12 +23,14 @@ Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');
-Route::get('/create-post','BlogPostController@create')->name('create-post');
+Route::get('/create-post','BlogPostController@create')->name('blogpost.create');
 Route::post('/create-post','BlogPostController@store')->name('store-post');
-Route::get('/post-list','BlogPostController@post_list')->name('post-list');
+Route::get('/post-list','BlogPostController@post_list')->name('blogpost.list');
 Route::post('/delete-post','BlogPostController@delete_post')->name('blogpost.delete');
 Route::post('/edit-post','BlogPostController@edit_post')->name('blogpost.edit');
 Route::post('/update-post','BlogPostController@update_post')->name('blogpost.update');
+Route::get('/fetch-tags','BlogTagController@index')->name('tags.fetch');
+
 
 
 

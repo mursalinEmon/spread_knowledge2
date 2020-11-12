@@ -8,6 +8,7 @@
                 @auth
                 @if(auth()->user()->type == 'contributor')
                 <div class="card-header"><a class="btn btn-primary" rel="stylesheet" href="{{ route('contributor_dashboard') }}"> Dashboard</a></div>
+                <div class="card-header"><a class="btn btn-primary" rel="stylesheet" href="{{ route('tags.fetch') }}"> Tags</a></div>
                 @endif
                 @endauth
                 <div class="card-body">

@@ -14,7 +14,12 @@ class BlogTagController extends Controller
      */
     public function index()
     {
-        //
+        $tags=BlogTag::all();
+        $name=[];
+        foreach($tags as $tag){
+            array_push($name,$tag->name);
+        }
+        return response(['tags'=>$name]);
     }
 
     /**

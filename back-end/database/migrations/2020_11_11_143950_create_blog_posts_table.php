@@ -16,7 +16,7 @@ class CreateBlogPostsTable extends Migration
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('tags')->nullable();
+            $table->json('tags')->nullable();
             $table->longText('content');
             $table->boolean('publish_status')->default(true);
             $table->unsignedBigInteger('user_id');

@@ -21,6 +21,7 @@ const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead);
 
 
 /**
@@ -30,8 +31,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 import VueSimpleAlert from "vue-simple-alert";
+import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
+import 'bootstrap/scss/bootstrap.scss';
 
 Vue.use(VueSimpleAlert);
+Vue.use(VueBootstrapTypeahead);
 
 const app = new Vue({
     el: '#app1',

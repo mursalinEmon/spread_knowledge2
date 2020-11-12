@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Create New Post</div>
+                    <div class="card-header">Update Post</div>
 
                     <div class="card-body">
                         <form @submit.prevent="postBlog">
@@ -40,6 +40,9 @@
                                <div>
                                    <button type="submit" value="submit" class="btn btn-primary">Submit</button>
                                </div>
+                                <!-- <div v-else>
+                                    <button type="submit" value="update" class="btn btn-primary">Update</button>
+                                </div> -->
 
                             </div>
 
@@ -76,15 +79,17 @@ export default {
 
   mounted(){
       this.fetchTags();
+      this.editpost();
   },
 
   methods: {
       postBlog(){
 
-              axios.post('create-post', {
+              axios.post('update-post', {
               title: this.title,
               content: this.content,
               tags: this.tags,
+              id: this.id
 
           }).then((res)=>{
               console.log(res);
@@ -102,6 +107,7 @@ export default {
       editpost(){
           this.content=this.post.content;
           this.title=this.post.title;
+          this.tags=this.post.tags;
           this.id=this.post.id;
           console.log(this.title);
       },
@@ -123,7 +129,6 @@ export default {
 
 
   }
-
 };
 </script>
 

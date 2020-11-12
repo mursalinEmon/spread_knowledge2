@@ -12,7 +12,7 @@
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
 
-  <title>Dashboard</title>
+  <title>spreadKnowledge</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,7 +33,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" style="background-image: linear-gradient(180deg, #00b09b,  #96c93d)!important;" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon">
           <i class="fas fa-user"></i>
         </div>
@@ -45,7 +45,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ route('contributor_dashboard') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -107,9 +107,8 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Posts List:</h6>
-            <a class="collapse-item" href="ai.html">AI</a>
-            <a class="collapse-item" href="software.html">Software</a>
-            <a class="collapse-item" href="languages.html">Languages</a>
+            <a class="collapse-item" href="{{ route('blogpost.list') }}">All Post</a>
+            <a class="collapse-item" href="{{ route('blogpost.create') }}">Create new post</a>
 
         </div>
       </li>

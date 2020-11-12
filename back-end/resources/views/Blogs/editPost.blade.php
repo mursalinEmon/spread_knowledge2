@@ -4,7 +4,7 @@
     <!-- Edit Post Component-->
     <div class="container">
         <div id="app1">
-            <manage-post :post="{{ $post }}"></manage-post>
+            <update-post :post="{{ $post }}"></update-post>
 
         </div>
     </div>
