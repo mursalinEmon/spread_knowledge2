@@ -4,7 +4,7 @@
     <!-- Create Post Component-->
     <div class="container">
         <div id="app1">
-            <manage-post></manage-post>
+            <create-post></create-post>
 
         </div>
     </div>

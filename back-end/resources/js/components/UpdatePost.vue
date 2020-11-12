@@ -38,11 +38,8 @@
                             </div>
                            <div class="form-group">
                                <div>
-                                   <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                                   <button type="submit" value="submit" class="btn btn-primary">Update</button>
                                </div>
-                                <!-- <div v-else>
-                                    <button type="submit" value="update" class="btn btn-primary">Update</button>
-                                </div> -->
 
                             </div>
 
