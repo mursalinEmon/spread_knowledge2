@@ -20,6 +20,12 @@ Route::get('/', function () {
 
 
 Auth::routes(['verify'=>true]);
+Route::get('/logout', function () {
+    //logout user
+    Auth::logout();
+    // redirect to homepage
+    return redirect('/');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');
