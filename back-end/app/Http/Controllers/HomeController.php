@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\BlogPost;
+use App\BlogTag;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -29,8 +30,9 @@ class HomeController extends Controller
     public function contributor_dashboard(){
         $id=Auth::user()->id;
         $posts_count=BlogPost::where("user_id",$id)->count();
+        $tags_count=BlogTag::all()->count();
 
 
-        return view('contributor.contributor_dashboard',compact('posts_count'));
+        return view('contributor.contributor_dashboard',compact('posts_count','tags_count'));
     }
 }

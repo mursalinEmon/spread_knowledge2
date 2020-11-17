@@ -35,7 +35,14 @@ Route::get('/post-list','BlogPostController@post_list')->name('blogpost.list');
 Route::post('/delete-post','BlogPostController@delete_post')->name('blogpost.delete');
 Route::post('/edit-post','BlogPostController@edit_post')->name('blogpost.edit');
 Route::post('/update-post','BlogPostController@update_post')->name('blogpost.update');
-Route::get('/fetch-tags','BlogTagController@index')->name('tags.fetch');
+Route::get('/fetch-tags','BlogPostController@index')->name('tags.fetch');
+Route::get('/tags-create','BlogTagController@create')->name('tag.create');
+Route::post('/tags-create','BlogTagController@store')->name('tag.post');
+Route::get('/tags-list','BlogTagController@all_tags')->name('tag.list');
+Route::get('/blogTags/{blogTag}','BlogTagController@edit')->name('tag.edit');
+Route::post('/blogTags-update','BlogTagController@update')->name('tag.update');
+
+
 
 
 
