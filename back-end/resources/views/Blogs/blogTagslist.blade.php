@@ -17,10 +17,10 @@
 
                 <a style="margin-right: 2rem!important;" href="{{ route('tag.edit',$tag->id) }}" class="btn btn-primary">Edit Tag</a>
 
-            <form action="{{ route('blogpost.delete') }}" method="POST">
+            <form action="{{ route('tag.delete') }}" method="POST">
                 @csrf
                 <input value="{{ $tag->id }}" type="hidden" name="id">
-                <button type="submit" value="submit" class="btn btn-danger">Delete Post</button>
+                <button type="submit" value="submit" class="btn btn-danger">Delete Tag</button>
             </form>
           </div>
 

@@ -90,7 +90,11 @@ class BlogTagController extends Controller
         ]);
         return response(['message'=>"Tag updated Successfully..!"]);
     }
-
+    public function delete_tag(Request $request){
+        $tag=BlogTag::findOrFail($request->id);
+        $tag->delete();
+        return redirect()->back();
+    }
     /**
      * Remove the specified resource from storage.
      *

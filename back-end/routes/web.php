@@ -41,6 +41,7 @@ Route::post('/tags-create','BlogTagController@store')->name('tag.post');
 Route::get('/tags-list','BlogTagController@all_tags')->name('tag.list');
 Route::get('/blogTags/{blogTag}','BlogTagController@edit')->name('tag.edit');
 Route::post('/blogTags-update','BlogTagController@update')->name('tag.update');
+Route::post('/blogTags-delete','BlogTagController@delete_tag')->name('tag.delete');
 
 
 
