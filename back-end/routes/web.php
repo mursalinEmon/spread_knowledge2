@@ -29,6 +29,7 @@ Route::get('/logout', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');
+Route::get('/student-dashboard','StudentProfileController@index')->name('student.dashboard');
 Route::get('/create-post','BlogPostController@create')->name('blogpost.create');
 Route::post('/create-post','BlogPostController@store')->name('store-post');
 Route::get('/post-list','BlogPostController@post_list')->name('blogpost.list');

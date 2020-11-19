@@ -14,7 +14,7 @@ class StudentProfileController extends Controller
      */
     public function index()
     {
-        //
+        return view('student.student_dashboard');
     }
 
     /**
