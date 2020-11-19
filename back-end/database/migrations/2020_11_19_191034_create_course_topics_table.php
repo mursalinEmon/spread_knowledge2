@@ -15,6 +15,10 @@ class CreateCourseTopicsTable extends Migration
     {
         Schema::create('course_topics', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('courses');
+            $table->text('topic_title');
+            $table->mediumText('topic_body');
             $table->timestamps();
         });
     }

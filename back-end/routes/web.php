@@ -28,25 +28,33 @@ Route::get('/logout', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Blog Portal
+Route::middleware(['verified'])->group(function(){
+    Route::get('/create-post','BlogPostController@create')->name('blogpost.create');
+    Route::post('/create-post','BlogPostController@store')->name('store-post');
+    Route::get('/post-list','BlogPostController@post_list')->name('blogpost.list');
+    Route::post('/delete-post','BlogPostController@delete_post')->name('blogpost.delete');
+    Route::post('/edit-post','BlogPostController@edit_post')->name('blogpost.edit');
+    Route::post('/update-post','BlogPostController@update_post')->name('blogpost.update');
+    Route::get('/fetch-tags','BlogPostController@index')->name('tags.fetch');
+});
+
+// Blog Tags
+Route::middleware(['verified'])->group(function(){
+    Route::get('/tags-create','BlogTagController@create')->name('tag.create');
+    Route::post('/tags-create','BlogTagController@store')->name('tag.post');
+    Route::get('/tags-list','BlogTagController@all_tags')->name('tag.list');
+    Route::get('/blogTags/{blogTag}','BlogTagController@edit')->name('tag.edit');
+    Route::post('/blogTags-update','BlogTagController@update')->name('tag.update');
+    Route::post('/blogTags-delete','BlogTagController@delete_tag')->name('tag.delete');
+});
+
+//Courses
+Route::middleware(['verified'])->group(function(){
+    Route::get('/course-create','CourseController@create')->name('course.create');
+});
+
+
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');
 Route::get('/student-dashboard','StudentProfileController@index')->name('student.dashboard');
-Route::get('/create-post','BlogPostController@create')->name('blogpost.create');
-Route::post('/create-post','BlogPostController@store')->name('store-post');
-Route::get('/post-list','BlogPostController@post_list')->name('blogpost.list');
-Route::post('/delete-post','BlogPostController@delete_post')->name('blogpost.delete');
-Route::post('/edit-post','BlogPostController@edit_post')->name('blogpost.edit');
-Route::post('/update-post','BlogPostController@update_post')->name('blogpost.update');
-Route::get('/fetch-tags','BlogPostController@index')->name('tags.fetch');
-Route::get('/tags-create','BlogTagController@create')->name('tag.create');
-Route::post('/tags-create','BlogTagController@store')->name('tag.post');
-Route::get('/tags-list','BlogTagController@all_tags')->name('tag.list');
-Route::get('/blogTags/{blogTag}','BlogTagController@edit')->name('tag.edit');
-Route::post('/blogTags-update','BlogTagController@update')->name('tag.update');
-Route::post('/blogTags-delete','BlogTagController@delete_tag')->name('tag.delete');
-
-
-
-
-
-
-
