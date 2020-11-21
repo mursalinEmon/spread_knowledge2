@@ -35,7 +35,22 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if($request->file('file')){
+            $image = $request->file;
+            $imagePath = $request->file('file');
+            $imageName=$imagePath->getClientOriginalName();
+            $image->move(public_path('image/'.auth()->user()->name.'/'),$imageName);
+            $course=Course::create([
+                'contributor_id'=>auth()->user()->id,
+                'course_title'=>$request->title,
+                'image'=>'image/'.auth()->user()->name.'/'.$imageName,
+                'course_level'=>$request->level,
+                'rating'=>1.0,
+                'tags'=> $request->tags,
+            ]);
+            return response(['message' => 'Course created Successfully']);
+        }
     }
 
     /**

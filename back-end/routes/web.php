@@ -53,6 +53,7 @@ Route::middleware(['verified'])->group(function(){
 //Courses
 Route::middleware(['verified'])->group(function(){
     Route::get('/course-create','CourseController@create')->name('course.create');
+    Route::post('/course-create','CourseController@store');
 });
 
 

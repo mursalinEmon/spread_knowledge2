@@ -18,6 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('course_title');
             $table->unsignedBigInteger('contributor_id');
             $table->foreign('contributor_id')->references('id')->on('users');
+            $table->string('image');
             $table->float('rating');
             $table->string('tags');
             $table->string('course_level');
