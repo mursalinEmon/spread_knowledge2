@@ -4,9 +4,9 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Create New Course</div>
+                    <div class="card-header">{{ next=="true"?"Design Your Course":"Create New Course"}}</div>
 
-                    <div class="card-body">
+                    <div v-if="next=='false'" class="card-body">
                         <form @submit.prevent="submitFile()">
                             <div class="form-group">
                                 <label for="blogTitle">Course Title</label>
@@ -67,6 +67,9 @@
                         </form>
 
                     </div>
+                    <div v-else>
+                        <design-course :course_id="course_id"></design-course>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,15 +79,19 @@
 
 
 <script>
+import DesignCourse from './DesignCourse.vue';
 
 
 export default {
+  components: { DesignCourse },
 
     data:()=>({
         file:"",
+        next:'false',
         title:"",
         id: "",
         level:"",
+        course_id:"",
         toggleButton: false,
         query:"",
         fetchedTags:[],
@@ -96,7 +103,7 @@ export default {
     },
     methods:{
         processFile(){
-              console.log("ok");
+
            this.file = this.$refs.file.files[0];
             let reader = new FileReader
           reader.onload = e => {
@@ -136,7 +143,12 @@ export default {
               res.data.message,
               "",
               "success"
-            )}).catch();
+            )
+
+            this.course_id=res.data.course_id;
+              this.next='true';
+            }).catch();
+
         },
 
         async fetchTags(){
