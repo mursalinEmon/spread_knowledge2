@@ -2021,16 +2021,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {},
   methods: {
-    processFile: function processFile(e) {
+    processFile: function processFile() {
       var _this = this;
 
+      console.log("ok");
       this.file = this.$refs.file.files[0];
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        e.preventDefault();
         _this.previewImage = e.target.result;
-        console.log("ok");
       };
 
       reader.readAsDataURL(this.file);
@@ -2053,6 +2052,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.level = "";
         _this2.tags = [];
         _this2.file = "";
+        _this2.previewImage = null;
 
         _this2.$alert(res.data.message, "", "success");
       })["catch"]();
@@ -2087,6 +2087,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     removeImage: function removeImage() {
       this.previewImage = null;
+      this.file = null;
+      this.$refs.file.value = "";
     }
   }
 });
@@ -58200,7 +58202,7 @@ var render = function() {
                           attrs: { type: "file", id: "image", name: "file" },
                           on: {
                             change: function($event) {
-                              return _vm.processFile(_vm.e)
+                              return _vm.processFile()
                             }
                           }
                         }),
@@ -72947,8 +72949,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

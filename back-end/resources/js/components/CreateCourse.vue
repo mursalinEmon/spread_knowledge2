@@ -18,10 +18,10 @@
 
                                     <div class="d-flex justify-content-center">
                                          <label for="image" class="btn btn-primary form-group" id="selector" style="cursor: pointer;height:40px!important;">Select Image <i class="fas fa-image"></i></label>
-                                         <input class="form-group form-control"  ref="file" type="file" @change="processFile(e)" style="opacty:1;position: absolute;z-index:-1;" id="image" name="file">
-                                        <div :style="{ 'background-image': `url(${previewImage})` }" v-if="previewImage" class="imagePreviewWrapper">
-                                            <span @click="removeImage" class="badge badge-secondary rounded float-right m-2">x</span>
-                                        </div>
+                                         <input class="form-group form-control"  ref="file" type="file" @change="processFile()" style="opacty:1;position: absolute;z-index:-1;" id="image" name="file">
+                                            <div :style="{ 'background-image': `url(${previewImage})` }" v-if="previewImage" class="imagePreviewWrapper">
+                                                <span @click="removeImage" class="badge badge-secondary rounded float-right m-2">x</span>
+                                            </div>
                                     </div>
 
 
@@ -95,13 +95,14 @@ export default {
 
     },
     methods:{
-        processFile(e){
+        processFile(){
+              console.log("ok");
            this.file = this.$refs.file.files[0];
             let reader = new FileReader
           reader.onload = e => {
-              e.preventDefault();
+
             this.previewImage = e.target.result;
-            console.log("ok");
+
           }
           reader.readAsDataURL(this.file);
             this.$alert(
@@ -130,6 +131,7 @@ export default {
               this.level="";
               this.tags=[];
               this.file="";
+              this.previewImage = null;
               this.$alert(
               res.data.message,
               "",
@@ -153,7 +155,9 @@ export default {
       },
 
       removeImage(){
-          this.previewImage = null;
+        this.previewImage = null;
+        this.file=null;
+        this.$refs.file.value="";
 
 
       },
