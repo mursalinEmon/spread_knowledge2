@@ -2125,7 +2125,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var formData = new FormData();
       formData.append('file', this.file);
       formData.append('title', this.title);
-      formData.append('tags', this.tags);
+      formData.append('tags', JSON.stringify(this.tags));
       formData.append('level', this.level);
       formData.append('category_id', this.category_id);
       formData.append('sub_category_id', this.sub_category_id); // formData.append('level', this.level);
