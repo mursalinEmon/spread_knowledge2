@@ -1,10 +1,10 @@
 @extends('layouts.theme')
 
 @section('content')
-    <!-- Create Post Component-->
+    <!-- Create Course Topic-->
     <div class="container">
         <div id="app1">
-            <create-course :categories={{ $categories }}></create-course>
+            <create-course-lesson></create-course-lesson>
 
         </div>
     </div>

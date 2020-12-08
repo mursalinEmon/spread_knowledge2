@@ -37,6 +37,14 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label>Course Category</label>
+                                <select class="form-group form-control" v-model="category" id="level" name="level">
+                                    <option class="text-center"  value="">Select</option>
+                                    <option v-for="(category, index) in categories"  :key="index" >{{ category.id  }}.{{ category.name  }}</option>
+                                </select>
+                            </div>
+
                             <div class="form-group ">
                                 <label for="">Tags</label>
                                 <div class="d-flex">
@@ -84,7 +92,9 @@ import DesignCourse from './DesignCourse.vue';
 
 export default {
   components: { DesignCourse },
-
+    props:{
+        categories:{}
+    },
     data:()=>({
         file:"",
         next:'false',
@@ -97,6 +107,7 @@ export default {
         fetchedTags:[],
         tags:[],
         previewImage: null,
+        category:""
     }),
     watch:{
 
@@ -119,11 +130,20 @@ export default {
             )
         },
         submitFile(){
+            // let items = window._.split(this.category, /.,_\d+/);
+
+            // console.log(_.initial(items));
+
+            // let news = window._.split(this.category, /_\d+/);
+            // console.log(news);
+            let to = this.category.split('.',1);
+            console.log(to);
             let formData = new FormData();
             formData.append('file', this.file);
             formData.append('title', this.title);
             formData.append('tags', this.tags);
             formData.append('level', this.level);
+            // formData.append('level', this.level);
 
             axios.post( '/course-create',
                 formData,

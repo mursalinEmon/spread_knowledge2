@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Course;
 use App\CourseTopic;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('course.createCourse');
+        $categories=Category::all();
+        return view('course.createCourse',compact('categories'));
     }
 
     /**
@@ -106,5 +108,9 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+    public function course_list($id){
+        $courses=Course::where('contributor_id',$id)->get();
+            return view('course\courseList',compact('courses'));
     }
 }

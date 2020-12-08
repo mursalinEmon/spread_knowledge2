@@ -20,7 +20,11 @@ class CreateCoursesTable extends Migration
             $table->foreign('contributor_id')->references('id')->on('users');
             $table->string('image');
             $table->float('rating');
-            $table->string('tags');
+            $table->json('tags');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('sub_category_id');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories');
             $table->string('course_level');
             $table->timestamps();
         });
@@ -33,6 +37,6 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('course');
     }
 }

@@ -2009,10 +2009,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     DesignCourse: _DesignCourse_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: {
+    categories: {}
   },
   data: function data() {
     return {
@@ -2026,7 +2037,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       query: "",
       fetchedTags: [],
       tags: [],
-      previewImage: null
+      previewImage: null,
+      category: ""
     };
   },
   watch: {},
@@ -2047,11 +2059,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     submitFile: function submitFile() {
       var _this2 = this;
 
+      // let items = window._.split(this.category, /.,_\d+/);
+      // console.log(_.initial(items));
+      // let news = window._.split(this.category, /_\d+/);
+      // console.log(news);
+      var to = this.category.split('.', 1);
+      console.log(to);
       var formData = new FormData();
       formData.append('file', this.file);
       formData.append('title', this.title);
       formData.append('tags', this.tags);
-      formData.append('level', this.level);
+      formData.append('level', this.level); // formData.append('level', this.level);
+
       axios.post('/course-create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -58395,6 +58414,62 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Course Category")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.category,
+                                expression: "category"
+                              }
+                            ],
+                            staticClass: "form-group form-control",
+                            attrs: { id: "level", name: "level" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.category = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                staticClass: "text-center",
+                                attrs: { value: "" }
+                              },
+                              [_vm._v("Select")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.categories, function(category, index) {
+                              return _c("option", { key: index }, [
+                                _vm._v(
+                                  _vm._s(category.id) +
+                                    "." +
+                                    _vm._s(category.name)
+                                )
+                              ])
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "form-group " }, [
                         _c("label", { attrs: { for: "" } }, [_vm._v("Tags")]),
                         _vm._v(" "),
@@ -73255,8 +73330,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Practice\Laravel\spreadKnowledge\spread_knowledge\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Practice\Laravel\spreadKnowledge\spread_knowledge\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

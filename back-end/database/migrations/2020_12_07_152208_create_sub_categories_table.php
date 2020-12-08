@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCourseTopicExamsTable extends Migration
+class CreateSubCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateCourseTopicExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_topic_exams', function (Blueprint $table) {
+        Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreateCourseTopicExamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_topic_exams');
+        Schema::dropIfExists('sub_categories');
     }
 }
