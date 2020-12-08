@@ -54,6 +54,8 @@ Route::middleware(['verified'])->group(function(){
 Route::middleware(['verified'])->group(function(){
     Route::get('/course-create','CourseController@create')->name('course.create');
     Route::post('/course-create','CourseController@store');
+    Route::get('/get-sub-category','SubCategoryController@index')->name('fetch_sub_category');
+    Route::get('/get-selected-sub-categories/{id}','SubCategoryController@find_sub')->name('find.fetch_sub_category');
     Route::post('/create-course-topic','CourseController@create_topic')->name('create.topic');
     Route::get('/course-list/{id}','CourseController@course_list')->name('course.list');
 

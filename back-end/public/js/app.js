@@ -1925,10 +1925,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DesignCourse_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DesignCourse.vue */ "./resources/js/components/DesignCourse.vue");
 
 
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2023,26 +2034,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     DesignCourse: _DesignCourse_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
-    categories: {}
+    categories: ""
   },
   data: function data() {
     return {
       file: "",
       next: 'false',
       title: "",
+      "fetchted_sub_category": [],
       id: "",
       level: "",
-      course_id: "",
+      category_id: "",
+      sub_categories: [],
       toggleButton: false,
       query: "",
       fetchedTags: [],
       tags: [],
       previewImage: null,
-      category: ""
+      category: "",
+      sub_category: "",
+      sub_category_id: ""
     };
   },
-  watch: {},
-  methods: {
+  watch: {
+    // whenever question changes, this function will run
+    category: function category(newCategory, oldCategory) {
+      this.processString(newCategory);
+    }
+  },
+  created: function created() {
+    this.fetchTags();
+    this.fetch_sub_category();
+  },
+  methods: (_methods = {
     processFile: function processFile() {
       var _this = this;
 
@@ -2056,40 +2080,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       reader.readAsDataURL(this.file);
       this.$alert("Image Uploaded", "", "success");
     },
-    submitFile: function submitFile() {
+    processString: function processString(category) {
       var _this2 = this;
 
-      // let items = window._.split(this.category, /.,_\d+/);
-      // console.log(_.initial(items));
-      // let news = window._.split(this.category, /_\d+/);
-      // console.log(news);
-      var to = this.category.split('.', 1);
-      console.log(to);
-      var formData = new FormData();
-      formData.append('file', this.file);
-      formData.append('title', this.title);
-      formData.append('tags', this.tags);
-      formData.append('level', this.level); // formData.append('level', this.level);
+      this.category_id = parseInt(category.split('.', 1)[0]);
+      axios.get("/get-selected-sub-categories/".concat(this.category_id)).then(function (res) {
+        _this2.sub_categories = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    fetch_sub_category: function fetch_sub_category() {
+      var _this3 = this;
 
-      axios.post('/course-create', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function (res) {
-        _this2.title = "";
-        _this2.level = "";
-        _this2.tags = [];
-        _this2.file = "";
-        _this2.previewImage = null;
-
-        _this2.$alert(res.data.message, "", "success");
-
-        _this2.course_id = res.data.course_id;
-        _this2.next = 'true';
-      })["catch"]();
+      axios.get('/get-sub-category').then(function (res) {
+        _this3.fetchted_sub_category = res.data;
+      });
     },
     fetchTags: function fetchTags() {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -2098,7 +2107,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return axios.get('fetch-tags').then(function (res) {
-                  _this3.fetchedTags = res.data.tags;
+                  _this4.fetchedTags = res.data.tags;
                 })["catch"]();
 
               case 2:
@@ -2109,19 +2118,65 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    addTags: function addTags() {
-      this.tags.push(this.query);
-      this.query = "";
-    },
-    deleteBadge: function deleteBadge(index) {
-      this.tags.splice(index, 1);
-    },
-    removeImage: function removeImage() {
-      this.previewImage = null;
-      this.file = null;
-      this.$refs.file.value = "";
+    submitFile: function submitFile() {
+      var _this5 = this;
+
+      this.sub_category_id = parseInt(this.sub_category.split('.', 1)[0]);
+      var formData = new FormData();
+      formData.append('file', this.file);
+      formData.append('title', this.title);
+      formData.append('tags', this.tags);
+      formData.append('level', this.level);
+      formData.append('category_id', this.category_id);
+      formData.append('sub_category_id', this.sub_category_id); // formData.append('level', this.level);
+
+      axios.post('/course-create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (res) {
+        _this5.title = "";
+        _this5.level = "";
+        _this5.tags = [];
+        _this5.file = "";
+        _this5.previewImage = null;
+
+        _this5.$alert(res.data.message, "", "success");
+
+        _this5.course_id = res.data.course_id;
+        _this5.next = 'true';
+      })["catch"]();
     }
-  }
+  }, _defineProperty(_methods, "fetchTags", function fetchTags() {
+    var _this6 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios.get('fetch-tags').then(function (res) {
+                _this6.fetchedTags = res.data.tags;
+              })["catch"]();
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  }), _defineProperty(_methods, "addTags", function addTags() {
+    this.tags.push(this.query);
+    this.query = "";
+  }), _defineProperty(_methods, "deleteBadge", function deleteBadge(index) {
+    this.tags.splice(index, 1);
+  }), _defineProperty(_methods, "removeImage", function removeImage() {
+    this.previewImage = null;
+    this.file = null;
+    this.$refs.file.value = "";
+  }), _methods)
 });
 
 /***/ }),
@@ -58470,6 +58525,68 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
+                      _vm.category
+                        ? _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Course Sub-Category")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.sub_category,
+                                    expression: "sub_category"
+                                  }
+                                ],
+                                staticClass: "form-group form-control",
+                                attrs: { id: "level", name: "level" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.sub_category = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    staticClass: "text-center",
+                                    attrs: { value: "" }
+                                  },
+                                  [_vm._v("Select")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.sub_categories, function(
+                                  category,
+                                  index
+                                ) {
+                                  return _c("option", { key: index }, [
+                                    _vm._v(
+                                      _vm._s(category.id) +
+                                        "." +
+                                        _vm._s(category.name)
+                                    )
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c("div", { staticClass: "form-group " }, [
                         _c("label", { attrs: { for: "" } }, [_vm._v("Tags")]),
                         _vm._v(" "),
@@ -58479,7 +58596,7 @@ var render = function() {
                             {},
                             [
                               _c("vue-bootstrap-typeahead", {
-                                attrs: { data: _vm.fetchedTags },
+                                attrs: { data: _vm.tags },
                                 model: {
                                   value: _vm.query,
                                   callback: function($$v) {
@@ -73330,8 +73447,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Practice\Laravel\spreadKnowledge\spread_knowledge\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Practice\Laravel\spreadKnowledge\spread_knowledge\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

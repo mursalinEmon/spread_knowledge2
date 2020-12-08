@@ -44,20 +44,27 @@
                                     <option v-for="(category, index) in categories"  :key="index" >{{ category.id  }}.{{ category.name  }}</option>
                                 </select>
                             </div>
-
+                             <div v-if="category" class="form-group">
+                                <label>Course Sub-Category</label>
+                                <select class="form-group form-control" v-model="sub_category" id="level" name="level">
+                                    <option class="text-center"  value="">Select</option>
+                                    <option v-for="(category, index) in sub_categories"  :key="index" >{{ category.id  }}.{{ category.name  }}</option>
+                                </select>
+                            </div>
                             <div class="form-group ">
-                                <label for="">Tags</label>
-                                <div class="d-flex">
-                                     <div class="">
-                                        <vue-bootstrap-typeahead  v-model="query"  :data="fetchedTags"/>
-                                    </div>
+                                        <label for="">Tags</label>
+                                        <div class="d-flex">
+                                            <div class="">
+                                                <vue-bootstrap-typeahead  v-model="query" :data="tags"/>
+                                            </div>
 
-                                    <div class="ml-auto">
-                                        <input value="Add" readonly @click="addTags" class="btn btn-primary ">
-                                    </div>
-                                </div>
+                                            <div class="ml-auto">
+                                                <input value="Add" readonly @click="addTags" class="btn btn-primary ">
+                                            </div>
+                                        </div>
 
                             </div>
+
 
                             <div class="form-group">
                                 <button @click="deleteBadge(index)" class="btn btn-secondary ml-2 p-2" v-for="(tag,index) in tags" :key="index">{{ tag }} <span class="badge badge-light crossButton">x</span></button>
@@ -93,24 +100,36 @@ import DesignCourse from './DesignCourse.vue';
 export default {
   components: { DesignCourse },
     props:{
-        categories:{}
+        categories:"",
     },
     data:()=>({
         file:"",
         next:'false',
         title:"",
+        "fetchted_sub_category":[],
         id: "",
         level:"",
-        course_id:"",
+        category_id:"",
+        sub_categories:[],
         toggleButton: false,
         query:"",
         fetchedTags:[],
         tags:[],
         previewImage: null,
-        category:""
+        category:"",
+        sub_category:"",
+        sub_category_id:"",
     }),
-    watch:{
+    watch: {
+        // whenever question changes, this function will run
+        category: function (newCategory, oldCategory) {
 
+            this.processString( newCategory);
+        }
+    },
+    created(){
+        this.fetchTags();
+       this.fetch_sub_category();
     },
     methods:{
         processFile(){
@@ -129,20 +148,36 @@ export default {
               "success"
             )
         },
+        processString(category){
+             this.category_id=parseInt(category.split('.',1)[0]);
+            axios.get(`/get-selected-sub-categories/${this.category_id}`).then((res)=>{
+                this.sub_categories=res.data;
+            }).catch((err)=>{console.log(err);});
+
+        },
+        fetch_sub_category(){
+            axios.get('/get-sub-category').then((res)=>{
+
+                this.fetchted_sub_category=res.data;
+                });
+        },
+        async fetchTags(){
+          await axios.get('fetch-tags').then((res)=>{
+              this.fetchedTags=res.data.tags;
+          }).catch()
+      },
+
         submitFile(){
-            // let items = window._.split(this.category, /.,_\d+/);
 
-            // console.log(_.initial(items));
 
-            // let news = window._.split(this.category, /_\d+/);
-            // console.log(news);
-            let to = this.category.split('.',1);
-            console.log(to);
+             this.sub_category_id=parseInt( this.sub_category.split('.',1)[0]);
             let formData = new FormData();
             formData.append('file', this.file);
             formData.append('title', this.title);
             formData.append('tags', this.tags);
             formData.append('level', this.level);
+            formData.append('category_id',this.category_id);
+            formData.append('sub_category_id',this.sub_category_id);
             // formData.append('level', this.level);
 
             axios.post( '/course-create',

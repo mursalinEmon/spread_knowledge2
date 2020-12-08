@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\SubCategory;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,13 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $subCategories=SubCategory::all();
+     return response($subCategories);
+
+    }
+    public function find_sub($id){
+        $data=SubCategory::where('category_id',$id)->get();
+        return response($data);
     }
 
     /**

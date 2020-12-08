@@ -50,6 +50,8 @@ class CourseController extends Controller
                 'image'=>'image/'.auth()->user()->name.'/'.$imageName,
                 'course_level'=>$request->level,
                 'rating'=>1.0,
+                'category_id'=>$request->category_id,
+                'sub_category_id'=>$request->sub_category_id,
                 'tags'=> $request->tags,
             ]);
 
