@@ -2107,7 +2107,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return axios.get('fetch-tags').then(function (res) {
-                  _this4.fetchedTags = res.data.tags;
+                  var data = res.data.tags;
+                  var f_tags = [];
+                  data.forEach(function (element) {
+                    f_tags.append(elment.name);
+                  });
+                  console.log(f_tags);
+                  _this4.fetchedTags = f_tags;
                 })["catch"]();
 
               case 2:
@@ -2144,7 +2150,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this5.$alert(res.data.message, "", "success");
 
         _this5.course_id = res.data.course_id;
-        _this5.next = 'true';
+
+        if (res.data.course_id) {
+          _this5.next = 'true';
+        }
       })["catch"]();
     }
   }, _defineProperty(_methods, "fetchTags", function fetchTags() {
@@ -58596,7 +58605,7 @@ var render = function() {
                             {},
                             [
                               _c("vue-bootstrap-typeahead", {
-                                attrs: { data: _vm.tags },
+                                attrs: { data: _vm.fetchedTags },
                                 model: {
                                   value: _vm.query,
                                   callback: function($$v) {
@@ -73447,8 +73456,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

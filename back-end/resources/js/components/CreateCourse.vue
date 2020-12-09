@@ -55,7 +55,7 @@
                                         <label for="">Tags</label>
                                         <div class="d-flex">
                                             <div class="">
-                                                <vue-bootstrap-typeahead  v-model="query" :data="tags"/>
+                                                <vue-bootstrap-typeahead  v-model="query" :data="fetchedTags"/>
                                             </div>
 
                                             <div class="ml-auto">
@@ -163,7 +163,15 @@ export default {
         },
         async fetchTags(){
           await axios.get('fetch-tags').then((res)=>{
-              this.fetchedTags=res.data.tags;
+
+              let data=res.data.tags;
+                let f_tags=[];
+              data.forEach(element => {
+                  f_tags.append(elment.name);
+              });
+              console.log(f_tags);
+              this.fetchedTags=f_tags;
+
           }).catch()
       },
 
@@ -201,14 +209,18 @@ export default {
             )
 
             this.course_id=res.data.course_id;
-              this.next='true';
+            if (res.data.course_id){
+                   this.next='true';
+            }
+
             }).catch();
 
         },
 
         async fetchTags(){
           await axios.get('fetch-tags').then((res)=>{
-              this.fetchedTags=res.data.tags;
+
+            this.fetchedTags=res.data.tags;
           }).catch()
       },
 
