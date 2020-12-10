@@ -5,9 +5,9 @@
             <div>
                 <div>
                     <div class="card-body">
-                        <form @submit.prevent="postTopic">
+                        <form @submit.prevent="createLesson">
                             <div class="form-group">
-                                <label for="topicTitle">Topic Title</label>
+                                <label for="topicTitle">Lession Title</label>
                                 <input v-model="title" type="text" class="form-control" id="topicTitle" aria-describedby="emailHelp" placeholder="Title" required>
 
                             </div>
@@ -29,6 +29,9 @@
                     </div>
                 </div>
             </div>
+            <!-- Card -->
+
+<!-- Card -->
         </div>
     </div>
     </div>
@@ -48,14 +51,14 @@ export default {
     }),
 
     methods:{
-        postTopic(){
+        createLesson(){
              let formData = new FormData();
              if( this.course_id){
                     formData.append('course_id', this.course_id);
                     formData.append('topic_title', this.title);
                     formData.append('topic_body', this.content);
 
-                    axios.post('/create-course-topic',formData).then((res)=>{
+                    axios.post('/create-course-lesson',formData).then((res)=>{
                         this.title="";
                         this.content="";
                          this.$alert(

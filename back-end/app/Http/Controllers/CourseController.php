@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Course;
+use App\Category;
 use App\CourseTopic;
+use App\CourseLesson;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -58,11 +59,11 @@ class CourseController extends Controller
             return response(['message' => 'Course created Successfully','course_id'=>$course->id]);
         }
     }
-    public function create_topic(Request $request){
-        $course_topic=CourseTopic::create([
+    public function create_lesson(Request $request){
+        $course_lesson=CourseLesson::create([
             'course_id'=>$request->course_id,
-            'topic_title'=>$request->topic_title,
-            'topic_body'=>$request->topic_body,
+            'lesson_title'=>$request->topic_title,
+            'lesson_body'=>$request->topic_body,
         ]);
         return response(['message'=>"Course Topic Created Successfully.."]);
     }

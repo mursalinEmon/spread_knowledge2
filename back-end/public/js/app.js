@@ -1920,19 +1920,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _DesignCourse_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DesignCourse.vue */ "./resources/js/components/DesignCourse.vue");
-
-
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _DesignCourse_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DesignCourse.vue */ "./resources/js/components/DesignCourse.vue");
 //
 //
 //
@@ -2031,7 +2019,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    DesignCourse: _DesignCourse_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    DesignCourse: _DesignCourse_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     categories: ""
@@ -2039,7 +2027,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       file: "",
-      next: 'false',
+      next: 'true',
       title: "",
       "fetchted_sub_category": [],
       id: "",
@@ -2066,7 +2054,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.fetchTags();
     this.fetch_sub_category();
   },
-  methods: (_methods = {
+  methods: {
     processFile: function processFile() {
       var _this = this;
 
@@ -2100,29 +2088,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     fetchTags: function fetchTags() {
       var _this4 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return axios.get('fetch-tags').then(function (res) {
-                  var data = res.data.tags;
-                  var f_tags = [];
-                  data.forEach(function (element) {
-                    f_tags.append(elment.name);
-                  });
-                  console.log(f_tags);
-                  _this4.fetchedTags = f_tags;
-                })["catch"]();
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
+      axios.get('fetch-tags').then(function (res) {
+        var data = res.data.tags;
+        var f_tags = [];
+        data.forEach(function (element) {
+          f_tags.push(element.name);
+        });
+        _this4.fetchedTags = f_tags;
+      })["catch"]();
     },
     submitFile: function submitFile() {
       var _this5 = this;
@@ -2141,7 +2114,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (res) {
-        _this5.title = "";
         _this5.level = "";
         _this5.tags = [];
         _this5.file = "";
@@ -2155,37 +2127,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this5.next = 'true';
         }
       })["catch"]();
+    },
+    addTags: function addTags() {
+      this.tags.push(this.query);
+      this.query = "";
+    },
+    deleteBadge: function deleteBadge(index) {
+      this.tags.splice(index, 1);
+    },
+    removeImage: function removeImage() {
+      this.previewImage = null;
+      this.file = null;
+      this.$refs.file.value = "";
     }
-  }, _defineProperty(_methods, "fetchTags", function fetchTags() {
-    var _this6 = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return axios.get('fetch-tags').then(function (res) {
-                _this6.fetchedTags = res.data.tags;
-              })["catch"]();
-
-            case 2:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }))();
-  }), _defineProperty(_methods, "addTags", function addTags() {
-    this.tags.push(this.query);
-    this.query = "";
-  }), _defineProperty(_methods, "deleteBadge", function deleteBadge(index) {
-    this.tags.splice(index, 1);
-  }), _defineProperty(_methods, "removeImage", function removeImage() {
-    this.previewImage = null;
-    this.file = null;
-    this.$refs.file.value = "";
-  }), _methods)
+  }
 });
 
 /***/ }),
@@ -2460,6 +2415,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [{}],
   created: function created() {
@@ -2473,7 +2431,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    postTopic: function postTopic() {
+    createLesson: function createLesson() {
       var _this = this;
 
       var formData = new FormData();
@@ -2482,7 +2440,7 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('course_id', this.course_id);
         formData.append('topic_title', this.title);
         formData.append('topic_body', this.content);
-        axios.post('/create-course-topic', formData).then(function (res) {
+        axios.post('/create-course-lesson', formData).then(function (res) {
           _this.title = "";
           _this.content = "";
 
@@ -58311,7 +58269,7 @@ var render = function() {
               _vm._v(
                 _vm._s(
                   _vm.next == "true"
-                    ? "Design Your Course"
+                    ? "Design Your Course(" + _vm.title + ")"
                     : "Create New Course"
                 )
               )
@@ -59072,14 +59030,14 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.postTopic($event)
+                      return _vm.createLesson($event)
                     }
                   }
                 },
                 [
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "topicTitle" } }, [
-                      _vm._v("Topic Title")
+                      _vm._v("Lession Title")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -73456,8 +73414,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

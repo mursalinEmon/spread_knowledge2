@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{ next=="true"?"Design Your Course":"Create New Course"}}</div>
+                    <div class="card-header">{{ next=="true"?`Design Your Course(${title})`:"Create New Course"}}</div>
 
                     <div v-if="next=='false'" class="card-body">
                         <form @submit.prevent="submitFile()">
@@ -83,7 +83,7 @@
 
                     </div>
                     <div v-else>
-                        <design-course :course_id="course_id"></design-course>
+                        <design-course  :course_id="course_id"></design-course>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@ export default {
     },
     data:()=>({
         file:"",
-        next:'false',
+        next:'true',
         title:"",
         "fetchted_sub_category":[],
         id: "",
@@ -161,15 +161,15 @@ export default {
                 this.fetchted_sub_category=res.data;
                 });
         },
-        async fetchTags(){
-          await axios.get('fetch-tags').then((res)=>{
+         fetchTags(){
+           axios.get('fetch-tags').then((res)=>{
 
               let data=res.data.tags;
                 let f_tags=[];
               data.forEach(element => {
-                  f_tags.append(elment.name);
+
+                  f_tags.push(element.name);
               });
-              console.log(f_tags);
               this.fetchedTags=f_tags;
 
           }).catch()
@@ -197,7 +197,7 @@ export default {
               }
             ).then((res)=>{
 
-              this.title="";
+
               this.level="";
               this.tags=[];
               this.file="";
@@ -216,13 +216,6 @@ export default {
             }).catch();
 
         },
-
-        async fetchTags(){
-          await axios.get('fetch-tags').then((res)=>{
-
-            this.fetchedTags=res.data.tags;
-          }).catch()
-      },
 
       addTags(){
           this.tags.push(this.query);
