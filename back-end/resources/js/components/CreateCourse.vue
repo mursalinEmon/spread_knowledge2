@@ -104,7 +104,7 @@ export default {
     },
     data:()=>({
         file:"",
-        next:'true',
+        next:'false',
         title:"",
         "fetchted_sub_category":[],
         id: "",

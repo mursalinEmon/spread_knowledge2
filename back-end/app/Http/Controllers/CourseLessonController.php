@@ -14,7 +14,9 @@ class CourseLessonController extends Controller
      */
     public function index()
     {
-        //
+        $lessons=CourseLesson::all();
+
+        return response(["lessons"=>$lessons]);
     }
 
     /**

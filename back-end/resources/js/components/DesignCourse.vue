@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <form @submit.prevent="createLesson">
                             <div class="form-group">
-                                <label for="topicTitle">Lession Title</label>
+                                <label for="topicTitle">Lesson Title</label>
                                 <input v-model="title" type="text" class="form-control" id="topicTitle" aria-describedby="emailHelp" placeholder="Title" required>
 
                             </div>
@@ -29,9 +29,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Card -->
 
-<!-- Card -->
         </div>
     </div>
     </div>
@@ -39,10 +37,11 @@
 <script>
 export default {
     props:[{
-
+        course_id,
     }],
      created(){
         this.course_id=this.$attrs.course_id;
+        console.log(this.course_id);
     },
     data:()=>({
         title:"",
