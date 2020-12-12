@@ -16,7 +16,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses=Course::paginate(5);
+        return view('course.allCoursesView',compact('courses'));
     }
 
     /**
@@ -115,4 +116,5 @@ class CourseController extends Controller
         $courses=Course::where('contributor_id',$id)->get();
             return view('course\courseList',compact('courses'));
     }
+
 }

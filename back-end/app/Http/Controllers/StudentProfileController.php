@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\StudentProfile;
 use Illuminate\Http\Request;
 
@@ -81,5 +82,17 @@ class StudentProfileController extends Controller
     public function destroy(StudentProfile $studentProfile)
     {
         //
+    }
+    public function enroll_course($course_id){
+        $course=Course::findOrFail($course_id);
+        $student=StudentProfile::where('user_id',auth()->user()->id)->get()->first();
+        $enrolled_courses=$student->enrolled_courses;
+        Array_push($enrolled_courses,$course->id);
+        $student->update([
+            'enrolled_courses'=>$enrolled_courses,
+        ]);
+        return back()->with(['message'=>'enrolled successfully']);
+
+
     }
 }
