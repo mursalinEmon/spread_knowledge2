@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CourseLesson;
 use Illuminate\Http\Request;
+use SebastianBergmann\Environment\Console;
 
 class CourseLessonController extends Controller
 {
@@ -14,9 +15,7 @@ class CourseLessonController extends Controller
      */
     public function index()
     {
-        $lessons=CourseLesson::all();
 
-        return response(["lessons"=>$lessons]);
     }
 
     /**
@@ -48,7 +47,7 @@ class CourseLessonController extends Controller
      */
     public function show(CourseLesson $courseLesson)
     {
-        //
+
     }
 
     /**
@@ -83,5 +82,15 @@ class CourseLessonController extends Controller
     public function destroy(CourseLesson $courseLesson)
     {
         //
+    }
+
+    public function find_lessons(){
+        $data=CourseLesson::all();
+        return response($data);
+    }
+
+    public function selected_lessons($id){
+        $data=CourseLesson::where('course_id',$id)->get();
+        return response($data);
     }
 }

@@ -119,9 +119,10 @@ export default {
         category:"",
         sub_category:"",
         sub_category_id:"",
+        course_id:""
     }),
     watch: {
-        // whenever question changes, this function will run
+
         category: function (newCategory, oldCategory) {
 
             this.processString( newCategory);
@@ -178,7 +179,7 @@ export default {
         submitFile(){
 
 
-             this.sub_category_id=parseInt( this.sub_category.split('.',1)[0]);
+            this.sub_category_id=parseInt( this.sub_category.split('.',1)[0]);
             let formData = new FormData();
             formData.append('file', this.file);
             formData.append('title', this.title);

@@ -2041,11 +2041,11 @@ __webpack_require__.r(__webpack_exports__);
       previewImage: null,
       category: "",
       sub_category: "",
-      sub_category_id: ""
+      sub_category_id: "",
+      course_id: ""
     };
   },
   watch: {
-    // whenever question changes, this function will run
     category: function category(newCategory, oldCategory) {
       this.processString(newCategory);
     }
@@ -2416,10 +2416,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: [{
-    course_id: course_id
-  }],
+  props: [{}],
   created: function created() {
     this.course_id = this.$attrs.course_id;
     console.log(this.course_id);
@@ -2428,7 +2434,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       title: "",
       content: "",
-      course_id: null
+      course_id: null,
+      fetched_lessons: "",
+      course_lessons: []
     };
   },
   methods: {
@@ -2446,10 +2454,31 @@ __webpack_require__.r(__webpack_exports__);
           _this.content = "";
 
           _this.$alert(res.data.message, "", "success");
+
+          _this.showLessons();
         })["catch"](function (err) {
           console.log(err);
         });
       }
+    },
+    fetchLessons: function fetchLessons() {
+      var _this2 = this;
+
+      axios.get('/get-course-lessons').then(function (res) {
+        _this2.fetched_lessons = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    showLessons: function showLessons() {
+      var _this3 = this;
+
+      axios.get("/get-selected-course-lessons/".concat(this.course_id)).then(function (res) {
+        console.log(res.data);
+        _this3.course_lessons = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   }
 });
@@ -59019,85 +59048,103 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", [
+  return _c(
+    "div",
+    [
       _c("div", [
         _c("div", [
           _c("div", [
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "form",
-                {
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.createLesson($event)
-                    }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "topicTitle" } }, [
-                      _vm._v("Lesson Title")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.title,
-                          expression: "title"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "topicTitle",
-                        "aria-describedby": "emailHelp",
-                        placeholder: "Title",
-                        required: ""
-                      },
-                      domProps: { value: _vm.title },
+            _c("div", [
+              _c("div", [
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "form",
+                    {
                       on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.title = $event.target.value
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.createLesson($event)
                         }
                       }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
+                    },
                     [
-                      _c("label", { attrs: { for: "" } }, [_vm._v("Content")]),
-                      _vm._v(" "),
-                      _c("vue-editor", {
-                        model: {
-                          value: _vm.content,
-                          callback: function($$v) {
-                            _vm.content = $$v
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "topicTitle" } }, [
+                          _vm._v("Lesson Title")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.title,
+                              expression: "title"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "topicTitle",
+                            "aria-describedby": "emailHelp",
+                            placeholder: "Title",
+                            required: ""
                           },
-                          expression: "content"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm._m(0)
-                ]
-              )
+                          domProps: { value: _vm.title },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.title = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("label", { attrs: { for: "" } }, [
+                            _vm._v("Content")
+                          ]),
+                          _vm._v(" "),
+                          _c("vue-editor", {
+                            model: {
+                              value: _vm.content,
+                              callback: function($$v) {
+                                _vm.content = $$v
+                              },
+                              expression: "content"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm._m(0)
+                    ]
+                  )
+                ])
+              ])
             ])
           ])
         ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _vm._l(_vm.course_lessons, function(lesson, index) {
+        return _c("div", { key: index, staticClass: "card w-75" }, [
+          _c("h5", { staticClass: "card-title" }, [
+            _vm._v(_vm._s(lesson.lesson_title))
+          ])
+        ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
