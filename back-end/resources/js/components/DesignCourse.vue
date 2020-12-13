@@ -1,44 +1,47 @@
 <template>
 <div>
-    <div>
-        <div>
-        <div>
-            <div>
+    <div class="card">
+        <div class="card-header">{{ course_name }}</div>
+        <form class="card-body" @submit.prevent="createLesson">
+            <div class="form-group">
+                <label for="topicTitle">Lesson Title</label>
+                <input v-model="title" type="text" class="form-control" id="topicTitle" aria-describedby="emailHelp" placeholder="Title" required>
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="">Content</label>
+                    <vue-editor v-model="content" />
+            </div>
+            <div class="form-group">
                 <div>
-                    <div class="card-body">
-                        <form @submit.prevent="createLesson">
-                            <div class="form-group">
-                                <label for="topicTitle">Lesson Title</label>
-                                <input v-model="title" type="text" class="form-control" id="topicTitle" aria-describedby="emailHelp" placeholder="Title" required>
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="">Content</label>
-                               <vue-editor v-model="content" />
-                            </div>
-                           <div class="form-group">
-                               <div>
-                                   <button type="submit" value="submit" class="btn btn-primary">Submit</button>
-                               </div>
-
-                            </div>
-
-                        </form>
-
-                        </div>
-                    </div>
+                    <button type="submit" value="submit" class="btn btn-primary">Submit</button>
                 </div>
 
             </div>
-        </div>
+
+        </form>
+
     </div>
+
     <br>
-    <div v-for="(lesson, index) in course_lessons"  :key="index" class="card w-75">
-        <h5 class="card-title">{{ lesson.lesson_title }}</h5>
+    <br>
+    <div v-for="(lesson, index) in course_lessons"  :key="index">
+        <div class="card">
+            <div class="card-header">
+                {{ lesson.lesson_title }}
+            </div>
+            <div class="card-body d-flex justify-center">
+                <a class="btn btn-primary" href="">Edit</a>
+                <a class="btn btn-danger" href="">Delete</a>
+            </div>
+        </div>
+        <br>
     </div>
 </div>
+
+
 
 
 </template>
@@ -49,6 +52,7 @@ export default {
     }],
      created(){
         this.course_id=this.$attrs.course_id;
+        this.course_name=this.$attrs.course_name;
         console.log(this.course_id);
 
     },
@@ -58,6 +62,7 @@ export default {
         course_id:null,
         fetched_lessons:"",
         course_lessons:[],
+        course_name:""
     }),
 
     methods:{

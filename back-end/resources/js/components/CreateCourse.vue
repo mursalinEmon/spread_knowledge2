@@ -3,11 +3,11 @@
         <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card">
+                <div v-if="next=='false'" class="card">
                     <div class="card-header">{{ next=="true"?`Design Your Course(${title})`:"Create New Course"}}</div>
 
-                    <div v-if="next=='false'" class="card-body">
-                        <form @submit.prevent="submitFile()">
+                    <div >
+                        <form class="card-body" @submit.prevent="submitFile()">
                             <div class="form-group">
                                 <label for="blogTitle">Course Title</label>
                                 <input v-model="title" type="text" class="form-control" id="blogTitle" aria-describedby="emailHelp" placeholder="Title" required>
@@ -82,10 +82,13 @@
                         </form>
 
                     </div>
-                    <div v-else>
-                        <design-course  :course_id="course_id"></design-course>
-                    </div>
+
                 </div>
+
+                <div v-else>
+                        <design-course :course_name="title"  :course_id="course_id"></design-course>
+                </div>
+
             </div>
         </div>
     </div>
@@ -104,7 +107,7 @@ export default {
     },
     data:()=>({
         file:"",
-        next:'false',
+        next:'true',
         title:"",
         "fetchted_sub_category":[],
         id: "",
@@ -119,7 +122,7 @@ export default {
         category:"",
         sub_category:"",
         sub_category_id:"",
-        course_id:""
+        course_id:"3"
     }),
     watch: {
 

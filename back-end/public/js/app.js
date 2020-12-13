@@ -2016,6 +2016,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2027,7 +2030,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       file: "",
-      next: 'false',
+      next: 'true',
       title: "",
       "fetchted_sub_category": [],
       id: "",
@@ -2042,7 +2045,7 @@ __webpack_require__.r(__webpack_exports__);
       category: "",
       sub_category: "",
       sub_category_id: "",
-      course_id: ""
+      course_id: "3"
     };
   },
   watch: {
@@ -2424,10 +2427,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [{}],
   created: function created() {
     this.course_id = this.$attrs.course_id;
+    this.course_name = this.$attrs.course_name;
     console.log(this.course_id);
   },
   data: function data() {
@@ -2436,7 +2443,8 @@ __webpack_require__.r(__webpack_exports__);
       content: "",
       course_id: null,
       fetched_lessons: "",
-      course_lessons: []
+      course_lessons: [],
+      course_name: ""
     };
   },
   methods: {
@@ -58294,22 +58302,23 @@ var render = function() {
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-md-10" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v(
-                _vm._s(
-                  _vm.next == "true"
-                    ? "Design Your Course(" + _vm.title + ")"
-                    : "Create New Course"
-                )
-              )
-            ]),
-            _vm._v(" "),
-            _vm.next == "false"
-              ? _c("div", { staticClass: "card-body" }, [
+          _vm.next == "false"
+            ? _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.next == "true"
+                        ? "Design Your Course(" + _vm.title + ")"
+                        : "Create New Course"
+                    )
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", [
                   _c(
                     "form",
                     {
+                      staticClass: "card-body",
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
@@ -58650,14 +58659,16 @@ var render = function() {
                     ]
                   )
                 ])
-              : _c(
-                  "div",
-                  [
-                    _c("design-course", { attrs: { course_id: _vm.course_id } })
-                  ],
-                  1
-                )
-          ])
+              ])
+            : _c(
+                "div",
+                [
+                  _c("design-course", {
+                    attrs: { course_name: _vm.title, course_id: _vm.course_id }
+                  })
+                ],
+                1
+              )
         ])
       ])
     ])
@@ -59051,95 +59062,100 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", [
-        _c("div", [
-          _c("div", [
-            _c("div", [
-              _c("div", [
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "form",
-                    {
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          return _vm.createLesson($event)
-                        }
-                      }
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _vm._v(_vm._s(_vm.course_name))
+        ]),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            staticClass: "card-body",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.createLesson($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "topicTitle" } }, [
+                _vm._v("Lesson Title")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "topicTitle",
+                  "aria-describedby": "emailHelp",
+                  placeholder: "Title",
+                  required: ""
+                },
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.title = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Content")]),
+                _vm._v(" "),
+                _c("vue-editor", {
+                  model: {
+                    value: _vm.content,
+                    callback: function($$v) {
+                      _vm.content = $$v
                     },
-                    [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "topicTitle" } }, [
-                          _vm._v("Lesson Title")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.title,
-                              expression: "title"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "topicTitle",
-                            "aria-describedby": "emailHelp",
-                            placeholder: "Title",
-                            required: ""
-                          },
-                          domProps: { value: _vm.title },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.title = $event.target.value
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "" } }, [
-                            _vm._v("Content")
-                          ]),
-                          _vm._v(" "),
-                          _c("vue-editor", {
-                            model: {
-                              value: _vm.content,
-                              callback: function($$v) {
-                                _vm.content = $$v
-                              },
-                              expression: "content"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm._m(0)
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
+                    expression: "content"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]
+        )
       ]),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
       _vm._l(_vm.course_lessons, function(lesson, index) {
-        return _c("div", { key: index, staticClass: "card w-75" }, [
-          _c("h5", { staticClass: "card-title" }, [
-            _vm._v(_vm._s(lesson.lesson_title))
-          ])
+        return _c("div", { key: index }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(lesson.lesson_title) +
+                  "\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(1, true)
+          ]),
+          _vm._v(" "),
+          _c("br")
         ])
       })
     ],
@@ -59161,6 +59177,20 @@ var staticRenderFns = [
           },
           [_vm._v("Submit")]
         )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-body d-flex justify-center" }, [
+      _c("a", { staticClass: "btn btn-primary", attrs: { href: "" } }, [
+        _vm._v("Edit")
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-danger", attrs: { href: "" } }, [
+        _vm._v("Delete")
       ])
     ])
   }
