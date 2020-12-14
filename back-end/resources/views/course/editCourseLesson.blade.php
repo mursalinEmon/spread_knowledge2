@@ -1,10 +1,10 @@
 @extends('layouts.theme')
 
 @section('content')
-    <!-- Create Course Topic-->
+    <!-- Edit Course Lesson-->
     <div class="container">
         <div id="app1">
-            <create-course-lesson ></create-course-lesson>
+            <edit-lesson :lesson="{{ $lesson }}"></edit-lesson>
 
         </div>
     </div>

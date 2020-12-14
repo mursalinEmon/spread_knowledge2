@@ -28,13 +28,13 @@
     <br>
     <br>
     <div v-for="(lesson, index) in course_lessons"  :key="index">
-        <div class="card">
+        <div v-if="lesson.lesson_title"  class="card">
             <div class="card-header">
                 {{ lesson.lesson_title }}
             </div>
             <div class="card-body d-flex justify-center">
-                <a class="btn btn-primary" href="">Edit</a>
-                <a class="btn btn-danger" href="">Delete</a>
+                <a :href="(href + lesson.id)" class="btn btn-primary">Edit</a>
+                <button class="btn btn-danger ml-4" @click="delete_lesson(lesson.id,index)">Delete</button>
             </div>
         </div>
         <br>
@@ -54,16 +54,27 @@ export default {
         this.course_id=this.$attrs.course_id;
         this.course_name=this.$attrs.course_name;
         console.log(this.course_id);
+        this.showLessons();
 
     },
     data:()=>({
+        href:"/edit_lesson/",
         title:"",
         content:"",
         course_id:null,
         fetched_lessons:"",
         course_lessons:[],
-        course_name:""
+        course_name:"",
+        options:{
+            closeMethod :'fadeOut',
+            closeDuration:300,
+            closeEasing :'swing',
+            closeEasing : 'linear',
+            closeButton : true,
+        }
     }),
+
+
 
     methods:{
         createLesson(){
@@ -81,7 +92,7 @@ export default {
                                 "",
                                 "success"
                                 )
-                        this.showLessons();
+
                     }).catch((err)=>{console.log(err)});
              }
 
@@ -103,9 +114,21 @@ export default {
             }).catch((err)=>{console.log(err);});
 
         },
+        delete_lesson(id,index){
+            this.course_lessons.splice(index,1,"");
+            axios.get(`/course_lesson/${id}`).then((res)=>{
+
+                this.$toastr.success(res.data.message, 'Successful', this.options);
+            }).catch((err)=>{
+                console.log(err);
+            });
+        },
+
     },
 }
 </script>
 <style lang="scss" scoped>
 
 </style>
+
+

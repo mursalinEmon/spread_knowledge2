@@ -104,10 +104,11 @@ export default {
   components: { DesignCourse },
     props:{
         categories:"",
+
     },
     data:()=>({
         file:"",
-        next:'true',
+        next:'false',
         title:"",
         "fetchted_sub_category":[],
         id: "",
@@ -134,6 +135,13 @@ export default {
     created(){
         this.fetchTags();
        this.fetch_sub_category();
+    //    if (this.updated_message){
+    //          this.$alert(
+    //           this.updated_message,
+    //           "",
+    //           "success"
+    //         )
+    //    }
     },
     methods:{
         processFile(){
@@ -210,7 +218,7 @@ export default {
               res.data.message,
               "",
               "success"
-            )
+            );
 
             this.course_id=res.data.course_id;
             if (res.data.course_id){

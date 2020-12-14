@@ -90,7 +90,27 @@ class CourseLessonController extends Controller
     }
 
     public function selected_lessons($id){
+
         $data=CourseLesson::where('course_id',$id)->get();
+        dd($data);
         return response($data);
+    }
+    public function delete_lesson($id){
+
+        $lesson=CourseLesson::findOrFail($id);
+        $lesson->delete();
+        return response(['message'=>'Lesson Deleted Successfully..!!']);
+    }
+    public function edit_lesson($id){
+        $lesson=CourseLesson::findOrFail($id);
+        return view('course.editCourseLesson',compact('lesson'));
+    }
+    public function update_lesson(Request $request){
+        $lesson=CourseLesson::findOrFail($request->id);
+        $lesson->update([
+            'lesson_body' => $request->lesson_body,
+            'lesson_title' => $request->lesson_title
+        ]);
+        return response(['message'=>'Lesson Upadted Successfully...!! ']);
     }
 }
