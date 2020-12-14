@@ -16,8 +16,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses=Course::paginate(5);
-        return view('course.allCoursesView',compact('courses'));
+        // $courses=Course::paginate(5);
+        // dd($courses);
+        // return view('course.allCoursesView',compact('courses'));
     }
 
     /**
@@ -110,11 +111,14 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return back()->with(['message'=>'course deleted successfully...!!']);
+
     }
     public function course_list($id){
-        $courses=Course::where('contributor_id',$id)->get();
-            return view('course\courseList',compact('courses'));
+        $courses=Course::where('contributor_id',$id)->paginate(5);
+
+            return view('course.allCoursesView',compact('courses'));
     }
 
 }

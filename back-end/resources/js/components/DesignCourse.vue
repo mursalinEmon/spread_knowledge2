@@ -85,6 +85,7 @@ export default {
                     formData.append('topic_body', this.content);
 
                     axios.post('/create-course-lesson',formData).then((res)=>{
+                        this.showLessons();
                         this.title="";
                         this.content="";
                         this.$alert(
@@ -108,7 +109,7 @@ export default {
 
         showLessons(){
             axios.get(`/get-selected-course-lessons/${this.course_id}`).then((res)=>{
-                console.log(res.data);
+
                 this.course_lessons=res.data;
 
             }).catch((err)=>{console.log(err);});

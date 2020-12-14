@@ -86,13 +86,14 @@ class CourseLessonController extends Controller
 
     public function find_lessons(){
         $data=CourseLesson::all();
+
         return response($data);
     }
 
     public function selected_lessons($id){
 
         $data=CourseLesson::where('course_id',$id)->get();
-        dd($data);
+
         return response($data);
     }
     public function delete_lesson($id){
@@ -112,5 +113,11 @@ class CourseLessonController extends Controller
             'lesson_title' => $request->lesson_title
         ]);
         return response(['message'=>'Lesson Upadted Successfully...!! ']);
+    }
+    public function view_lessons($id){
+        $lessons=CourseLesson::where('course_id',$id)->paginate(5);
+
+        return view('course.lessonList',compact('lessons'));
+
     }
 }
