@@ -2479,6 +2479,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.content = "";
 
           _this.$alert(res.data.message, "", "success");
+
+          _this.showLessons();
         })["catch"](function (err) {
           console.log(err);
         });
