@@ -81,7 +81,8 @@ class CourseLessonController extends Controller
      */
     public function destroy(CourseLesson $courseLesson)
     {
-        //
+        $courseLesson->delete();
+        return back()->with(['message'=>'lesson deleted successfully']);
     }
 
     public function find_lessons(){

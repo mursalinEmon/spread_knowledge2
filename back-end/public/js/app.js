@@ -2575,13 +2575,15 @@ __webpack_require__.r(__webpack_exports__);
     this.content = this.lesson.lesson_body;
     this.title = this.lesson.lesson_title;
     this.id = this.lesson.id;
+    this.course_id = this.lesson.course_id;
   },
   data: function data() {
     return {
       content: "",
       title: "",
       id: "",
-      url: "/create-course-lesson",
+      course_id: "",
+      url: "/course_lessons/",
       hide: false
     };
   },
@@ -59921,7 +59923,10 @@ var render = function() {
       : _c("div", { staticClass: "card" }, [
           _c(
             "a",
-            { staticClass: "btn btn-lg btn-primary", attrs: { href: _vm.url } },
+            {
+              staticClass: "btn btn-lg btn-primary",
+              attrs: { href: _vm.url + _vm.course_id }
+            },
             [_vm._v(" GO Back To Lessons")]
           )
         ])

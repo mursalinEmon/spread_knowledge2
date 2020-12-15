@@ -11,7 +11,7 @@
       </div>
     @endif
     @foreach ($courses as $item)
-    <div class="card" style="width: 18rem;">
+    <div class="card mb-4" style="width: 18rem;">
         <img class="card-img-top" src="{{ asset($item->image) }}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{ $item->course_title }}</h5>

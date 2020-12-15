@@ -256,7 +256,10 @@
         <!-- End of Topbar -->
 
         <!-- Main Body -->
-        @yield('content')
+        <div style="max-height: 100vh;max-height:100vh;overflow-y:scroll;">
+            @yield('content')
+
+        </div>
 
       </div>
       <!-- End of Main Content -->

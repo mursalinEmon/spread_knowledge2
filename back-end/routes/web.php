@@ -62,7 +62,7 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/get-selected-course-lessons/{id}','CourseLessonController@selected_lessons')->name('get-selected-course-lessons');
     Route::get('/course-list/{id}','CourseController@course_list')->name('course.list');
     Route::get('/course_lessons/{id}','CourseLessonController@view_lessons')->name('lesson.list');
-    Route::get('/course_lesson/{id}','CourseLessonController@delete_lesson')->name('lesson.delete');
+    Route::delete('/courseLessons/{courseLesson}','CourseLessonController@destroy')->name('lesson.delete');
     Route::get('/edit_lesson/{id}','CourseLessonController@edit_lesson')->name('lesson.edit');
     Route::post('/update-lesson','CourseLessonController@update_lesson')->name('lesson.update');
 
