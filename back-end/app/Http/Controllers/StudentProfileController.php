@@ -88,9 +88,16 @@ class StudentProfileController extends Controller
         $student=StudentProfile::where('user_id',auth()->user()->id)->get()->first();
         $enrolled_courses=$student->enrolled_courses;
         Array_push($enrolled_courses,$course->id);
+
+        $student_count=$course->student_count;
+        $student_count ++;
+        $course->update([
+            'student_count' => $student_count,
+        ]);
         $student->update([
             'enrolled_courses'=>$enrolled_courses,
         ]);
+
         return back()->with(['message'=>'enrolled successfully']);
 
 

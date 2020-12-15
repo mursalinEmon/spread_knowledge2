@@ -16,9 +16,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        // $courses=Course::paginate(5);
-        // dd($courses);
-        // return view('course.allCoursesView',compact('courses'));
+        $courses=Course::paginate(5);
+
+        return view('course.allCoursesView',compact('courses'));
     }
 
     /**
@@ -41,6 +41,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
 
+
         if($request->file('file')){
             $image = $request->file;
             $imagePath = $request->file('file');
@@ -52,6 +53,7 @@ class CourseController extends Controller
                 'image'=>'image/'.auth()->user()->name.'/'.$imageName,
                 'course_level'=>$request->level,
                 'rating'=>1.0,
+                'student_count'=>0,
                 'category_id'=>$request->category_id,
                 'sub_category_id'=>$request->sub_category_id,
                 'tags'=> $request->tags,

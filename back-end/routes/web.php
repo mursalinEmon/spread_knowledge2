@@ -66,7 +66,6 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/edit_lesson/{id}','CourseLessonController@edit_lesson')->name('lesson.edit');
     Route::post('/update-lesson','CourseLessonController@update_lesson')->name('lesson.update');
 
-
 });
 
 
