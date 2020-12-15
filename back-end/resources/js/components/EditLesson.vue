@@ -25,7 +25,7 @@
     </div>
 
     <div v-else class="card">
-        <a  :href="url" class="btn btn-lg btn-primary"> GO Back To Lessons</a>
+        <a  :href="(url + course_id)" class="btn btn-lg btn-primary"> GO Back To Lessons</a>
     </div>
 
 </div>
@@ -41,13 +41,14 @@ export default {
         this.content = this.lesson.lesson_body;
         this.title=this.lesson.lesson_title;
         this.id=this.lesson.id;
-
+        this.course_id=this.lesson.course_id;
     },
     data:()=>({
     content:"",
     title:"",
     id:"",
-    url:"/create-course-lesson",
+    course_id:"",
+    url:"/course_lessons/",
     hide:false
     }),
     methods:{

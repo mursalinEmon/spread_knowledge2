@@ -24,6 +24,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('sub_category_id');
+            $table->bigInteger('student_count')->default(0);
             $table->foreign('sub_category_id')->references('id')->on('sub_categories');
             $table->string('course_level');
             $table->timestamps();

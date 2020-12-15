@@ -2063,6 +2063,9 @@ __webpack_require__.r(__webpack_exports__);
     //         )
     //    }
   },
+  //  updated(){
+  //     this.next="true";
+  // },
   methods: {
     processFile: function processFile() {
       var _this = this;
@@ -2475,6 +2478,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append('topic_title', this.title);
         formData.append('topic_body', this.content);
         axios.post('/create-course-lesson', formData).then(function (res) {
+          _this.showLessons();
+
           _this.title = "";
           _this.content = "";
 
@@ -2499,7 +2504,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this3 = this;
 
       axios.get("/get-selected-course-lessons/".concat(this.course_id)).then(function (res) {
-        console.log(res.data);
         _this3.course_lessons = res.data;
       })["catch"](function (err) {
         console.log(err);
@@ -2573,13 +2577,15 @@ __webpack_require__.r(__webpack_exports__);
     this.content = this.lesson.lesson_body;
     this.title = this.lesson.lesson_title;
     this.id = this.lesson.id;
+    this.course_id = this.lesson.course_id;
   },
   data: function data() {
     return {
       content: "",
       title: "",
       id: "",
-      url: "/create-course-lesson",
+      course_id: "",
+      url: "/course_lessons/",
       hide: false
     };
   },
@@ -59919,7 +59925,10 @@ var render = function() {
       : _c("div", { staticClass: "card" }, [
           _c(
             "a",
-            { staticClass: "btn btn-lg btn-primary", attrs: { href: _vm.url } },
+            {
+              staticClass: "btn btn-lg btn-primary",
+              attrs: { href: _vm.url + _vm.course_id }
+            },
             [_vm._v(" GO Back To Lessons")]
           )
         ])
@@ -74462,8 +74471,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -81,16 +81,22 @@ class CourseLessonController extends Controller
      */
     public function destroy(CourseLesson $courseLesson)
     {
-        //
+        $courseLesson->delete();
+        return back()->with(['message'=>'lesson deleted successfully']);
     }
 
     public function find_lessons(){
         $data=CourseLesson::all();
+
         return response($data);
     }
 
     public function selected_lessons($id){
         $data=CourseLesson::where('course_id',$id)->get();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 35e74a4cf460f2604a1d30d7e8ed4afa6797907e
         return response($data);
     }
     public function delete_lesson($id){
@@ -110,5 +116,11 @@ class CourseLessonController extends Controller
             'lesson_title' => $request->lesson_title
         ]);
         return response(['message'=>'Lesson Upadted Successfully...!! ']);
+    }
+    public function view_lessons($id){
+        $lessons=CourseLesson::where('course_id',$id)->paginate(5);
+
+        return view('course.lessonList',compact('lessons'));
+
     }
 }

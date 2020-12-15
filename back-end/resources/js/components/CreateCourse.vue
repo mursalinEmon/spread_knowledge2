@@ -132,6 +132,7 @@ export default {
             this.processString( newCategory);
         }
     },
+
     created(){
         this.fetchTags();
        this.fetch_sub_category();
@@ -143,6 +144,9 @@ export default {
     //         )
     //    }
     },
+    //  updated(){
+    //     this.next="true";
+    // },
     methods:{
         processFile(){
 
