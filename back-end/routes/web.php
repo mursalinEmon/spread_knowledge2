@@ -52,15 +52,20 @@ Route::middleware(['verified'])->group(function(){
 
 //Courses
 Route::middleware(['verified'])->group(function(){
+    //course crud
     Route::get('/course-create','CourseController@create')->name('course.create');
     Route::post('/course-create','CourseController@store');
+    Route::get('/courses/{course}/edit','CourseController@edit')->name('course.edit');
+    Route::delete('/courses/{course}','CourseController@destroy')->name('course.delete');
+
+    Route::get('/category/{id}','CategoryController@show')->name('category.list');
     Route::get('/get-sub-category','SubCategoryController@index')->name('fetch_sub_category');
     Route::get('/get-selected-sub-categories/{id}','SubCategoryController@find_sub')->name('find.fetch_sub_category');
     Route::post('/create-course-lesson','CourseController@create_lesson')->name('create.lesson');
-    Route::delete('/courses/{course}','CourseController@destroy')->name('course.delete');
     Route::get('/get-course-lessons','CourseLessonController@find_lessons')->name('get-course-lessons');
     Route::get('/get-selected-course-lessons/{id}','CourseLessonController@selected_lessons')->name('get-selected-course-lessons');
     Route::get('/course-list/{id}','CourseController@course_list')->name('course.list');
+    //lessons route
     Route::get('/course_lessons/{id}','CourseLessonController@view_lessons')->name('lesson.list');
     Route::delete('/courseLessons/{courseLesson}','CourseLessonController@destroy')->name('lesson.delete');
     Route::get('/edit_lesson/{id}','CourseLessonController@edit_lesson')->name('lesson.edit');
