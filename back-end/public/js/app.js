@@ -2531,6 +2531,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _methods;
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -2655,7 +2657,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sub_categories: []
     };
   },
-  methods: _defineProperty({
+  methods: (_methods = {
     fetchTags: function fetchTags() {
       var _this = this;
 
@@ -2673,15 +2675,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.query = "";
     },
     push_tags: function push_tags() {
-      // console.log(typeof(JSON.parse(this.course.tags)));
       var old_tags = JSON.parse(this.course.tags);
       console.log(old_tags.length);
 
       for (var i = 0; i < old_tags.length; i++) {
         this.tags.push(old_tags[i]);
-      } // this.tags.concat(Object.values());
-      // console.log(Object.values(JSON.parse(this.course.tags)));
-
+      }
     },
     deleteBadge: function deleteBadge(index) {
       this.tags.splice(index, 1);
@@ -2741,7 +2740,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.file = null;
       this.$refs.file.value = "";
     }
-  }, "deleteBadge", function deleteBadge(index) {})
+  }, _defineProperty(_methods, "deleteBadge", function deleteBadge(index) {
+    this.tags.splice(index, 1);
+  }), _defineProperty(_methods, "reload", function reload() {
+    location.reload();
+  }), _defineProperty(_methods, "submitFile", function submitFile() {
+    var _this6 = this;
+
+    var formData = new FormData();
+    formData.append('file', this.file);
+    formData.append('title', this.title);
+    formData.append('tags', JSON.stringify(this.tags));
+    formData.append('level', this.level);
+    formData.append('category_id', this.category_id);
+    formData.append('sub_category', this.sub_category);
+    axios.post("/courses/".concat(this.course.id, "/Update"), formData).then(function (res) {
+      _this6.$confirm("".concat(res.data.message)).then(function () {
+        _this6.reload();
+      });
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  }), _methods)
 });
 
 /***/ }),
@@ -60478,7 +60498,7 @@ var staticRenderFns = [
             staticClass: "btn btn-primary",
             attrs: { type: "submit", value: "submit" }
           },
-          [_vm._v("Submit")]
+          [_vm._v("Update")]
         )
       ])
     ])

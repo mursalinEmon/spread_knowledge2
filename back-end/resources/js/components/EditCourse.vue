@@ -69,7 +69,7 @@
 
                            <div class="form-group">
                                <div>
-                                   <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                                   <button type="submit" value="submit" class="btn btn-primary">Update</button>
                                </div>
 
                             </div>
@@ -147,16 +147,11 @@ methods:{
           this.query="";
       },
     push_tags(){
-        // console.log(typeof(JSON.parse(this.course.tags)));
         let old_tags=JSON.parse(this.course.tags);
         console.log(old_tags.length);
         for (let i =0;i<old_tags.length;i++ ){
             this.tags.push(old_tags[i]);
         }
-
-
-        // this.tags.concat(Object.values());
-        // console.log(Object.values(JSON.parse(this.course.tags)));
     },
 
       deleteBadge(index){
@@ -215,8 +210,30 @@ methods:{
 
 
       },
-    deleteBadge(index){},
+      deleteBadge(index){
+          this.tags.splice(index,1);
+      },
+      reload() {
+        location.reload();
+    },
+      submitFile(){
+        let formData=new FormData();
+        formData.append('file',this.file);
+        formData.append('title',this.title);
+        formData.append('tags', JSON.stringify(this.tags));
+        formData.append('level', this.level);
+        formData.append('category_id',this.category_id);
+        formData.append('sub_category',this.sub_category);
 
+        axios.post(`/courses/${this.course.id}/Update`,formData).then((res)=>{
+            this.$confirm(`${res.data.message}`).then(() => {
+
+              this.reload();
+
+            });
+        }).catch((err)=>{console.log(err);})
+
+      },
 
 
 

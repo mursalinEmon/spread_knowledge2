@@ -56,6 +56,7 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/course-create','CourseController@create')->name('course.create');
     Route::post('/course-create','CourseController@store');
     Route::get('/courses/{course}/edit','CourseController@edit')->name('course.edit');
+    Route::post('/courses/{course}/Update','CourseController@update')->name('course.update');
     Route::delete('/courses/{course}','CourseController@destroy')->name('course.delete');
 
     Route::get('/category/{id}','CategoryController@show')->name('category.list');
