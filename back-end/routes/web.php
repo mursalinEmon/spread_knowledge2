@@ -28,6 +28,9 @@ Route::get('/logout', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/question-answer-portal',function(){
+    return view('Q&A.questionList');
+});
 
 // Blog Portal
 Route::middleware(['verified'])->group(function(){
@@ -73,6 +76,13 @@ Route::middleware(['verified'])->group(function(){
     Route::post('/update-lesson','CourseLessonController@update_lesson')->name('lesson.update');
 
 });
+// Q&A portal
+Route::middleware(['verified'])->group(function(){
+    Route::get('/question-create','QuestionController@create')->name('question.create');
+
+
+});
+
 
 
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');

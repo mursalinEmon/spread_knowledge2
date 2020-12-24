@@ -18,6 +18,7 @@ class CreateAnswersTable extends Migration
             $table->foreignId('replied_by')->constrained('users');
             $table->foreignId('answer_for_question')->constrained('questions');
             $table->text('answer_body');
+            $table->json('tags')->nullable();
             $table->timestamps();
         });
     }

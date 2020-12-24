@@ -19,6 +19,8 @@ class CreateQuestionsTable extends Migration
             $table->json('answered_by')->nullable();
             $table->string('question');
             $table->text('body');
+            $table->string('topic');
+            $table->json('tags')->nullable();
             $table->timestamps();
         });
     }
