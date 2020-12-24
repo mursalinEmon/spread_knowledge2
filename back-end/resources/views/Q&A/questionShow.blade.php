@@ -12,7 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Discussions <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{ route('question.list') }}">Discussions <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -56,13 +56,21 @@
 
                     <div class="card shadow-sm m-2">
                         <div class="card-body">
-                            <div> {!! $question->body  !!}</div>
+                            <div class="d-flex">
+                                <img src="{{ $question->user->image ? asset($question->user->image) : asset('image/'.'avatar.jpg') }}">
+                                <h6 class="text mt-4 ml-1">{{ $question->user->name }}</h6>
+                            </div>
+                            <div> {!! $question->body !!}</div>
                             <a href="{{ route('answer.create',['id'=>$question->id]) }}" class="btn btn-primary">Reply</a>
                         </div>
                     </div>
                     @forelse($answers as $answer)
                         <div class="card shadow-sm m-2">
                             <div class="card-body">
+                                <div class="d-flex">
+                                    <img src="{{ $answer->user->image ? asset($answer->user->image) : asset('image/'.'avatar.jpg') }}">
+                                    <h6 class="text mt-4 ml-1">{{ $question->user->name }}</h6>
+                                </div>
                                 <div> {!! $answer->answer_body  !!}</div>
                             </div>
                         </div>
@@ -97,6 +105,10 @@ pre{
     padding:1rem;
     border-radius: 10px;
 }
+img{
+        height: 4rem;
+        width:4rem;
+    }
 </style>
 @endsection
 

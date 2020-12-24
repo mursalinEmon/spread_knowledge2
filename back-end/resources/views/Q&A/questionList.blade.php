@@ -38,8 +38,8 @@
 
     <main role="main" class="container">
         <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <div class="shadow-sm" >
+            <div class="col-sm-4 col-md-4" >
+                <div class="shadow-sm"  style="min-height:100vh;" >
                     <div class="card-body">
                         <ul class="card-text">
                             <li><a href="{{ route('question.create') }}" class="btn btn-primary "> Add New Discussion</a></li>
@@ -56,7 +56,12 @@
                 @forelse($questions as $question)
                     <div class="card shadow-sm m-2">
                         <div class="card-body">
-                        <a href="{{ route('question.show',$question->id) }}"><h5 class="card-title" style="color:black;">{{ $question->question }}</h5></a>
+                       <div class="d-flex">
+                             <img src="{{ $question->user->image ? asset($question->user->image) : asset('image/'.'avatar.jpg') }}">
+                             <h6 class="text mt-4 ml-1">{{ $question->user->name }}</h6>
+
+                       </div>
+                       <a href="{{ route('question.show',$question->id) }}" class="mt-2"><h5 class="card-title" style="color:black;">{{ $question->question }}</h5></a>
                         {{-- <p class="card-text">{!! substr( $question->body,0,50) !!}</p> --}}
                         <p class="card-text">{!! substr($question->body,0,100) !!}....</p>
                         </div>
@@ -82,6 +87,10 @@ li{
     a{
         style:none;
         min-width:15vw;
+    }
+    img{
+        height: 4rem;
+        width:4rem;
     }
 </style>
 @endsection
