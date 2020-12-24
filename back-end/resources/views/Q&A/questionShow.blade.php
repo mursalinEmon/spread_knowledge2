@@ -39,7 +39,7 @@
     <main role="main" class="container">
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <div class="shadow-sm" >
+                <div class="shadow-sm"  style="min-height:90vh;">
                     <div class="card-body">
                         <ul class="card-text">
                             <li><a href="{{ route('question.create') }}" class="btn btn-primary "> Add New Discussion</a></li>
@@ -53,17 +53,25 @@
                 </div>
             </div>
             <div class="col-sm-8 col-md-8 mt-2" style="max-height:100vh;overflow-y:scroll; ">
-                @forelse($questions as $question)
+
                     <div class="card shadow-sm m-2">
                         <div class="card-body">
-                        <a href="{{ route('question.show',$question->id) }}"><h5 class="card-title" style="color:black;">{{ $question->question }}</h5></a>
-                        {{-- <p class="card-text">{!! substr( $question->body,0,50) !!}</p> --}}
-                        <p class="card-text">{!! substr($question->body,0,100) !!}....</p>
+                            <div> {!! $question->body  !!}</div>
+                            <a href="{{ route('answer.create',['id'=>$question->id]) }}" class="btn btn-primary">Reply</a>
                         </div>
                     </div>
-                @empty
+                    @forelse($answers as $answer)
+                        <div class="card shadow-sm m-2">
+                            <div class="card-body">
+                                <div> {!! $answer->answer_body  !!}</div>
+                            </div>
+                        </div>
+                    @empty
+                        <h2 class="text-danger">
+                            No Answers Yet
+                        </h2>
+                    @endforelse
 
-                @endforelse
               </div>
             </div>
 
@@ -79,9 +87,37 @@ li{
     padding-top: .5rem;
 }
 
-    a{
-        style:none;
-        min-width:15vw;
-    }
+a{
+    style:none;
+    min-width:15vw;
+}
+pre{
+    background-color: gray;
+    color:white;
+    padding:1rem;
+    border-radius: 10px;
+}
 </style>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

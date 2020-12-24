@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Question;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
@@ -22,9 +23,11 @@ class AnswerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $question=Question::findOrFail($id);
+        return view('Q&A.replyQuestion',compact('question'));
+
     }
 
     /**
@@ -33,9 +36,28 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+
+    // $table->foreignId('replied_by')->constrained('users');
+    // $table->foreignId('answer_for_question')->constrained('questions');
+    // $table->text('answer_body');
+    // $table->json('tags')->nullable();
+
+    public function store(Request $request, $id)
     {
-        //
+
+        $question=Question::findOrFail($id);
+        $question->update([
+            'answered_by'=>auth()->user()->id,
+        ]);
+        $answer=Answer::create([
+            'replied_by'=>auth()->user()->id,
+            'answer_for_question'=>$id,
+            'answer_body'=>$request->body,
+
+        ]);
+        return response(['message'=>'Your Answer Is Posted Successfully..!!']);
+
     }
 
     /**

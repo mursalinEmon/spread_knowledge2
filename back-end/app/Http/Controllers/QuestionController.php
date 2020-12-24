@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Answer;
 use App\Question;
+use Illuminate\Http\Request;
+
 class QuestionController extends Controller
 {
     /**
@@ -11,9 +13,11 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        $questions = Question::all();
+
+        return view('Q&A.questionList' ,compact('questions'));
+
     }
 
     /**
@@ -59,7 +63,11 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        //
+        $question = Question::findOrFail($id);
+        $answers=Answer::where('answer_for_question',$question->id)->get();
+        $answers=$answers?$answers:[];
+        // dd($answers);
+        return view('Q&A.questionShow',compact('question','answers'));
     }
 
     /**

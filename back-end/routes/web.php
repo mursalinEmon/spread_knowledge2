@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/question-list','QuestionController@index')->name('question.list');
 
 Auth::routes(['verify'=>true]);
 Route::get('/logout', function () {
@@ -28,9 +28,6 @@ Route::get('/logout', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/question-answer-portal',function(){
-    return view('Q&A.questionList');
-});
 
 // Blog Portal
 Route::middleware(['verified'])->group(function(){
@@ -80,6 +77,9 @@ Route::middleware(['verified'])->group(function(){
 Route::middleware(['verified'])->group(function(){
     Route::get('/question-create','QuestionController@create')->name('question.create');
     Route::post('/question-create','QuestionController@store');
+    Route::get('/questions/{question}','QuestionController@show')->name('question.show');
+    Route::get('/answer-to-question/{id}','AnswerController@create')->name('answer.create');
+    Route::post('/answer-to-question/{id}','AnswerController@store');
 
 
 });
