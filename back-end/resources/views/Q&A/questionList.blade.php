@@ -39,7 +39,7 @@
     <main role="main" class="container">
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <div class="">
+                <div class="shadow-sm" >
                     <div class="card-body">
                         <ul class="card-text">
                             <li><a href="{{ route('question.create') }}" class="btn btn-primary "> Add New Discussion</a></li>
@@ -52,8 +52,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8 col-md-8 " style="max-height:100vh;overflow-y:scroll; ">
-                <div class="card">
+            <div class="col-sm-8 col-md-8 " style="max-height:100vh;overflow-y:scroll; overflow-y: hidden; ">
+                <div class="card shadow-sm ">
                   <div class="card-body">
                     <h5 class="card-title">Special title treatment</h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>

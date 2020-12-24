@@ -79,6 +79,7 @@ Route::middleware(['verified'])->group(function(){
 // Q&A portal
 Route::middleware(['verified'])->group(function(){
     Route::get('/question-create','QuestionController@create')->name('question.create');
+    Route::post('/question-create','QuestionController@store');
 
 
 });

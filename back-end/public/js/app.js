@@ -2322,7 +2322,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    this.fetchTags();
+    this.fetch_sub_category();
+  },
+  data: function data() {
+    return {
+      question: "",
+      body: "",
+      topic: "",
+      fetchedTags: [],
+      query: "",
+      tags: []
+    };
+  },
+  methods: {
+    submitFile: function submitFile() {
+      var _this = this;
+
+      var formData = new FormData();
+      formData.append('question', this.question);
+      formData.append('body', this.body);
+      formData.append('topic', this.topic);
+      formData.append('tags', JSON.stringify(this.tags));
+      axios.post('/question-create', formData).then(function (res) {
+        _this.$alert(res.data.message, "", "success");
+
+        _this.tags = [];
+        _this.question = "";
+        _this.body = "";
+        _this.topic = "";
+        _this.query = "";
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    fetchTags: function fetchTags() {
+      var _this2 = this;
+
+      axios.get('fetch-tags').then(function (res) {
+        var data = res.data.tags;
+        var f_tags = [];
+        data.forEach(function (element) {
+          f_tags.push(element.name);
+        });
+        _this2.fetchedTags = f_tags;
+      })["catch"]();
+    },
+    addTags: function addTags() {
+      this.tags.push(this.query);
+      this.query = "";
+    },
+    deleteBadge: function deleteBadge(index) {
+      this.tags.splice(index, 1);
+    }
+  }
+});
 
 /***/ }),
 
@@ -59851,9 +59941,171 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    this is default\n")])
+  return _c("div", [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submitFile($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v(" Put Question Topic")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.topic,
+                expression: "topic"
+              }
+            ],
+            staticClass: "form-control form-group",
+            attrs: { type: "text", placeholder: "Put Question Topic...." },
+            domProps: { value: _vm.topic },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.topic = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v(" Put Your Question")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.question,
+                expression: "question"
+              }
+            ],
+            staticClass: "form-control form-group",
+            attrs: { type: "text", placeholder: "Put Question...." },
+            domProps: { value: _vm.question },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.question = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Describe Your Question Details")
+            ]),
+            _vm._v(" "),
+            _c("vue-editor", {
+              model: {
+                value: _vm.body,
+                callback: function($$v) {
+                  _vm.body = $$v
+                },
+                expression: "body"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group " }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Tags")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex" }, [
+            _c(
+              "div",
+              {},
+              [
+                _c("vue-bootstrap-typeahead", {
+                  attrs: { data: _vm.fetchedTags },
+                  model: {
+                    value: _vm.query,
+                    callback: function($$v) {
+                      _vm.query = $$v
+                    },
+                    expression: "query"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "ml-auto" }, [
+              _c("input", {
+                staticClass: "btn btn-primary ",
+                attrs: { value: "Add", readonly: "" },
+                on: { click: _vm.addTags }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          _vm._l(_vm.tags, function(tag, index) {
+            return _c(
+              "button",
+              {
+                key: index,
+                staticClass: "btn btn-secondary ml-2 p-2",
+                on: {
+                  click: function($event) {
+                    return _vm.deleteBadge(index)
+                  }
+                }
+              },
+              [
+                _vm._v(_vm._s(tag) + " "),
+                _c("span", { staticClass: "badge badge-light crossButton" }, [
+                  _vm._v("x")
+                ])
+              ]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c(
+        "button",
+        {
+          staticClass: "text-center btn btn-primary form-group form-control",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("Submit")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -32,9 +32,23 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+        // $table->foreignId('asked_by')->constrained('users');
+        //     $table->json('answered_by')->nullable();
+        //     $table->string('question');
+        //     $table->text('body');
+        //     $table->string('topic');
+        //     $table->json('tags')->nullable();
     public function store(Request $request)
     {
-        //
+        $question=Question::create([
+            'asked_by' => auth()->user()->id,
+            'question' => $request->question,
+            'body' => $request->body,
+            'topic' => $request->topic,
+            'tags' => $request->tags,
+        ]);
+
+        return response(['message' => 'Discussoin Created Successfully..!!']);
     }
 
     /**
