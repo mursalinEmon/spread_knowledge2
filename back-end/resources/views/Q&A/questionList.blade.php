@@ -56,9 +56,12 @@
                 @forelse($questions as $question)
                     <div class="card shadow-sm m-2">
                         <div class="card-body">
-                       <div class="d-flex">
-                             <img src="{{ $question->user->image ? asset($question->user->image) : asset('image/'.'avatar.jpg') }}">
-                             <h6 class="text mt-4 ml-1">{{ $question->user->name }}</h6>
+                       <div class="d-flex justify-content-between">
+                           <div class="d-flex">
+                                <img src="{{ $question->user->image ? asset($question->user->image) : asset('image/'.'avatar.jpg') }}">
+                                <h6 class="text mt-4 ml-1">{{ $question->user->name }}</h6>
+                            </div>
+                             <a href="#" > <button class="btn btn-outline-info float-right" >{{ $question->topic }}</button> </a>
 
                        </div>
                        <a href="{{ route('question.show',$question->id) }}" class="mt-2"><h5 class="card-title" style="color:black;">{{ $question->question }}</h5></a>
