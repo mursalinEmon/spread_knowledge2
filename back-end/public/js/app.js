@@ -3117,6 +3117,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     question: {
@@ -3132,7 +3133,8 @@ __webpack_require__.r(__webpack_exports__);
       body: "",
       fetchedTags: [],
       query: "",
-      tags: []
+      tags: [],
+      next: false
     };
   },
   methods: {
@@ -3150,6 +3152,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.body = "";
         _this.topic = "";
         _this.query = "";
+        _this.next = true;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -61326,28 +61329,50 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _vm._m(0)
+        _c(
+          "div",
+          {
+            staticStyle: {
+              display: "flex",
+              "justify-content": "space-around",
+              "margin-top": "10vh"
+            }
+          },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "text-center btn btn-success form-group ",
+                staticStyle: {
+                  "padding-left": "10rem",
+                  "padding-right": "10rem"
+                },
+                attrs: { type: "submit" }
+              },
+              [_vm._v("Submit")]
+            ),
+            _vm._v(" "),
+            _vm.next
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success form-group",
+                    staticStyle: {
+                      "padding-left": "10rem",
+                      "padding-right": "10rem"
+                    },
+                    attrs: { href: "/question-list" }
+                  },
+                  [_vm._v(" Go Back >")]
+                )
+              : _vm._e()
+          ]
+        )
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass: "text-center btn btn-success form-group form-control",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("Submit")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -23,8 +23,9 @@
                             <div class="form-group">
                                 <button @click="deleteBadge(index)" class="btn btn-secondary ml-2 p-2" v-for="(tag,index) in tags" :key="index">{{ tag }} <span class="badge badge-light crossButton">x</span></button>
                             </div>
-        <div>
-            <button class="text-center btn btn-success form-group form-control" type="submit">Submit</button>
+        <div style="display:flex; justify-content:space-around;margin-top:10vh;" >
+            <button class="text-center btn btn-success form-group " style="padding-left:10rem;padding-right:10rem;"  type="submit">Submit</button>
+            <a v-if="next" href="/question-list" class="btn btn-success form-group" style="padding-left:10rem;padding-right:10rem;" > Go Back ></a>
         </div>
      </form>
   </div>
@@ -47,6 +48,7 @@ data:()=>{
         fetchedTags:[],
         query:"",
         tags:[],
+        next:false,
     }
 },
 methods:{
@@ -67,6 +69,7 @@ submitFile(){
             this.body="";
             this.topic="";
             this.query="";
+            this.next=true;
     }).catch((err)=>{console.log(err);})
 
 },

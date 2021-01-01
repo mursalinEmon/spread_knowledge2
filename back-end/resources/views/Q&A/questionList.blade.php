@@ -66,7 +66,7 @@
                        </div>
                        <a href="{{ route('question.show',$question->id) }}" class="mt-2"><h5 class="card-title" style="color:black;">{{ $question->question }}</h5></a>
                         {{-- <p class="card-text">{!! substr( $question->body,0,50) !!}</p> --}}
-                        <p class="card-text">{!! substr($question->body,0,100) !!}....</p>
+                        <p class="card-text">{!! substr($question->body,0,100) !!} Continue....</p>
                         </div>
                     </div>
                 @empty
