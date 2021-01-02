@@ -68,6 +68,11 @@ Route::middleware(['verified'])->group(function(){
 
 });
 
+//Category
+Route::middleware(['verified'])->group(function(){
+Route::get('/category-create','categoryController@create')->name('category.create');
+Route::post('/category-create','categoryController@store')->name('category.post');
+});
 
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');
 Route::get('/student-dashboard','StudentProfileController@index')->name('student.dashboard');

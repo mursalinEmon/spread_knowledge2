@@ -13,9 +13,9 @@
                                 <input v-model="title" type="text" class="form-control" id="blogTitle" placeholder="Title" required>
 
                             </div>
-                             <div class="form-group">
-                                <label for="blogTitle">Tag Title</label>
-                                <textarea v-model="description" type="text" class="form-control" id="blogTitle" rows="3" placeholder="Put Description.." required></textarea>
+                            <div class="form-group">
+                                <label for="blogDescription">Tag Description</label>
+                                <textarea v-model="description" type="text" class="form-control" id="blogDescription" rows="3" placeholder="Put Description.." required></textarea>
 
                             </div>
 

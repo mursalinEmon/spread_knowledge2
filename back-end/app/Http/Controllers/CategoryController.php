@@ -14,9 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-    }
 
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +23,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories=Category::all();
+        return view('createCategory',compact('categories'));
     }
 
     /**
@@ -35,7 +35,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categories=Category::create([
+            'name'=>$request->categoryName,
+            'description'=>$request->categoryDescription,
+        ]);
+        return response(['message'=>"Category Created Successfully"]);
     }
 
     /**
