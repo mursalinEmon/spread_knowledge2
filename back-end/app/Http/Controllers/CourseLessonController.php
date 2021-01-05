@@ -93,10 +93,7 @@ class CourseLessonController extends Controller
 
     public function selected_lessons($id){
         $data=CourseLesson::where('course_id',$id)->get();
-<<<<<<< HEAD
-=======
 
->>>>>>> 35e74a4cf460f2604a1d30d7e8ed4afa6797907e
         return response($data);
     }
     public function delete_lesson($id){
