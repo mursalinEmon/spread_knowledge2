@@ -165,5 +165,10 @@ class CourseController extends Controller
 
             return view('course.allCoursesView',compact('courses'));
     }
+    public function top_courses(){
+        $top_courses=Course::all()->where('student_count','>',0);
+
+        return response(['top_courses'=>$top_courses]);
+    }
 
 }

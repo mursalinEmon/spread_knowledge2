@@ -112,6 +112,7 @@ class StudentProfileController extends Controller
             $course = Course::findOrFail($course_id);
             array_push($enrolled_courses,$course);
         }
+
         // dd($enrolled_courses);
         return view('student.enrolledCoursesView',compact('enrolled_courses'));
     }
