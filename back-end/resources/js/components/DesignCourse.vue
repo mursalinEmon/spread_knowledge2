@@ -93,7 +93,7 @@ export default {
                                 "",
                                 "success"
                                 )
-
+                    this.showLessons();
                     }).catch((err)=>{console.log(err)});
              }
 
