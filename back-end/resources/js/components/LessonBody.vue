@@ -4,7 +4,7 @@
             <p>lesson List</p>
             <hr>
                 <ul v-for="(lesson,index) in selected_course_lessons" :key="index"  >
-                    <li class="card-header"  @click="fetch_body(lesson.id,$event)" :ref="'ref'+ index">{{ lesson.lesson_title }}</li>
+                    <li class="card-header"  @click="fetch_body(lesson.id,index,$event)" :ref="index" >{{ lesson.lesson_title }}</li>
                 </ul>
 
                 <h1 v-if="!selected_course_lessons" class="text-danger">No Lessons to Show...!!</h1>
@@ -32,6 +32,8 @@ data:()=>{
     return{
         lessons:[],
         lesson_body:"",
+        count:0,
+
 
     }
 },
@@ -43,15 +45,20 @@ mounted(){
 this.fetch_body(this.selected_course_lessons[0].id);
 
 // this.$refs.ref0.$el.classList.add('active-class')
-this.$refs.ref0[0].classList.add(['active-class']);
+this.$refs[0][0].classList.add(['active-class']);
 },
 methods:{
-fetch_body(id,event){
-console.log(event);
-this.$refs.ref0[0].classList.remove(['active-class']);
+fetch_body(id,index,event){
+this.$refs.[0][0].classList.remove(['active-class']);
+if(this.count>0){
+this.$refs.[index][0].classList.add(['active-class']);
+}
+
     axios.get(`/lesson/${id}/body`).then((res)=>{
         // console.log(res);
+
         this.lesson_body=res.data.lesson_body;
+        this.count++;
     }).catch((err)=>console.log(err));
 },
 

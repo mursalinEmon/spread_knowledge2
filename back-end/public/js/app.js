@@ -3183,7 +3183,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       lessons: [],
-      lesson_body: ""
+      lesson_body: "",
+      count: 0
     };
   },
   created: function created() {//  this.click_button();
@@ -3192,17 +3193,22 @@ __webpack_require__.r(__webpack_exports__);
     // this.click_button();
     this.fetch_body(this.selected_course_lessons[0].id); // this.$refs.ref0.$el.classList.add('active-class')
 
-    this.$refs.ref0[0].classList.add(['active-class']);
+    this.$refs[0][0].classList.add(['active-class']);
   },
   methods: {
-    fetch_body: function fetch_body(id, event) {
+    fetch_body: function fetch_body(id, index, event) {
       var _this = this;
 
-      console.log(event);
-      this.$refs.ref0[0].classList.remove(['active-class']);
+      this.$refs[0][0].classList.remove(['active-class']);
+
+      if (this.count > 0) {
+        this.$refs[index][0].classList.add(['active-class']);
+      }
+
       axios.get("/lesson/".concat(id, "/body")).then(function (res) {
         // console.log(res);
         _this.lesson_body = res.data.lesson_body;
+        _this.count++;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -62782,12 +62788,12 @@ var render = function() {
             _c(
               "li",
               {
-                ref: "ref" + index,
+                ref: index,
                 refInFor: true,
                 staticClass: "card-header",
                 on: {
                   click: function($event) {
-                    return _vm.fetch_body(lesson.id, $event)
+                    return _vm.fetch_body(lesson.id, index, $event)
                   }
                 }
               },
