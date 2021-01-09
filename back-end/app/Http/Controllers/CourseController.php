@@ -166,8 +166,7 @@ class CourseController extends Controller
             return view('course.allCoursesView',compact('courses'));
     }
     public function top_courses(){
-        $top_courses=Course::all()->where('student_count','>',0);
-
+        $top_courses=Course::orderBy('student_count', 'DESC')->take(10)->get();
         return response(['top_courses'=>$top_courses]);
     }
 
