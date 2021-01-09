@@ -1,23 +1,26 @@
 <template>
 <div class="container">
 
-    <carousel :autoplay="true" :nav="false" :responsive="{1000:{items:1}}" :items="1" :mouseDrag="false" :loop="true">
+   <hooper :itemsToShow="3" :centerMode="true" pagination="no">
 
-        <div v-for="(course,index) in top_courses" :key="index" >
+         <slide v-for="(course,index) in top_courses" :key="index" :index="index" >
             <h6>{{course.course_title}}</h6>
 
-        </div>
-    </carousel>
+         </slide>
+            <hooper-navigation slot="hooper-addons"></hooper-navigation>
+  </hooper>
 </div>
 </template>
 
 <script>
 
-import carousel from 'vue-owl-carousel'
-import ExampleComponent from './ExampleComponent.vue';
+import { Hooper, Slide, Navigation as HooperNavigation } from 'hooper';
+import 'hooper/dist/hooper.css';
 export default {
  components:{
-     carousel,
+        Hooper,
+        Slide,
+        HooperNavigation
  },
  props:{
 

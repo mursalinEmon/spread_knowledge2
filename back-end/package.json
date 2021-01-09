@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "hooper": "^0.3.4",
         "toastr": "^2.1.4",
         "vue-bootstrap-typeahead": "^0.2.6",
         "vue-owl-carousel": "^2.0.3",
