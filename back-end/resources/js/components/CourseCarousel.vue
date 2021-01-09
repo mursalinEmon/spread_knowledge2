@@ -1,23 +1,32 @@
 <template>
 <div class="container">
 
-    <carousel :autoplay="true" :nav="false" :responsive="{1000:{items:1}}" :items="1" :mouseDrag="false" :loop="true">
+   <hooper :itemsToShow="3" :centerMode="true" pagination="no">
 
-        <div v-for="(course,index) in top_courses" :key="index" >
-            <h6>{{course.course_title}}</h6>
-
-        </div>
-    </carousel>
+         <slide v-for="(course,index) in top_courses" :key="index" :index="index" >
+            <!-- <h6>{{course.course_title}}</h6> -->
+             <div class="card" style="width:400px">
+                <img class="card-img-top card_image" :src="'/'+course.image" alt="Card image">
+                <div class="card-body">
+                <h4 class="card-title">{{ course.course_title }}</h4>
+                <a href="#" class="btn btn-primary">Brouse Course</a>
+                </div>
+            </div>
+         </slide>
+            <hooper-navigation slot="hooper-addons"></hooper-navigation>
+  </hooper>
 </div>
 </template>
 
 <script>
 
-import carousel from 'vue-owl-carousel'
-import ExampleComponent from './ExampleComponent.vue';
+import { Hooper, Slide, Navigation as HooperNavigation } from 'hooper';
+import 'hooper/dist/hooper.css';
 export default {
  components:{
-     carousel,
+        Hooper,
+        Slide,
+        HooperNavigation
  },
  props:{
 
@@ -41,6 +50,10 @@ methods:{
 }
 </script>
 
-<style>
 
+<style lang="scss">
+    .card_image{
+        height: 20px;
+        width: 20px;
+    }
 </style>

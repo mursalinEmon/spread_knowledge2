@@ -18,6 +18,8 @@ class StudentProfileController extends Controller
 
         $student = StudentProfile::where('user_id',auth()->user()->id)->first();
 
+        // $student = StudentProfile::findOrFail(auth()->user()->id);
+
         $courses=$student->enrolled_courses;
 
         $enrolled_course_count=count($courses);
