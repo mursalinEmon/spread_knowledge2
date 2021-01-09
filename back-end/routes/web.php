@@ -73,6 +73,8 @@ Route::middleware(['verified'])->group(function(){
     Route::post('/update-lesson','CourseLessonController@update_lesson')->name('lesson.update');
     Route::get('/student/{id}/enrolled-courses','StudentProfileController@enrolled_Courses')->name('enrolled-courses.view');
     Route::get('/top-course','CourseController@top_courses')->name('top.courses');
+    Route::get('/course/{id}/lessons','CourseController@selected_course_lessons')->name('course.lessons');
+    Route::get('/lesson/{id}/body','CourseLessonController@fetch_body')->name('lesson.body');
 
 });
 // Q&A portal

@@ -33,7 +33,7 @@
                     </div>
                     @else
                     <div class="col-md-10  d-flex justify-content-between">
-                        <a href="{{ route('lesson.list',$item->id) }}" class="btn btn-success">Browse The Course</a>
+                        <a href="{{ route('course.lessons',$item->id) }}" class="btn btn-success">Browse The Course</a>
 
                     </div>
                     @endif

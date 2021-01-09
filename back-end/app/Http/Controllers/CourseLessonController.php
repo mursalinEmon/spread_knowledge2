@@ -120,4 +120,11 @@ class CourseLessonController extends Controller
         return view('course.lessonList',compact('lessons'));
 
     }
+    public function fetch_body($id){
+        //to fetch lesson body
+        // dd($id);
+        $lesson=CourseLesson::findOrFail($id);
+        $lesson_body=$lesson->lesson_body;
+        return response(['lesson_body'=>$lesson_body]);
+    }
 }
