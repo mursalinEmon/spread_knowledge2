@@ -15,9 +15,13 @@ class StudentProfileController extends Controller
      */
     public function index()
     {
-        $student = StudentProfile::findOrFail(auth()->user()->id);
+
+        $student = StudentProfile::where('user_id',auth()->user()->id)->first();
+
         $courses=$student->enrolled_courses;
+
         $enrolled_course_count=count($courses);
+
         return view('student.student_dashboard',compact('enrolled_course_count'));
     }
 
