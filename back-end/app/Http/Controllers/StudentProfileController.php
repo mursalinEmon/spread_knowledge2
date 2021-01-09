@@ -15,14 +15,9 @@ class StudentProfileController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
 
         $student = StudentProfile::where('user_id',auth()->user()->id)->first();
 
-=======
-        $student = StudentProfile::findOrFail(auth()->user()->id);
-        // dd("fuck u");
->>>>>>> 919c8ce81bae12bb213a507239a76df029f1ff82
         $courses=$student->enrolled_courses;
 
         $enrolled_course_count=count($courses);
