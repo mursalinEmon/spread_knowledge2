@@ -1,19 +1,22 @@
 <template>
-<div class="container">
+<div class="container" style="background-color:aliceblue;">
 
-   <hooper :itemsToShow="3" :centerMode="true" pagination="no">
+   <hooper :itemsToShow="3" pagination="no">
 
          <slide v-for="(course,index) in top_courses" :key="index" :index="index" >
             <!-- <h6>{{course.course_title}}</h6> -->
-             <div class="card" style="width:400px">
+             <div class="card" style="width:10vw;margin-right:1rem;" >
                 <img class="card-img-top card_image" :src="'/'+course.image" alt="Card image">
                 <div class="card-body">
-                <h4 class="card-title">{{ course.course_title }}</h4>
+                <h6 class="card-title">{{ course.course_title }}</h6>
                 <a href="#" class="btn btn-primary">Brouse Course</a>
                 </div>
             </div>
          </slide>
-            <hooper-navigation slot="hooper-addons"></hooper-navigation>
+
+              <hooper-navigation slot="hooper-addons" ></hooper-navigation>
+
+
   </hooper>
 </div>
 </template>

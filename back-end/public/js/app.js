@@ -1943,6 +1943,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -60897,17 +60900,23 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container" },
+    {
+      staticClass: "container",
+      staticStyle: { "background-color": "aliceblue" }
+    },
     [
       _c(
         "hooper",
-        { attrs: { itemsToShow: 3, centerMode: true, pagination: "no" } },
+        { attrs: { itemsToShow: 3, pagination: "no" } },
         [
           _vm._l(_vm.top_courses, function(course, index) {
             return _c("slide", { key: index, attrs: { index: index } }, [
               _c(
                 "div",
-                { staticClass: "card", staticStyle: { width: "400px" } },
+                {
+                  staticClass: "card",
+                  staticStyle: { width: "10vw", "margin-right": "1rem" }
+                },
                 [
                   _c("img", {
                     staticClass: "card-img-top card_image",
@@ -60915,7 +60924,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
-                    _c("h4", { staticClass: "card-title" }, [
+                    _c("h6", { staticClass: "card-title" }, [
                       _vm._v(_vm._s(course.course_title))
                     ]),
                     _vm._v(" "),

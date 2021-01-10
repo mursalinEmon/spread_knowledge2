@@ -12,7 +12,7 @@
     @endif
 
   <div class="row">
-    <div class="col-md-6 col-lg-6" style="padding-left: 10rem;">
+    <div class="col-md-6 col-lg-6" style="padding-left: 2rem;">
         @foreach ($enrolled_courses as $item)
         <div class="card mb-4" style="width: 20rem;">
             <img class="card-img-top" src="{{ asset($item->image) }}" alt="Card image cap">
