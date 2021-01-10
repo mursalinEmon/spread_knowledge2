@@ -12,7 +12,7 @@
     @endif
 
   <div class="row">
-    <div class="col-md-6 col-lg-6" style="padding-left: 10rem;">
+    <div class="col-md-6 col-lg-6" style="padding-left: 2rem;">
         @foreach ($enrolled_courses as $item)
         <div class="card mb-4" style="width: 20rem;">
             <img class="card-img-top" src="{{ asset($item->image) }}" alt="Card image cap">
@@ -33,7 +33,7 @@
                     </div>
                     @else
                     <div class="col-md-10  d-flex justify-content-between">
-                        <a href="{{ route('lesson.list',$item->id) }}" class="btn btn-success">Browse The Course</a>
+                        <a href="{{ route('course.lessons',$item->id) }}" class="btn btn-success">Browse The Course</a>
 
                     </div>
                     @endif
