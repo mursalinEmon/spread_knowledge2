@@ -9854,7 +9854,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".card_image {\n  height: 20px;\n  width: 20px;\n}", ""]);
+exports.push([module.i, ".card_image {\n  height: 50px;\n  width: 70px;\n}", ""]);
 
 // exports
 
@@ -60773,32 +60773,35 @@ var render = function() {
     [
       _c(
         "hooper",
-        { attrs: { itemsToShow: 3, centerMode: true, pagination: "no" } },
+        {
+          attrs: {
+            itemsToShow: 3,
+            centerMode: true,
+            pagination: "no",
+            mouseDrag: "true"
+          }
+        },
         [
           _vm._l(_vm.top_courses, function(course, index) {
             return _c("slide", { key: index, attrs: { index: index } }, [
-              _c(
-                "div",
-                { staticClass: "card", staticStyle: { width: "400px" } },
-                [
-                  _c("img", {
-                    staticClass: "card-img-top card_image",
-                    attrs: { src: "/" + course.image, alt: "Card image" }
-                  }),
+              _c("div", { staticClass: "card" }, [
+                _c("img", {
+                  staticClass: "card-img-top card_image",
+                  attrs: { src: "/" + course.image, alt: "Card image" }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s(course.course_title))
+                  ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h4", { staticClass: "card-title" }, [
-                      _vm._v(_vm._s(course.course_title))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                      [_vm._v("Brouse Course")]
-                    )
-                  ])
-                ]
-              )
+                  _c(
+                    "a",
+                    { staticClass: "btn btn-primary", attrs: { href: "#" } },
+                    [_vm._v("Brouse Course")]
+                  )
+                ])
+              ])
             ])
           }),
           _vm._v(" "),

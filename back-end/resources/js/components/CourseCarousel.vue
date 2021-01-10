@@ -1,14 +1,14 @@
 <template>
 <div class="container">
 
-   <hooper :itemsToShow="3" :centerMode="true" pagination="no">
+   <hooper :itemsToShow="3" :centerMode="true" pagination="no" mouseDrag="true" >
 
          <slide v-for="(course,index) in top_courses" :key="index" :index="index" >
             <!-- <h6>{{course.course_title}}</h6> -->
-             <div class="card" style="width:400px">
+             <div class="card">
                 <img class="card-img-top card_image" :src="'/'+course.image" alt="Card image">
                 <div class="card-body">
-                <h4 class="card-title">{{ course.course_title }}</h4>
+                <h5 class="card-title">{{ course.course_title }}</h5>
                 <a href="#" class="btn btn-primary">Brouse Course</a>
                 </div>
             </div>
@@ -53,7 +53,7 @@ methods:{
 
 <style lang="scss">
     .card_image{
-        height: 20px;
-        width: 20px;
+        height: 50px;
+        width: 70px;
     }
 </style>
