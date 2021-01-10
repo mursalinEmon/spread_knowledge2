@@ -3184,7 +3184,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       lessons: [],
       lesson_body: "",
-      count: 0
+      count: 0,
+      old: 0,
+      "new": null
     };
   },
   created: function created() {//  this.click_button();
@@ -3193,16 +3195,18 @@ __webpack_require__.r(__webpack_exports__);
     // this.click_button();
     this.fetch_body(this.selected_course_lessons[0].id); // this.$refs.ref0.$el.classList.add('active-class')
 
-    this.$refs[0][0].classList.add(['active-class']);
+    var old = this.old;
+    this.$refs[old][0].classList.add(['active-class']);
   },
   methods: {
     fetch_body: function fetch_body(id, index, event) {
       var _this = this;
 
-      this.$refs[0][0].classList.remove(['active-class']);
-
       if (this.count > 0) {
-        this.$refs[index][0].classList.add(['active-class']);
+        this.$refs[this.old][0].classList.remove(['active-class']);
+        this["new"] = index;
+        this.$refs[this["new"]][0].classList.add(['active-class']);
+        this.old = index;
       }
 
       axios.get("/lesson/".concat(id, "/body")).then(function (res) {

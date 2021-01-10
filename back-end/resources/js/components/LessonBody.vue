@@ -33,6 +33,8 @@ data:()=>{
         lessons:[],
         lesson_body:"",
         count:0,
+        old:0,
+        new:null,
 
 
     }
@@ -45,14 +47,19 @@ mounted(){
 this.fetch_body(this.selected_course_lessons[0].id);
 
 // this.$refs.ref0.$el.classList.add('active-class')
-this.$refs[0][0].classList.add(['active-class']);
+let old=this.old;
+this.$refs[old][0].classList.add(['active-class']);
 },
 methods:{
 fetch_body(id,index,event){
-this.$refs.[0][0].classList.remove(['active-class']);
-if(this.count>0){
-this.$refs.[index][0].classList.add(['active-class']);
+
+if (this.count>0){
+    this.$refs.[this.old][0].classList.remove(['active-class']);
+    this.new=index;
+    this.$refs.[this.new][0].classList.add(['active-class']);
+    this.old=index;
 }
+
 
     axios.get(`/lesson/${id}/body`).then((res)=>{
         // console.log(res);
