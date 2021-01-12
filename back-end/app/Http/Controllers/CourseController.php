@@ -206,7 +206,7 @@ class CourseController extends Controller
         }
         // dd($enrolled_courses);
 
-        $associator = new Apriori($support = 0.2, $confidence = 0.2);
+        $associator = new Apriori($support = 0.2, $confidence = 0.5);
         $samples = $enrolled_courses;
         // $samples = [['alpha', 'beta', 'epsilon'], ['alpha', 'beta', 'theta'], ['alpha', 'beta', 'epsilon'], ['alpha', 'beta', 'theta']];
         $labels  = [];
