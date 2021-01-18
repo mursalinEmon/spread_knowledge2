@@ -1,6 +1,6 @@
 <template>
-<div class="row">
-      <div class="col-md-4">
+<div class="row ml-4">
+      <div class="col-md-3">
             <p>lesson List</p>
             <hr>
                 <ul v-for="(lesson,index) in selected_course_lessons" :key="index"  >
@@ -9,10 +9,13 @@
 
                 <h1 v-if="!selected_course_lessons" class="text-danger">No Lessons to Show...!!</h1>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card-body body" v-html="lesson_body">
                 {{ lesson_body }}
             </div>
+        </div>
+        <div class="col-md-3">
+
         </div>
 
 </div>

@@ -3176,6 +3176,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     selected_course_lessons: {
@@ -62787,10 +62790,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
+  return _c("div", { staticClass: "row ml-4" }, [
     _c(
       "div",
-      { staticClass: "col-md-4" },
+      { staticClass: "col-md-3" },
       [
         _c("p", [_vm._v("lesson List")]),
         _vm._v(" "),
@@ -62824,7 +62827,7 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "col-md-8" }, [
+    _c("div", { staticClass: "col-md-6" }, [
       _c(
         "div",
         {
@@ -62837,7 +62840,9 @@ var render = function() {
           )
         ]
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-3" })
   ])
 }
 var staticRenderFns = []
