@@ -13,6 +13,7 @@
             <div class="card-body body" v-html="lesson_body">
                 {{ lesson_body }}
             </div>
+            <star-rating></star-rating>
         </div>
         <div class="col-md-3">
 
@@ -38,8 +39,6 @@ data:()=>{
         count:0,
         old:0,
         new:null,
-
-
     }
 },
 created(){
