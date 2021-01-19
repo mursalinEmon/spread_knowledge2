@@ -83,7 +83,7 @@ if (this.count>0){
 manage_modal(){
      this.modal=true;
 },
-manage_rating(){
+manage_Rating(){
     this.modal=false;
 
     //then make a axios call based on the rating

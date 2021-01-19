@@ -3237,7 +3237,7 @@ __webpack_require__.r(__webpack_exports__);
     manage_modal: function manage_modal() {
       this.modal = true;
     },
-    manage_rating: function manage_rating() {
+    manage_Rating: function manage_Rating() {
       this.modal = false; //then make a axios call based on the rating
     }
   }
