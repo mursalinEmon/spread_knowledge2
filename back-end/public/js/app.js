@@ -3180,6 +3180,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     selected_course_lessons: {
@@ -3193,15 +3203,16 @@ __webpack_require__.r(__webpack_exports__);
       lesson_body: "",
       count: 0,
       old: 0,
-      "new": null
+      "new": null,
+      rating: 0,
+      modal: false
     };
   },
-  created: function created() {//  this.click_button();
+  created: function created() {
+    setTimeout(this.manage_modal, 2000);
   },
   mounted: function mounted() {
-    // this.click_button();
-    this.fetch_body(this.selected_course_lessons[0].id); // this.$refs.ref0.$el.classList.add('active-class')
-
+    this.fetch_body(this.selected_course_lessons[0].id);
     var old = this.old;
     this.$refs[old][0].classList.add(['active-class']);
   },
@@ -3217,12 +3228,17 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios.get("/lesson/".concat(id, "/body")).then(function (res) {
-        // console.log(res);
         _this.lesson_body = res.data.lesson_body;
         _this.count++;
       })["catch"](function (err) {
         return console.log(err);
       });
+    },
+    manage_modal: function manage_modal() {
+      this.modal = true;
+    },
+    manage_rating: function manage_rating() {
+      this.modal = false; //then make a axios call based on the rating
     }
   }
 });
@@ -10016,7 +10032,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "ul {\n  list-style: none;\n  padding: 0px;\n}\nli {\n  list-style: none;\n  border-radius: 10px;\n}\n.body {\n  border-left: 1px solid #cfc8c8;\n}\n.active-class {\n  background-color: #554e4e;\n  color: aliceblue;\n  border-radius: 10px;\n}", ""]);
+exports.push([module.i, "ul {\n  list-style: none;\n  padding: 0px;\n}\nli {\n  list-style: none;\n  border-radius: 10px;\n}\n.body {\n  border-left: 1px solid #cfc8c8;\n}\n.active-class {\n  background-color: #554e4e;\n  color: aliceblue;\n  border-radius: 10px;\n}\n.modal {\n  display: block;\n  height: 100vh;\n  width: 100vw;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: rgba(0, 0, 0, 0.404);\n}\n.rating {\n  display: block;\n  background-color: white;\n  padding: 5rem;\n  padding-top: 4rem;\n  padding-bottom: 2rem;\n}\n.stars {\n  margin-left: 25%;\n}", ""]);
 
 // exports
 
@@ -62828,27 +62844,58 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-md-6" },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "card-body body",
-            domProps: { innerHTML: _vm._s(_vm.lesson_body) }
-          },
-          [
-            _vm._v(
-              "\n                " + _vm._s(_vm.lesson_body) + "\n            "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("star-rating")
-      ],
-      1
-    ),
+    _c("div", { staticClass: "col-md-6" }, [
+      _c(
+        "div",
+        {
+          staticClass: "card-body body",
+          domProps: { innerHTML: _vm._s(_vm.lesson_body) }
+        },
+        [
+          _vm._v(
+            "\n                " + _vm._s(_vm.lesson_body) + "\n            "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.modal
+        ? _c("div", { staticClass: "modal" }, [
+            _c("div", { staticClass: "rating" }, [
+              _c("h2", [_vm._v("Do You Wan To Rate This Course ?")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "stars" },
+                [
+                  _c("star-rating", {
+                    model: {
+                      value: _vm.rating,
+                      callback: function($$v) {
+                        _vm.rating = $$v
+                      },
+                      expression: "rating"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success float-right mt-5",
+                  on: {
+                    click: function($event) {
+                      return _vm.manage_Rating()
+                    }
+                  }
+                },
+                [_vm._v(" Done ")]
+              )
+            ])
+          ])
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "col-md-3" })
   ])
