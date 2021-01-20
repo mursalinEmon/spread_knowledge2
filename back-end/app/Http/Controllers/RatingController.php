@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\Rating;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class RatingController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -33,9 +34,15 @@ class RatingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Course $course,Request $request)
     {
-        //
+        $rating=Rating::create([
+            'course_id' => $course->id,
+            'student_id' => auth()->user()->id,
+            'rating' => $request->rating
+        ]);
+
+        return response(['message'=>'success']);
     }
 
     /**

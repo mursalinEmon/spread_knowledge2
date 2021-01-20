@@ -88,6 +88,11 @@ Route::middleware(['verified'])->group(function(){
 
 });
 
+// Rating
+Route::middleware(['verified'])->group(function(){
+    Route::post('/courses/{course}/ratings','RatingController@store')->name('courses.ratings.store');
+
+});
 
 Route::get('/apriori','CourseController@apriori');
 Route::get('/top-courses-of-the-month','CourseController@top_course_month');

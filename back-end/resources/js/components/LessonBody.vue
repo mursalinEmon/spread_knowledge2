@@ -87,6 +87,12 @@ manage_Rating(){
     this.modal=false;
 
     //then make a axios call based on the rating
+     let formData = new FormData();
+     formData.append('rating',this.rating);
+    axios.post(`/courses/${this.selected_course_lessons[0].course_id}/ratings`,formData).then((res)=>{
+        //console.log(res);
+    }).catch((err)=>{console.log(err);})
+
 }
 
 },
