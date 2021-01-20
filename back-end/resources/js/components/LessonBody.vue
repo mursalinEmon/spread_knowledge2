@@ -1,6 +1,6 @@
 <template>
-<div class="row">
-      <div class="col-md-4">
+<div class="row ml-4">
+      <div class="col-md-3">
             <p>lesson List</p>
             <hr>
                 <ul v-for="(lesson,index) in selected_course_lessons" :key="index"  >
@@ -9,10 +9,24 @@
 
                 <h1 v-if="!selected_course_lessons" class="text-danger">No Lessons to Show...!!</h1>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card-body body" v-html="lesson_body">
                 {{ lesson_body }}
             </div>
+                <div v-if="modal" class="modal">
+                   <div class="rating">
+                       <h2>Do You Wan To Rate This Course ?</h2>
+                       <div class="stars">
+                           <star-rating v-model="rating"></star-rating>
+                       </div>
+
+                        <button @click="manage_Rating()" class="btn btn-success float-right mt-5"> Done </button>
+                   </div>
+
+                </div>
+        </div>
+        <div class="col-md-3">
+
         </div>
 
 </div>
@@ -35,18 +49,18 @@ data:()=>{
         count:0,
         old:0,
         new:null,
-
-
+        rating:0,
+        modal:false,
     }
 },
 created(){
-    //  this.click_button();
+    setTimeout(this.manage_modal, 2000);
 },
 mounted(){
-// this.click_button();
+
 this.fetch_body(this.selected_course_lessons[0].id);
 
-// this.$refs.ref0.$el.classList.add('active-class')
+
 let old=this.old;
 this.$refs[old][0].classList.add(['active-class']);
 },
@@ -58,16 +72,22 @@ if (this.count>0){
     this.new=index;
     this.$refs.[this.new][0].classList.add(['active-class']);
     this.old=index;
-}
+    }
 
 
     axios.get(`/lesson/${id}/body`).then((res)=>{
-        // console.log(res);
-
         this.lesson_body=res.data.lesson_body;
         this.count++;
     }).catch((err)=>console.log(err));
 },
+manage_modal(){
+     this.modal=true;
+},
+manage_Rating(){
+    this.modal=false;
+
+    //then make a axios call based on the rating
+}
 
 },
 
@@ -92,4 +112,26 @@ li{
     color:aliceblue;
     border-radius: 10px;
 }
+.modal{
+    display: block;
+    height: 100vh;
+    width:100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.404);
+    // transform: translate(50%,50%);
+}
+.rating{
+    display: block;
+    background-color: white;
+    padding: 5rem;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+}
+.stars{
+    margin-left: 25%;
+
+}
+
 </style>
