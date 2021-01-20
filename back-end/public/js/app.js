@@ -3239,6 +3239,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     manage_Rating: function manage_Rating() {
       this.modal = false; //then make a axios call based on the rating
+
+      var formData = new FormData();
+      formData.append('rating', this.rating);
+      axios.post("/courses/".concat(this.selected_course_lessons[0].course_id, "/ratings"), formData).then(function (res) {//console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   }
 });
