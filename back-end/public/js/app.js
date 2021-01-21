@@ -3205,11 +3205,12 @@ __webpack_require__.r(__webpack_exports__);
       old: 0,
       "new": null,
       rating: 0,
-      modal: false
+      modal: false,
+      is_rated: false
     };
   },
   created: function created() {
-    setTimeout(this.manage_modal, 2000);
+    this.check_Rating();
   },
   mounted: function mounted() {
     this.fetch_body(this.selected_course_lessons[0].id);
@@ -3242,7 +3243,21 @@ __webpack_require__.r(__webpack_exports__);
 
       var formData = new FormData();
       formData.append('rating', this.rating);
-      axios.post("/courses/".concat(this.selected_course_lessons[0].course_id, "/ratings"), formData).then(function (res) {//console.log(res);
+      axios.post("/courses/".concat(this.selected_course_lessons[0].course_id, "/ratings"), formData).then(function (res) {//console
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    check_Rating: function check_Rating() {
+      var _this2 = this;
+
+      axios.get("/check/rating/".concat(this.selected_course_lessons[0].course_id)).then(function (res) {
+        _this2.is_rated = res.data.is_rated;
+
+        if (_this2.is_rated === false) {
+          setTimeout(_this2.manage_modal, 2000);
+        } // console.log(res.data.is_rated);
+
       })["catch"](function (err) {
         console.log(err);
       });
@@ -62868,7 +62883,7 @@ var render = function() {
       _vm.modal
         ? _c("div", { staticClass: "modal" }, [
             _c("div", { staticClass: "rating" }, [
-              _c("h2", [_vm._v("Do You Wan To Rate This Course ?")]),
+              _c("h2", [_vm._v("Do You Want To Rate This Course ?")]),
               _vm._v(" "),
               _c(
                 "div",

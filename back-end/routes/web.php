@@ -91,7 +91,7 @@ Route::middleware(['verified'])->group(function(){
 // Rating
 Route::middleware(['verified'])->group(function(){
     Route::post('/courses/{course}/ratings','RatingController@store')->name('courses.ratings.store');
-
+    Route::get('/check/rating/{id}','RatingController@check_rating')->name('rating.check');
 });
 
 Route::get('/apriori','CourseController@apriori');

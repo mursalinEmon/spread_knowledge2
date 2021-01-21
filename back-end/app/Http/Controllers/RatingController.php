@@ -89,4 +89,10 @@ class RatingController extends Controller
     {
         //
     }
+    public function check_rating($id){
+        $is_rated=false;
+        $check = Rating::where('course_id',$id)->where('student_id',auth()->user()->id)->get();
+        $is_rated=$check->isEmpty() ?false:true ;
+        return response(['is_rated'=>$is_rated]);
+    }
 }
