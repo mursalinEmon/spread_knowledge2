@@ -1984,15 +1984,18 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/top-course').then(function (res) {
-        console.log(res);
+        // console.log(res);
         _this.top_courses = res.data.top_courses;
       })["catch"](function (err) {
         console.log(err);
       });
     },
     fetch_Recomended_Courses: function fetch_Recomended_Courses() {
+      var _this2 = this;
+
       axios.get('/recomended-courses').then(function (res) {
-        console.log(res);
+        // console.log(res);
+        _this2.recomended_courses = res.data.recomended_courses;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -61035,12 +61038,12 @@ var render = function() {
                 [
                   _c("img", {
                     staticClass: "card-img-top card_image",
-                    attrs: { src: "/" + course.image, alt: "Card image" }
+                    attrs: { src: "/" + course[0].image, alt: "Card image" }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
                     _c("h6", { staticClass: "card-title" }, [
-                      _vm._v(_vm._s(course.course_title))
+                      _vm._v(_vm._s(course[0].course_title))
                     ]),
                     _vm._v(" "),
                     _c(

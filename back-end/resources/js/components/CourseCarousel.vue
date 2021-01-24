@@ -22,9 +22,9 @@
          <slide v-for="(course,index) in  recomended_courses" :key="index" :index="index" >
             <!-- <h6>{{course.course_title}}</h6> -->
              <div class="card" style="width:10vw;margin-right:1rem;" >
-                <img class="card-img-top card_image" :src="'/'+course.image" alt="Card image">
+                <img class="card-img-top card_image" :src="'/'+course[0].image" alt="Card image">
                 <div class="card-body">
-                <h6 class="card-title">{{ course.course_title }}</h6>
+                <h6 class="card-title">{{ course[0].course_title }}</h6>
                 <a href="#" class="btn btn-primary">Brouse Course</a>
                 </div>
             </div>
@@ -60,13 +60,14 @@ export default {
 methods:{
     fetch_Top_Courses(){
         axios.get('/top-course').then((res)=>{
-            console.log(res);
+            // console.log(res);
             this.top_courses=res.data.top_courses;
             }).catch((err)=>{console.log(err);})
     },
     fetch_Recomended_Courses(){
         axios.get('/recomended-courses').then((res)=>{
-            console.log(res);
+            // console.log(res);
+            this.recomended_courses=res.data.recomended_courses;
         }).catch((err)=>{console.log(err);})
     }
 }

@@ -222,6 +222,7 @@ class CourseController extends Controller
         $taken_courses_names=[];
         $recomendation_for_you=[];
         $final_rec=[];
+        $final_recomendation_list=[];
         $taken_courses=StudentProfile::where('user_id',auth()->user()->id)->get();
         $taken_courses= $taken_courses[0]->enrolled_courses;
         foreach(  $taken_courses as $course){
@@ -248,7 +249,13 @@ class CourseController extends Controller
                 unset($final_rec[$key]);
             }
         }
-        dd( $final_rec ,$taken_courses_names);
+        foreach(  $final_rec as $rec){
+            $course = Course::where('course_title',$rec)->get();
+            array_push( $final_recomendation_list , $course);
+        }
+        // dd( $final_rec ,$taken_courses_names);
+        // dd($final_recomendation_list );
+        return response(['recomended_courses'=>$final_recomendation_list]);
 
 
     }
