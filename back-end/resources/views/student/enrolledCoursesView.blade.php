@@ -47,8 +47,7 @@
       </div>
         <div id="app1" class="col-md-6 col-lg-6">
             {{-- <create-post></create-post> --}}
-            <h4>Top Courses</h4>
-            <hr>
+
             <course-carousel></course-carousel>
         </div>
   </div>

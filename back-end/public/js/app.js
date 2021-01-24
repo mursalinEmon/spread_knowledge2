@@ -1946,6 +1946,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1957,11 +1971,13 @@ __webpack_require__.r(__webpack_exports__);
   props: {},
   data: function data() {
     return {
-      top_courses: []
+      top_courses: [],
+      recomended_courses: []
     };
   },
   created: function created() {
     this.fetch_Top_Courses();
+    this.fetch_Recomended_Courses();
   },
   methods: {
     fetch_Top_Courses: function fetch_Top_Courses() {
@@ -1970,6 +1986,13 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/top-course').then(function (res) {
         console.log(res);
         _this.top_courses = res.data.top_courses;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    fetch_Recomended_Courses: function fetch_Recomended_Courses() {
+      axios.get('/recomended-courses').then(function (res) {
+        console.log(res);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -60947,11 +60970,61 @@ var render = function() {
       staticStyle: { "background-color": "aliceblue" }
     },
     [
+      _c("h4", [_vm._v("Top Courses")]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
       _c(
         "hooper",
         { attrs: { itemsToShow: 3, pagination: "no" } },
         [
           _vm._l(_vm.top_courses, function(course, index) {
+            return _c("slide", { key: index, attrs: { index: index } }, [
+              _c(
+                "div",
+                {
+                  staticClass: "card",
+                  staticStyle: { width: "10vw", "margin-right": "1rem" }
+                },
+                [
+                  _c("img", {
+                    staticClass: "card-img-top card_image",
+                    attrs: { src: "/" + course.image, alt: "Card image" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h6", { staticClass: "card-title" }, [
+                      _vm._v(_vm._s(course.course_title))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "btn btn-primary", attrs: { href: "#" } },
+                      [_vm._v("Brouse Course")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          }),
+          _vm._v(" "),
+          _c("hooper-navigation", {
+            attrs: { slot: "hooper-addons" },
+            slot: "hooper-addons"
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("h4", [_vm._v("Recomended For You")]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c(
+        "hooper",
+        { attrs: { itemsToShow: 3, pagination: "no" } },
+        [
+          _vm._l(_vm.recomended_courses, function(course, index) {
             return _c("slide", { key: index, attrs: { index: index } }, [
               _c(
                 "div",
