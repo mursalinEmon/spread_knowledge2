@@ -2024,7 +2024,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.get('/top-courses-this-month').then(function (res) {
-        console.log(res);
+        //  console.log(res);
         _this3.top_courses_month = res.data.top_courses_month;
       })["catch"](function (err) {
         console.log(err);

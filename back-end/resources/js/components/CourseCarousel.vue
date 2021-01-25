@@ -92,7 +92,7 @@ methods:{
     },
     fetch_Top_Courses_month(){
          axios.get('/top-courses-this-month').then((res)=>{
-             console.log(res);
+            //  console.log(res);
             this.top_courses_month=res.data.top_courses_month;
         }).catch((err)=>{console.log(err);})
     }
