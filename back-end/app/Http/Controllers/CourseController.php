@@ -261,6 +261,6 @@ class CourseController extends Controller
     }
     public function top_course_month(){
         $top_courses=Course::orderBy('student_count', 'DESC')->whereMonth('created_at', Carbon::now()->month)->get();
-        dd($top_courses);
+        return response(['top_courses_month'=>$top_courses]);
     }
 }
