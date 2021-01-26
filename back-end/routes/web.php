@@ -91,11 +91,11 @@ Route::middleware(['verified'])->group(function(){
 // Rating
 Route::middleware(['verified'])->group(function(){
     Route::post('/courses/{course}/ratings','RatingController@store')->name('courses.ratings.store');
-
+    Route::get('/check/rating/{id}','RatingController@check_rating')->name('rating.check');
 });
 
-Route::get('/apriori','CourseController@apriori');
-Route::get('/top-courses-of-the-month','CourseController@top_course_month');
+Route::get('/recomended-courses','CourseController@apriori');
+Route::get('/top-courses-this-month','CourseController@top_course_month');
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');
 Route::get('/student-dashboard','StudentProfileController@index')->name('student.dashboard');
 Route::get('/courses','CourseController@index')->name('courses.view');

@@ -15,7 +15,7 @@
             </div>
                 <div v-if="modal" class="modal">
                    <div class="rating">
-                       <h2>Do You Wan To Rate This Course ?</h2>
+                       <h2>Do You Want To Rate This Course ?</h2>
                        <div class="stars">
                            <star-rating v-model="rating"></star-rating>
                        </div>
@@ -51,10 +51,11 @@ data:()=>{
         new:null,
         rating:0,
         modal:false,
+        is_rated:false,
     }
 },
 created(){
-    setTimeout(this.manage_modal, 2000);
+    this.check_Rating();
 },
 mounted(){
 
@@ -90,9 +91,21 @@ manage_Rating(){
      let formData = new FormData();
      formData.append('rating',this.rating);
     axios.post(`/courses/${this.selected_course_lessons[0].course_id}/ratings`,formData).then((res)=>{
-        //console.log(res);
+        //console
     }).catch((err)=>{console.log(err);})
 
+},
+check_Rating(){
+    axios.get(`/check/rating/${this.selected_course_lessons[0].course_id}`).then((res)=>{
+        this.is_rated = res.data.is_rated;
+
+        if(this.is_rated === false){
+            setTimeout(this.manage_modal, 2000);
+        }
+        // console.log(res.data.is_rated);
+    }).catch((err)=>{
+        console.log(err);
+    })
 }
 
 },
