@@ -1978,6 +1978,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2003,7 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
     fetch_Top_Courses: function fetch_Top_Courses() {
       var _this = this;
 
-      axios.get('/top-course').then(function (res) {
+      axios.get("/top-course").then(function (res) {
         // console.log(res);
         _this.top_courses = res.data.top_courses;
       })["catch"](function (err) {
@@ -2013,7 +2042,7 @@ __webpack_require__.r(__webpack_exports__);
     fetch_Recomended_Courses: function fetch_Recomended_Courses() {
       var _this2 = this;
 
-      axios.get('/recomended-courses').then(function (res) {
+      axios.get("/recomended-courses").then(function (res) {
         // console.log(res);
         _this2.recomended_courses = res.data.recomended_courses;
       })["catch"](function (err) {
@@ -2023,7 +2052,7 @@ __webpack_require__.r(__webpack_exports__);
     fetch_Top_Courses_month: function fetch_Top_Courses_month() {
       var _this3 = this;
 
-      axios.get('/top-courses-this-month').then(function (res) {
+      axios.get("/top-courses-this-month").then(function (res) {
         //  console.log(res);
         _this3.top_courses_month = res.data.top_courses_month;
       })["catch"](function (err) {
@@ -61003,145 +61032,207 @@ var render = function() {
       staticStyle: { "background-color": "aliceblue" }
     },
     [
-      _c("h4", [_vm._v("Top Courses")]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c(
-        "hooper",
-        { attrs: { itemsToShow: 3, pagination: "no" } },
-        [
-          _vm._l(_vm.top_courses, function(course, index) {
-            return _c("slide", { key: index, attrs: { index: index } }, [
+      _vm.top_courses.length
+        ? _c(
+            "div",
+            [
+              _c("h4", [_vm._v("Top Courses")]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
               _c(
-                "div",
-                {
-                  staticClass: "card",
-                  staticStyle: { width: "10vw", "margin-right": "1rem" }
-                },
+                "hooper",
+                { attrs: { itemsToShow: 3, pagination: "no" } },
                 [
-                  _c("img", {
-                    staticClass: "card-img-top card_image",
-                    attrs: { src: "/" + course.image, alt: "Card image" }
+                  _vm._l(_vm.top_courses, function(course, index) {
+                    return _c(
+                      "slide",
+                      { key: index, attrs: { index: index } },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "card",
+                            staticStyle: {
+                              width: "10vw",
+                              "margin-right": "1rem"
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "card-img-top card_image",
+                              attrs: {
+                                src: "/" + course.image,
+                                alt: "Card image"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("h6", { staticClass: "card-title" }, [
+                                _vm._v(_vm._s(course.course_title))
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Brouse Course")]
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    )
                   }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h6", { staticClass: "card-title" }, [
-                      _vm._v(_vm._s(course.course_title))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                      [_vm._v("Brouse Course")]
-                    )
-                  ])
-                ]
+                  _c("hooper-navigation", {
+                    attrs: { slot: "hooper-addons" },
+                    slot: "hooper-addons"
+                  })
+                ],
+                2
               )
-            ])
-          }),
-          _vm._v(" "),
-          _c("hooper-navigation", {
-            attrs: { slot: "hooper-addons" },
-            slot: "hooper-addons"
-          })
-        ],
-        2
-      ),
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c("h4", [_vm._v("Recomended For You")]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c(
-        "hooper",
-        { attrs: { itemsToShow: 3, pagination: "no" } },
-        [
-          _vm._l(_vm.recomended_courses, function(course, index) {
-            return _c("slide", { key: index, attrs: { index: index } }, [
+      _vm.recomended_courses.legth
+        ? _c(
+            "div",
+            [
+              _c("h4", [_vm._v("Recomended For You")]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
               _c(
-                "div",
-                {
-                  staticClass: "card",
-                  staticStyle: { width: "10vw", "margin-right": "1rem" }
-                },
+                "hooper",
+                { attrs: { itemsToShow: 3, pagination: "no" } },
                 [
-                  _c("img", {
-                    staticClass: "card-img-top card_image",
-                    attrs: { src: "/" + course[0].image, alt: "Card image" }
+                  _vm._l(_vm.recomended_courses, function(course, index) {
+                    return _c(
+                      "slide",
+                      { key: index, attrs: { index: index } },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "card",
+                            staticStyle: {
+                              width: "10vw",
+                              "margin-right": "1rem"
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "card-img-top card_image",
+                              attrs: {
+                                src: "/" + course[0].image,
+                                alt: "Card image"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("h6", { staticClass: "card-title" }, [
+                                _vm._v(_vm._s(course[0].course_title))
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Brouse Course")]
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    )
                   }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h6", { staticClass: "card-title" }, [
-                      _vm._v(_vm._s(course[0].course_title))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                      [_vm._v("Brouse Course")]
-                    )
-                  ])
-                ]
+                  _c("hooper-navigation", {
+                    attrs: { slot: "hooper-addons" },
+                    slot: "hooper-addons"
+                  })
+                ],
+                2
               )
-            ])
-          }),
-          _vm._v(" "),
-          _c("hooper-navigation", {
-            attrs: { slot: "hooper-addons" },
-            slot: "hooper-addons"
-          })
-        ],
-        2
-      ),
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c("h4", [_vm._v("Popular This Month")]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c(
-        "hooper",
-        { attrs: { itemsToShow: 3, pagination: "no" } },
-        [
-          _vm._l(_vm.top_courses_month, function(course, index) {
-            return _c("slide", { key: index, attrs: { index: index } }, [
+      _vm.top_courses_month.length
+        ? _c(
+            "div",
+            [
+              _c("h4", [_vm._v("Popular This Month")]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
               _c(
-                "div",
-                {
-                  staticClass: "card",
-                  staticStyle: { width: "10vw", "margin-right": "1rem" }
-                },
+                "hooper",
+                { attrs: { itemsToShow: 3, pagination: "no" } },
                 [
-                  _c("img", {
-                    staticClass: "card-img-top card_image",
-                    attrs: { src: "/" + course.image, alt: "Card image" }
+                  _vm._l(_vm.top_courses_month, function(course, index) {
+                    return _c(
+                      "slide",
+                      { key: index, attrs: { index: index } },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "card",
+                            staticStyle: {
+                              width: "10vw",
+                              "margin-right": "1rem"
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "card-img-top card_image",
+                              attrs: {
+                                src: "/" + course.image,
+                                alt: "Card image"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("h6", { staticClass: "card-title" }, [
+                                _vm._v(_vm._s(course.course_title))
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Brouse Course")]
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    )
                   }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h6", { staticClass: "card-title" }, [
-                      _vm._v(_vm._s(course.course_title))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                      [_vm._v("Brouse Course")]
-                    )
-                  ])
-                ]
+                  _c("hooper-navigation", {
+                    attrs: { slot: "hooper-addons" },
+                    slot: "hooper-addons"
+                  })
+                ],
+                2
               )
-            ])
-          }),
-          _vm._v(" "),
-          _c("hooper-navigation", {
-            attrs: { slot: "hooper-addons" },
-            slot: "hooper-addons"
-          })
-        ],
-        2
-      )
-    ],
-    1
+            ],
+            1
+          )
+        : _vm._e()
+    ]
   )
 }
 var staticRenderFns = []
