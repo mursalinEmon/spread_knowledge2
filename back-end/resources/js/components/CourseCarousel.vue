@@ -26,7 +26,7 @@
             <hooper-navigation slot="hooper-addons"></hooper-navigation>
         </hooper>
         </div>
-       <div v-if="(recomended_courses.legth)">
+       <div v-if="(Object.keys(this.recomended_courses).length != 0)">
             <h4>Recomended For You</h4>
         <hr />
         <hooper :itemsToShow="3" pagination="no">
@@ -120,6 +120,7 @@ export default {
                 .then(res => {
                     // console.log(res);
                     this.recomended_courses = res.data.recomended_courses;
+
                 })
                 .catch(err => {
                     console.log(err);
