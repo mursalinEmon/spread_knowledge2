@@ -38,7 +38,7 @@ class RatingController extends Controller
     {
         $rating=Rating::create([
             'course_id' => $course->id,
-            'student_id' => auth()->user()->id,
+            'student_id' => auth()->user()->student_profile->id,
             'rating' => $request->rating
         ]);
 
@@ -91,7 +91,7 @@ class RatingController extends Controller
     }
     public function check_rating($id){
         $is_rated=false;
-        $check = Rating::where('course_id',$id)->where('student_id',auth()->user()->id)->get();
+        $check = Rating::where('course_id',$id)->where('student_id',auth()->user()->student_profile->id)->get();
         $is_rated=$check->isEmpty() ?false:true ;
         return response(['is_rated'=>$is_rated]);
     }
