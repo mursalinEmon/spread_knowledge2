@@ -63,7 +63,7 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/get-sub-category','SubCategoryController@index')->name('fetch_sub_category');
     Route::get('/get-selected-sub-categories/{id}','SubCategoryController@find_sub')->name('find.fetch_sub_category');
     Route::post('/create-course-lesson','CourseController@create_lesson')->name('create.lesson');
-    Route::get('/create-course-lesson','CourseLessonController@create_course_lesson')->name('create.course.lesson');
+    Route::get('/course-lesson/{id}','CourseLessonController@create_course_lesson')->name('course.lesson');
     Route::get('/get-course-lessons','CourseLessonController@find_lessons')->name('get-course-lessons');
     Route::get('/get-selected-course-lessons/{id}','CourseLessonController@selected_lessons')->name('get-selected-course-lessons');
     Route::get('/course-list/{id}','CourseController@course_list')->name('course.list');
