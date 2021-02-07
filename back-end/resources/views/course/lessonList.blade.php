@@ -34,5 +34,7 @@
     {{ $lessons->links() }}
 
 </div>
-
+<br>
+<br>
+<a href="{{ route('create.course.lesson') }}" style="float: right; margin-right:5vw;" class="btn btn-primary">Add more lessons</a>
 @endsection

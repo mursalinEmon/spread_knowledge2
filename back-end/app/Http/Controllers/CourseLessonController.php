@@ -127,4 +127,8 @@ class CourseLessonController extends Controller
         $lesson_body=$lesson->lesson_body;
         return response(['lesson_body'=>$lesson_body]);
     }
+
+    public function create_course_lesson(){
+        return view('course.createCourseLesson');
+    }
 }
