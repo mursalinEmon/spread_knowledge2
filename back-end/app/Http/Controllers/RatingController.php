@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Rating;
 use Illuminate\Http\Request;
+// require_once("../../../app/recomendation/recommend.php");
+use App\Recommend;
+use App\StudentProfile;
+use App\User;
 
 class RatingController extends Controller
 {
@@ -94,5 +98,23 @@ class RatingController extends Controller
         $check = Rating::where('course_id',$id)->where('student_id',auth()->user()->student_profile->id)->get();
         $is_rated=$check->isEmpty() ?false:true ;
         return response(['is_rated'=>$is_rated]);
+    }
+    public function rec(){
+        $student = StudentProfile::findOrFail($rating->student_id);
+
+        $ratings=Rating::all()->where('student_id',);
+        foreach($ratings as $rating){
+
+            $student = StudentProfile::findOrFail($rating->student_id);
+            $s_name=User::where('id',$student->user_id)->get();
+            $course = Course::findOrFail($rating->course_id);
+            $s_name=$s_name[0]->name;
+            $c_name=$course->course_title;
+            $c_rating = $rating->rating;
+
+
+
+        }
+        // dd( $c_name);
     }
 }

@@ -95,6 +95,9 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/check/rating/{id}','RatingController@check_rating')->name('rating.check');
 });
 
+Route::get('/rating-rec','RatingController@rec')->name('courses.ratings.rec');
+
+
 Route::get('/recomended-courses','CourseController@apriori');
 Route::get('/top-courses-this-month','CourseController@top_course_month');
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');
