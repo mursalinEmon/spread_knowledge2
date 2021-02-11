@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Course;
 use App\Rating;
-use Illuminate\Http\Request;
 // require_once("../../../app/recomendation/recommend.php");
 use App\Recommend;
 use App\StudentProfile;
-use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RatingController extends Controller
 {
@@ -100,23 +101,27 @@ class RatingController extends Controller
         return response(['is_rated'=>$is_rated]);
     }
     public function rec(){
-        $student = StudentProfile::where('user_id',auth()->user()->id)->get();
-
-        $ratings=Rating::all()->where('student_id',$student[0]->id);
-
-
-        foreach($ratings as $rating){
-
-            $student = StudentProfile::findOrFail($rating->student_id);
+        $book_and_ratings=[];
+        $student_name_and_ratings=[];
+        $students=StudentProfile::all();
+        // dd($students);
+        foreach($students as $student){
+            // $student = StudentProfile::where('user_id',$student->user_id)->get();
+            $ratings=Rating::all()->where('student_id',$student->id);
             $s_name=User::where('id',$student->user_id)->get();
-            $course = Course::findOrFail($rating->course_id);
             $s_name=$s_name[0]->name;
-            $c_name=$course->course_title;
-            $c_rating = $rating->rating;
-            dd($s_name,$c_name, $c_rating);
-
-
+            foreach($ratings as $rating){
+                $course = Course::findOrFail($rating->course_id);
+                $c_name=$course->course_title;
+                $c_rating = $rating->rating;
+                $book_and_ratings[$c_name]=  $c_rating ;
+            }
+            $student_name_and_ratings[$s_name]=$book_and_ratings;
         }
-        // dd( $c_name);
+
+        dd( $student_name_and_ratings);
+
+
+
     }
 }
