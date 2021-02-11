@@ -101,25 +101,47 @@ class RatingController extends Controller
         return response(['is_rated'=>$is_rated]);
     }
     public function rec(){
+
+
         $book_and_ratings=[];
         $student_name_and_ratings=[];
-        $students=StudentProfile::all();
-        // dd($students);
-        foreach($students as $student){
-            // $student = StudentProfile::where('user_id',$student->user_id)->get();
-            $ratings=Rating::all()->where('student_id',$student->id);
-            $s_name=User::where('id',$student->user_id)->get();
-            $s_name=$s_name[0]->name;
-            foreach($ratings as $rating){
-                $course = Course::findOrFail($rating->course_id);
-                $c_name=$course->course_title;
-                $c_rating = $rating->rating;
-                $book_and_ratings[$c_name]=  $c_rating ;
+        $enrolled_courses=[];
+       if(auth()->user()->type ===  "student"){
+            $en_courses=StudentProfile::where('user_id',auth()->user()->id)->first()->enrolled_courses;
+            foreach($en_courses as $course){
+                $course_name=Course::findOrfail($course)->course_title;
+                array_push( $enrolled_courses, $course_name);
             }
-            $student_name_and_ratings[$s_name]=$book_and_ratings;
-        }
 
-        dd( $student_name_and_ratings);
+
+
+        //logic for rating recomendation
+            $students=StudentProfile::all();
+            foreach($students as $student){
+                // $student = StudentProfile::where('user_id',$student->user_id)->get();
+                $ratings=Rating::all()->where('student_id',$student->id);
+                $s_name=User::where('id',$student->user_id)->first()->name;
+                // $s_name=$s_name[0]->name;
+                foreach($ratings as $rating){
+                    $course = Course::findOrFail($rating->course_id);
+                    $c_name=$course->course_title;
+                    $c_rating = $rating->rating;
+                    $book_and_ratings[$c_name]=  $c_rating ;
+                }
+                $student_name_and_ratings[$s_name]=$book_and_ratings;
+            }
+
+            $re = new Recommend();
+            $rec=$re->getRecommendations($student_name_and_ratings, auth()->user()->name);
+            foreach( $enrolled_courses as $val){
+                if (($key = array_search( $val, $rec )) !== false) {
+                    unset($rec[$key]);
+                }
+            }
+            dd($rec);
+       }else{
+           return response[null];
+       }
 
 
 
