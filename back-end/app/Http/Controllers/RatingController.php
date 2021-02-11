@@ -100,9 +100,11 @@ class RatingController extends Controller
         return response(['is_rated'=>$is_rated]);
     }
     public function rec(){
-        $student = StudentProfile::findOrFail($rating->student_id);
+        $student = StudentProfile::where('user_id',auth()->user()->id)->get();
 
-        $ratings=Rating::all()->where('student_id',);
+        $ratings=Rating::all()->where('student_id',$student[0]->id);
+
+
         foreach($ratings as $rating){
 
             $student = StudentProfile::findOrFail($rating->student_id);
@@ -111,7 +113,7 @@ class RatingController extends Controller
             $s_name=$s_name[0]->name;
             $c_name=$course->course_title;
             $c_rating = $rating->rating;
-
+            dd($s_name,$c_name, $c_rating);
 
 
         }
