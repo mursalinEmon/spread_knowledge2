@@ -77,6 +77,13 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/course/{id}/lessons','CourseController@selected_course_lessons')->name('course.lessons');
     Route::get('/lesson/{id}/body','CourseLessonController@fetch_body')->name('lesson.body');
 
+
+    //lesson quiz
+
+    Route::get('/courses/{course}/courseLessons/{courseLesson}/quiz/create','ExamQuestionController@create')->name('lesson.quiz.create');
+
+    Route::post('/courses/{course}/courseLessons/{courseLesson}/quiz/create','ExamQuestionController@store')->name('lesson.quiz.store');
+
 });
 // Q&A portal
 Route::middleware(['verified'])->group(function(){

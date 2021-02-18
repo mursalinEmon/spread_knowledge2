@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
+use App\CourseLesson;
 use App\ExamQuestion;
 use Illuminate\Http\Request;
 
@@ -22,9 +24,10 @@ class ExamQuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Course $course,CourseLesson $courseLesson )
     {
-        //
+
+        return view('course.createCourseLessonExam',compact('course','courseLesson'));
     }
 
     /**
@@ -35,7 +38,7 @@ class ExamQuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
