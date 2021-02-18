@@ -15,6 +15,11 @@ class CreateCourseProgressReportsTable extends Migration
     {
         Schema::create('course_progress_reports', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('lession_id')->constrained('course_lessons');
+            $table->float("marks_percent");
+            $table->integer("status")->default(0);
             $table->timestamps();
         });
     }

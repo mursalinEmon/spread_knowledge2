@@ -15,6 +15,11 @@ class CreateExamQuestionsTable extends Migration
     {
         Schema::create('exam_questions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('lession_id')->constrained('course_lessons');
+            $table->text('question_body');
+            $table->json('options');
+            $table->integer('answer');
             $table->timestamps();
         });
     }

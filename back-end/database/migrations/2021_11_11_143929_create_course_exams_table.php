@@ -15,6 +15,10 @@ class CreateCourseExamsTable extends Migration
     {
         Schema::create('course_exams', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('lession_id')->constrained('course_lessons');
+            $table->integer('marks');
             $table->timestamps();
         });
     }
