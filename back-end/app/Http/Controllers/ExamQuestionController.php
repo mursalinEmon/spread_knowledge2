@@ -38,7 +38,15 @@ class ExamQuestionController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $question = ExamQuestion::create([
+            'course_id'=>$request->course_id,
+            'lession_id'=>$request->lession_id,
+            'question_body'=>$request->question_body,
+            'options'=>$request->options,
+            'answer'=>$request->answer
+        ]);
+
+        return response(['message'=>'success','question'=>$question]);
     }
 
     /**

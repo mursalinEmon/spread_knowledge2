@@ -2512,7 +2512,7 @@ __webpack_require__.r(__webpack_exports__);
       option_3: "",
       option_4: "",
       options: [],
-      answer: ""
+      answer: null
     };
   },
   created: function created() {
@@ -62127,11 +62127,28 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.question_body,
+                  expression: "question_body"
+                }
+              ],
               staticClass: "form-control form-group",
               attrs: {
                 required: "",
                 id: "exampleFormControlTextarea1",
                 rows: "3"
+              },
+              domProps: { value: _vm.question_body },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.question_body = $event.target.value
+                }
               }
             }),
             _vm._v(" "),
@@ -62247,7 +62264,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control form-group",
-              attrs: { required: "", type: "text", id: "Ans" },
+              attrs: { required: "", type: "number", id: "Ans" },
               domProps: { value: _vm.answer },
               on: {
                 input: function($event) {

@@ -8,7 +8,7 @@
             <form  @submit.prevent="createQustion">
 
                 <label for="exampleFormControlTextarea1">Question Body</label>
-                <textarea required class="form-control form-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea required class="form-control form-group"  v-model="question_body" id="exampleFormControlTextarea1" rows="3"></textarea>
                 <h6>Options For the Question</h6>
                  <label for="1">Option 1:</label>
                 <input required type="text" id="1"  v-model="option_1" class="form-control form-group">
@@ -19,7 +19,7 @@
                  <label for="4">Option 4:</label>
                 <input required type="text" id="4" v-model="option_4" class="form-control form-group">
                   <label for="Ans">Answer:</label>
-                <input required type="text" id="Ans"  v-model="answer" class="form-control form-group">
+                <input required type="number" id="Ans"  v-model="answer" class="form-control form-group">
                 <button type="submit" value="submit" class="btn btn-primary">Submit</button>
 
             </form>
@@ -50,7 +50,7 @@ export default {
         option_3:"",
         option_4:"",
         options:[],
-        answer:"",
+        answer:null,
 
     }),
     created(){
