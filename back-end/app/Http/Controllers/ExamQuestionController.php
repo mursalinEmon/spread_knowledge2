@@ -46,7 +46,7 @@ class ExamQuestionController extends Controller
             'answer'=>$request->answer
         ]);
 
-        return response(['message'=>'success','question'=>$question]);
+        return response(['message'=>'Question created successfully!','question'=>$question]);
     }
 
     /**

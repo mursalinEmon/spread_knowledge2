@@ -2491,6 +2491,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     course: {
@@ -2512,7 +2518,8 @@ __webpack_require__.r(__webpack_exports__);
       option_3: "",
       option_4: "",
       options: [],
-      answer: null
+      answer: null,
+      show: false
     };
   },
   created: function created() {
@@ -2521,6 +2528,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createQustion: function createQustion() {
+      var _this = this;
+
       var list = [];
       list.push(this.option_1);
       list.push(this.option_2);
@@ -2535,10 +2544,16 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('lession_id', this.lession_id);
       formData.append('question_body', this.question_body);
       axios.post("/courses/".concat(this.course_id, "/courseLessons/").concat(this.lession_id, "/quiz/create"), formData).then(function (res) {
+        _this.$alert(res.data.message, "", "success");
+
+        _this.question_body = "", _this.option_1 = "", _this.option_2 = "", _this.option_3 = "", _this.option_4 = "", _this.options = [], _this.answer = null, _this.show = true;
         console.log(res);
       })["catch"](function (err) {
         return console.log(err);
       });
+    },
+    goBack: function goBack() {
+      location.replace("/course_lessons/".concat(this.course_id));
     }
   }
 });
@@ -2704,6 +2719,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -62019,9 +62036,9 @@ var render = function() {
             ? _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
                   _vm._v(
-                    "\r\n                " +
+                    "\n                " +
                       _vm._s(lesson.lesson_title) +
-                      "\r\n            "
+                      "\n            "
                   )
                 ]),
                 _vm._v(" "),
@@ -62285,7 +62302,26 @@ var render = function() {
               [_vm._v("Submit")]
             )
           ]
-        )
+        ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm.show
+          ? _c("div", { staticClass: "pr-4 float-right" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  on: {
+                    click: function($event) {
+                      return _vm.goBack()
+                    }
+                  }
+                },
+                [_vm._v("Go Back >>")]
+              )
+            ])
+          : _vm._e()
       ])
     ])
   ])
@@ -63734,7 +63770,9 @@ var render = function() {
         },
         [
           _vm._v(
-            "\n                " + _vm._s(_vm.lesson_body) + "\n            "
+            "\r\n                " +
+              _vm._s(_vm.lesson_body) +
+              "\r\n            "
           )
         ]
       ),
@@ -80243,8 +80281,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
