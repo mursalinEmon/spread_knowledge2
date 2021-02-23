@@ -23,8 +23,14 @@
                 <button type="submit" value="submit" class="btn btn-primary">Submit</button>
 
             </form>
-
+            <br>
+            <div v-if="show" class="pr-4 float-right">
+                <button @click="goBack()" class="btn btn-success">Go Back >></button>
+            </div>
         </div>
+
+
+
       </div>
   </div>
 </template>
@@ -51,6 +57,7 @@ export default {
         option_4:"",
         options:[],
         answer:null,
+        show:false,
 
     }),
     created(){
@@ -73,8 +80,30 @@ export default {
             formData.append('lession_id',this.lession_id);
             formData.append('question_body',this.question_body);
             axios.post(`/courses/${this.course_id}/courseLessons/${this.lession_id}/quiz/create`,formData).then((res)=>{
+                this.$alert(
+              res.data.message,
+              "",
+              "success"
+            );
+            this.question_body="",
+            this.option_1="",
+            this.option_2="",
+            this.option_3="",
+            this.option_4="",
+            this.options=[],
+            this.answer=null,
+            this.show=true;
                 console.log(res);
             }).catch((err)=>(console.log(err)))
+
+
+
+
+
+        },
+
+        goBack(){
+            location.replace(`/course_lessons/${this.course_id}`);
         }
     }
 
