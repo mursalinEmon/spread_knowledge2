@@ -3603,8 +3603,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     check_elegible: function check_elegible(cid, id) {
+      var _this2 = this;
+
       axios.get("/course/".concat(cid, "/lesson/").concat(id, "/check_status")).then(function (res) {
         console.log(res);
+
+        _this2.$confirm(res.data.message).then(function (text) {
+          location.replace('/course-create'); // do somthing with text
+        });
       })["catch"](function (err) {
         console.log(err);
       });
@@ -3623,13 +3629,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     check_Rating: function check_Rating() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/check/rating/".concat(this.selected_course_lessons[0].course_id)).then(function (res) {
-        _this2.is_rated = res.data.is_rated;
+        _this3.is_rated = res.data.is_rated;
 
-        if (_this2.is_rated === false) {
-          setTimeout(_this2.manage_modal, 2000);
+        if (_this3.is_rated === false) {
+          setTimeout(_this3.manage_modal, 2000);
         } // console.log(res.data.is_rated);
 
       })["catch"](function (err) {
