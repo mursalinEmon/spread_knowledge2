@@ -3475,6 +3475,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -3533,26 +3541,55 @@ __webpack_require__.r(__webpack_exports__);
     this.check_Rating();
   },
   mounted: function mounted() {
-    this.fetch_body(this.selected_course_lessons[0].id);
+    this.fetch_body(this.selected_course_lessons[0].course_id, this.selected_course_lessons[0].id);
     var old = this.old;
     this.$refs[old][0].classList.add(['active-class']);
   },
   methods: {
-    fetch_body: function fetch_body(id, index, event) {
+    fetch_body: function fetch_body(cid, id, index, event) {
       var _this = this;
 
-      if (this.count > 0) {
-        this.$refs[this.old][0].classList.remove(['active-class']);
-        this["new"] = index;
-        this.$refs[this["new"]][0].classList.add(['active-class']);
-        this.old = index;
-      }
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var pid;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                pid = id;
+                _context.next = 3;
+                return _this.check_elegible(cid, id);
 
-      axios.get("/lesson/".concat(id, "/body")).then(function (res) {
-        _this.lesson_body = res.data.lesson_body;
-        _this.count++;
+              case 3:
+                if (_this.count > 0) {
+                  _this.$refs[_this.old][0].classList.remove(['active-class']);
+
+                  _this["new"] = index;
+
+                  _this.$refs[_this["new"]][0].classList.add(['active-class']);
+
+                  _this.old = index;
+                }
+
+                axios.get("/lesson/".concat(pid, "/body")).then(function (res) {
+                  _this.lesson_body = res.data.lesson_body;
+                  _this.count++;
+                })["catch"](function (err) {
+                  return console.log(err);
+                });
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    check_elegible: function check_elegible(cid, id) {
+      axios.get("/course/".concat(cid, "/lesson/").concat(id, "/check_status")).then(function (res) {
+        console.log(res);
       })["catch"](function (err) {
-        return console.log(err);
+        console.log(err);
       });
     },
     manage_modal: function manage_modal() {
@@ -63707,7 +63744,12 @@ var render = function() {
                 staticClass: "card-header",
                 on: {
                   click: function($event) {
-                    return _vm.fetch_body(lesson.id, index, $event)
+                    return _vm.fetch_body(
+                      lesson.course_id,
+                      lesson.id,
+                      index,
+                      $event
+                    )
                   }
                 }
               },

@@ -75,11 +75,6 @@ export default {
             axios.post(`/courses/${this.course_id}/courseLessons/${this.lession_id}/quiz/create`,formData).then((res)=>{
                 console.log(res);
             }).catch((err)=>(console.log(err)))
-
-
-
-
-
         }
     }
 
