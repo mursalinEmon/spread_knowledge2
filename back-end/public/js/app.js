@@ -2183,7 +2183,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       file: "",
-      next: 'false',
+      next: 'true',
       title: "",
       "fetchted_sub_category": [],
       id: "",
@@ -3132,6 +3132,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     course: {
@@ -3150,6 +3154,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.level = this.course.course_level;
     this.category_id = this.course.category_id;
     this.databaseImage = "../../".concat(this.course.image);
+    this.course_id = this.course.id; // this.course_name=this.$attrs.course_name;
+
+    console.log(this.course_id); // this.showLessons();
+
     this.fetchTags();
     this.fetchCategories();
     this.push_tags();
@@ -3170,7 +3178,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       fetchedTags: [],
       tags: [],
       file: "",
-      sub_categories: []
+      sub_categories: [],
+      show: 'true',
+      course_id: null,
+      course_name: ""
     };
   },
   methods: (_methods = {
@@ -3272,7 +3283,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     formData.append('sub_category', this.sub_category);
     axios.post("/courses/".concat(this.course.id, "/Update"), formData).then(function (res) {
       _this6.$confirm("".concat(res.data.message)).then(function () {
-        _this6.reload();
+        _this6.reload(); //   this.show=false;
+
       });
     })["catch"](function (err) {
       console.log(err);
@@ -62079,9 +62091,9 @@ var render = function() {
             ? _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
                   _vm._v(
-                    "\r\n                " +
+                    "\n                " +
                       _vm._s(lesson.lesson_title) +
-                      "\r\n            "
+                      "\n            "
                   )
                 ]),
                 _vm._v(" "),
@@ -63067,219 +63079,112 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "form",
-      {
-        staticClass: "card-body",
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.submitFile()
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "blogTitle" } }, [
-            _vm._v("Course Title")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.title,
-                expression: "title"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "blogTitle",
-              "aria-describedby": "emailHelp",
-              placeholder: "Title",
-              required: ""
-            },
-            domProps: { value: _vm.title },
+    _vm.show
+      ? _c(
+          "form",
+          {
+            staticClass: "card-body",
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.title = $event.target.value
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.submitFile()
               }
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _vm._m(0),
-          _c("br"),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "image",
-            attrs: { src: _vm.databaseImage, alt: "databaseimage" }
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "text text-center" }, [
-            _vm._v("(Current Image)")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "d-flex justify-content-center" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("input", {
-              ref: "file",
-              staticClass: "form-group form-control",
-              staticStyle: {
-                opacty: "1",
-                position: "absolute",
-                "z-index": "-1"
-              },
-              attrs: { type: "file", id: "image", name: "file" },
-              on: {
-                change: function($event) {
-                  return _vm.processFile()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.previewImage
-              ? _c(
-                  "div",
+          },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "blogTitle" } }, [
+                _vm._v("Course Title")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
                   {
-                    staticClass: "imagePreviewWrapper",
-                    style: {
-                      "background-image": "url(" + _vm.previewImage + ")"
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "blogTitle",
+                  "aria-describedby": "emailHelp",
+                  placeholder: "Title",
+                  required: ""
+                },
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  },
-                  [
-                    _c(
-                      "span",
-                      {
-                        staticClass:
-                          "badge badge-secondary rounded float-right m-2",
-                        on: { click: _vm.removeImage }
-                      },
-                      [_vm._v("x")]
-                    )
-                  ]
-                )
-              : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Course Level")]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.level,
-                  expression: "level"
+                    _vm.title = $event.target.value
+                  }
                 }
-              ],
-              staticClass: "form-group form-control",
-              attrs: { id: "level", name: "level" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.level = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            [
-              _c(
-                "option",
-                { staticClass: "text-center", attrs: { value: "" } },
-                [_vm._v("Select")]
-              ),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "beginner" } }, [
-                _vm._v("Beginner")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "intermediate" } }, [
-                _vm._v("Intermediate")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "Advance" } }, [_vm._v("Advance")])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [
-            _vm._v(
-              "Course Category (Current Category: " +
-                _vm._s(_vm.category.name) +
-                ")"
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selected_category,
-                  expression: "selected_category"
-                }
-              ],
-              staticClass: "form-group form-control",
-              attrs: { id: "level", name: "level" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selected_category = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            [
-              _c(
-                "option",
-                { staticClass: "text-center", attrs: { value: "" } },
-                [_vm._v("Select")]
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.categories, function(category, index) {
-                return _c("option", { key: index }, [
-                  _vm._v(_vm._s(category.name))
-                ])
               })
-            ],
-            2
-          )
-        ]),
-        _vm._v(" "),
-        _vm.selected_category
-          ? _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Course Sub-Category")]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _vm._m(0),
+              _c("br"),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "image",
+                attrs: { src: _vm.databaseImage, alt: "databaseimage" }
+              }),
+              _vm._v(" "),
+              _c("p", { staticClass: "text text-center" }, [
+                _vm._v("(Current Image)")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex justify-content-center" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("input", {
+                  ref: "file",
+                  staticClass: "form-group form-control",
+                  staticStyle: {
+                    opacty: "1",
+                    position: "absolute",
+                    "z-index": "-1"
+                  },
+                  attrs: { type: "file", id: "image", name: "file" },
+                  on: {
+                    change: function($event) {
+                      return _vm.processFile()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.previewImage
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "imagePreviewWrapper",
+                        style: {
+                          "background-image": "url(" + _vm.previewImage + ")"
+                        }
+                      },
+                      [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "badge badge-secondary rounded float-right m-2",
+                            on: { click: _vm.removeImage }
+                          },
+                          [_vm._v("x")]
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Course Level")]),
               _vm._v(" "),
               _c(
                 "select",
@@ -63288,8 +63193,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.sub_category,
-                      expression: "sub_category"
+                      value: _vm.level,
+                      expression: "level"
                     }
                   ],
                   staticClass: "form-group form-control",
@@ -63304,7 +63209,7 @@ var render = function() {
                           var val = "_value" in o ? o._value : o.value
                           return val
                         })
-                      _vm.sub_category = $event.target.multiple
+                      _vm.level = $event.target.multiple
                         ? $$selectedVal
                         : $$selectedVal[0]
                     }
@@ -63317,7 +63222,67 @@ var render = function() {
                     [_vm._v("Select")]
                   ),
                   _vm._v(" "),
-                  _vm._l(_vm.sub_categories, function(category, index) {
+                  _c("option", { attrs: { value: "beginner" } }, [
+                    _vm._v("Beginner")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "intermediate" } }, [
+                    _vm._v("Intermediate")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Advance" } }, [
+                    _vm._v("Advance")
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [
+                _vm._v(
+                  "Course Category (Current Category: " +
+                    _vm._s(_vm.category.name) +
+                    ")"
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selected_category,
+                      expression: "selected_category"
+                    }
+                  ],
+                  staticClass: "form-group form-control",
+                  attrs: { id: "level", name: "level" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selected_category = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    { staticClass: "text-center", attrs: { value: "" } },
+                    [_vm._v("Select")]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.categories, function(category, index) {
                     return _c("option", { key: index }, [
                       _vm._v(_vm._s(category.name))
                     ])
@@ -63325,70 +63290,131 @@ var render = function() {
                 ],
                 2
               )
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group " }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Tags")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "d-flex" }, [
+            ]),
+            _vm._v(" "),
+            _vm.selected_category
+              ? _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Course Sub-Category")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.sub_category,
+                          expression: "sub_category"
+                        }
+                      ],
+                      staticClass: "form-group form-control",
+                      attrs: { id: "level", name: "level" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.sub_category = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "option",
+                        { staticClass: "text-center", attrs: { value: "" } },
+                        [_vm._v("Select")]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.sub_categories, function(category, index) {
+                        return _c("option", { key: index }, [
+                          _vm._v(_vm._s(category.name))
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group " }, [
+              _c("label", { attrs: { for: "" } }, [_vm._v("Tags")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex" }, [
+                _c(
+                  "div",
+                  {},
+                  [
+                    _c("vue-bootstrap-typeahead", {
+                      attrs: { data: _vm.fetchedTags },
+                      model: {
+                        value: _vm.query,
+                        callback: function($$v) {
+                          _vm.query = $$v
+                        },
+                        expression: "query"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "ml-auto" }, [
+                  _c("input", {
+                    staticClass: "btn btn-primary ",
+                    attrs: { value: "Add", readonly: "" },
+                    on: { click: _vm.addTags }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
             _c(
               "div",
-              {},
-              [
-                _c("vue-bootstrap-typeahead", {
-                  attrs: { data: _vm.fetchedTags },
-                  model: {
-                    value: _vm.query,
-                    callback: function($$v) {
-                      _vm.query = $$v
-                    },
-                    expression: "query"
-                  }
-                })
-              ],
-              1
+              { staticClass: "form-group" },
+              _vm._l(_vm.tags, function(tag, index) {
+                return _c(
+                  "button",
+                  {
+                    key: index,
+                    staticClass: "btn btn-secondary ml-2 p-2",
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteBadge(index)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(_vm._s(tag) + " "),
+                    _c(
+                      "span",
+                      { staticClass: "badge badge-light crossButton" },
+                      [_vm._v("x")]
+                    )
+                  ]
+                )
+              }),
+              0
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "ml-auto" }, [
-              _c("input", {
-                staticClass: "btn btn-primary ",
-                attrs: { value: "Add", readonly: "" },
-                on: { click: _vm.addTags }
-              })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
+            _vm._m(2)
+          ]
+        )
+      : _c(
           "div",
-          { staticClass: "form-group" },
-          _vm._l(_vm.tags, function(tag, index) {
-            return _c(
-              "button",
-              {
-                key: index,
-                staticClass: "btn btn-secondary ml-2 p-2",
-                on: {
-                  click: function($event) {
-                    return _vm.deleteBadge(index)
-                  }
-                }
-              },
-              [
-                _vm._v(_vm._s(tag) + " "),
-                _c("span", { staticClass: "badge badge-light crossButton" }, [
-                  _vm._v("x")
-                ])
-              ]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _vm._m(2)
-      ]
-    )
+          [
+            _c("design-course", {
+              attrs: { course_name: _vm.title, course_id: _vm.course_id }
+            })
+          ],
+          1
+        )
   ])
 }
 var staticRenderFns = [
@@ -63818,7 +63844,9 @@ var render = function() {
         },
         [
           _vm._v(
-            "\n                " + _vm._s(_vm.lesson_body) + "\n            "
+            "\r\n                " +
+              _vm._s(_vm.lesson_body) +
+              "\r\n            "
           )
         ]
       ),
@@ -80327,8 +80355,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
