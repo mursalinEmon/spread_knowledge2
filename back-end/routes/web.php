@@ -76,6 +76,7 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/top-course','CourseController@top_courses')->name('top.courses');
     Route::get('/course/{id}/lessons','CourseController@selected_course_lessons')->name('course.lessons');
     Route::get('/lesson/{id}/body','CourseLessonController@fetch_body')->name('lesson.body');
+    Route::get('/course/{cid}/lesson/{lid}/check_status','CourseLessonController@check_eligible')->name('lesson.check.eligible');
 
 
     //lesson quiz
