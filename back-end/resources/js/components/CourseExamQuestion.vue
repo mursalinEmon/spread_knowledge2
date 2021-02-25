@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <div v-for="(question,ind) in questions" :key="ind" class="row">
+      <div v-for="(question,ind) in questions" :key="ind" >
           <div class="card">
               <div class="card-header">
                   {{ question.question_body }}
@@ -12,6 +12,11 @@
                   </div>
               </div>
           </div>
+           <br>
+      </div>
+
+      <div class="float-right mr-4 pr-4 mt-4 pt-4">
+          <button @click="submit_paper()" class="btn btn-primary">Submit</button>
       </div>
   </div>
 </template>
@@ -24,19 +29,20 @@ export default {
     },
     data:()=>({
           picked:[],
-          pick:"",
+
       }),
     mounted(){
     //    this.fill_arr();
     },
     methods:{
-        fill_arr(){
-             let len = this.questions.length;
-            for(let i=0;i<len;i++){
-                console.log(i);
-                picked[i]="";
-            }
-        }
+       submit_paper(){
+             let formData = new FormData();
+            formData.append('answers',this.picked);
+
+            axios.post(`/course-lesson-exam/${this.questions[0].course_id}/${this.questions[0].lession_id}/evaluate`,formData).then((res)=>{
+                console.log(res);
+            }).catch((err)=>console.log(err));
+       }
     }
 
 }

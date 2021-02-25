@@ -36,6 +36,7 @@ class ExamQuestionController extends Controller
         return view('course.createCourseLessonExam',compact('course','courseLesson'));
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -98,5 +99,11 @@ class ExamQuestionController extends Controller
     public function destroy(ExamQuestion $examQuestion)
     {
         //
+    }
+
+    public function evaluate_quiz($cid,$lid,Request $request){
+        $answers=explode(",",$request->answers);
+        $answers=array_filter($answers, fn($value) => !is_null($value) && $value !== '');
+        dd( $answers);
     }
 }

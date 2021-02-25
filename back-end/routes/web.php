@@ -85,6 +85,8 @@ Route::middleware(['verified'])->group(function(){
 
     Route::post('/courses/{course}/courseLessons/{courseLesson}/quiz/create','ExamQuestionController@store')->name('lesson.quiz.store');
     Route::get('/course-lesson-exam/{cid}/{lid}','ExamQuestionController@quwstions_list');
+    Route::post('/course-lesson-exam/{cid}/{lid}/evaluate','ExamQuestionController@evaluate_quiz');
+
 
 });
 // Q&A portal

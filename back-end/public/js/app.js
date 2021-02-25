@@ -2091,6 +2091,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     questions: Array,
@@ -2098,20 +2103,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      picked: [],
-      pick: ""
+      picked: []
     };
   },
   mounted: function mounted() {//    this.fill_arr();
   },
   methods: {
-    fill_arr: function fill_arr() {
-      var len = this.questions.length;
-
-      for (var i = 0; i < len; i++) {
-        console.log(i);
-        picked[i] = "";
-      }
+    submit_paper: function submit_paper() {
+      var formData = new FormData();
+      formData.append('answers', this.picked);
+      axios.post("/course-lesson-exam/".concat(this.questions[0].course_id, "/").concat(this.questions[0].lession_id, "/evaluate"), formData).then(function (res) {
+        console.log(res);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -61615,52 +61620,71 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "container" },
-    _vm._l(_vm.questions, function(question, ind) {
-      return _c("div", { key: ind, staticClass: "row" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v(
-              "\n                " +
-                _vm._s(question.question_body) +
-                "\n            "
+    [
+      _vm._l(_vm.questions, function(question, ind) {
+        return _c("div", { key: ind }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(question.question_body) +
+                  "\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              _vm._l(question.options.split(","), function(option, index) {
+                return _c("div", { key: index, staticClass: "card-text" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.picked[ind],
+                        expression: "picked[ind]"
+                      }
+                    ],
+                    attrs: { type: "radio", id: index },
+                    domProps: {
+                      value: option,
+                      checked: _vm._q(_vm.picked[ind], option)
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.picked, ind, option)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", [_vm._v(" " + _vm._s(option))])
+                ])
+              }),
+              0
             )
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            _vm._l(question.options.split(","), function(option, index) {
-              return _c("div", { key: index, staticClass: "card-text" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.picked[ind],
-                      expression: "picked[ind]"
-                    }
-                  ],
-                  attrs: { type: "radio", id: index },
-                  domProps: {
-                    value: option,
-                    checked: _vm._q(_vm.picked[ind], option)
-                  },
-                  on: {
-                    change: function($event) {
-                      return _vm.$set(_vm.picked, ind, option)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", [_vm._v(" " + _vm._s(option))])
-              ])
-            }),
-            0
-          )
+          _c("br")
         ])
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "float-right mr-4 pr-4 mt-4 pt-4" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            on: {
+              click: function($event) {
+                return _vm.submit_paper()
+              }
+            }
+          },
+          [_vm._v("Submit")]
+        )
       ])
-    }),
-    0
+    ],
+    2
   )
 }
 var staticRenderFns = []
