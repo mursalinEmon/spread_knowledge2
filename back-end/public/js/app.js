@@ -3558,7 +3558,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.check_Rating();
   },
   mounted: function mounted() {
-    this.fetch_body(this.selected_course_lessons[0].course_id, this.selected_course_lessons[0].id);
+    this.fetch_body(this.selected_course_lessons[0].course_id, this.selected_course_lessons[0].id, 0);
     var old = this.old;
     this.$refs[old][0].classList.add(['active-class']);
   },
@@ -3573,10 +3573,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 pid = id;
-                _context.next = 3;
+
+                if (!(index != 0)) {
+                  _context.next = 4;
+                  break;
+                }
+
+                _context.next = 4;
                 return _this.check_elegible(cid, id);
 
-              case 3:
+              case 4:
                 if (_this.count > 0) {
                   _this.$refs[_this.old][0].classList.remove(['active-class']);
 
@@ -3594,7 +3600,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   return console.log(err);
                 });
 
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
