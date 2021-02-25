@@ -59,7 +59,7 @@ created(){
 },
 mounted(){
 
-this.fetch_body(this.selected_course_lessons[0].course_id,this.selected_course_lessons[0].id);
+this.fetch_body(this.selected_course_lessons[0].course_id,this.selected_course_lessons[0].id,0);
 
 
 let old=this.old;
@@ -68,7 +68,10 @@ this.$refs[old][0].classList.add(['active-class']);
 methods:{
 async fetch_body(cid,id,index,event){
     let pid =id;
-    await this.check_elegible(cid,id);
+    if(index!=0){
+        await this.check_elegible(cid,id);
+    }
+
 
 if (this.count>0){
     this.$refs.[this.old][0].classList.remove(['active-class']);
