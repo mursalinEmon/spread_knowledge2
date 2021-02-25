@@ -18,6 +18,12 @@ class ExamQuestionController extends Controller
     {
         //
     }
+    public function quwstions_list($cid,$lid){
+        // dd($questions);
+        $questions=ExamQuestion::all()->where('course_id',$cid)->where('lession_id',$lid);
+
+        return view('course_exam.examQuestions',compact('questions'));
+    }
 
     /**
      * Show the form for creating a new resource.
