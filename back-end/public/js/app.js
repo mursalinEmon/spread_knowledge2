@@ -2096,6 +2096,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     questions: Array,
@@ -2111,7 +2122,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submit_paper: function submit_paper() {
       var formData = new FormData();
-      formData.append('answers', this.picked);
+      formData.append("answers", this.picked);
       axios.post("/course-lesson-exam/".concat(this.questions[0].course_id, "/").concat(this.questions[0].lession_id, "/evaluate"), formData).then(function (res) {
         console.log(res);
       })["catch"](function (err) {
@@ -61669,7 +61680,7 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "float-right mr-4 pr-4 mt-4 pt-4" }, [
+      _c("div", { staticClass: "float-right mr-4 pr-4  pt-4 mb-4" }, [
         _c(
           "button",
           {
@@ -61680,7 +61691,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Submit")]
+          [_vm._v("\n            Submit\n        ")]
         )
       ])
     ],
