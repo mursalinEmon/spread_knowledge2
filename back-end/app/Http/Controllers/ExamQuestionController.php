@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\CourseExam;
 use App\CourseLesson;
 use App\ExamQuestion;
 use Illuminate\Http\Request;
+use App\CourseProgressReport;
 
 class ExamQuestionController extends Controller
 {
@@ -18,6 +20,12 @@ class ExamQuestionController extends Controller
     {
         //
     }
+    public function quwstions_list($cid,$lid){
+        // dd($questions);
+        $questions=ExamQuestion::all()->where('course_id',$cid)->where('lession_id',$lid);
+
+        return view('course_exam.examQuestions',compact('questions'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -29,6 +37,7 @@ class ExamQuestionController extends Controller
 
         return view('course.createCourseLessonExam',compact('course','courseLesson'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -92,5 +101,63 @@ class ExamQuestionController extends Controller
     public function destroy(ExamQuestion $examQuestion)
     {
         //
+    }
+
+    public function evaluate_quiz($cid,$lid,Request $request){
+        $questions=ExamQuestion::all()->where('course_id',$cid)->where('lession_id',$lid);
+
+        $answers=explode(",",$request->answers);
+        $nr=[];
+        $answers=array_filter($answers, fn($value) => !is_null($value) && $value !== '');
+        $answers=array_merge($nr,$answers);
+        $ind=0;
+        foreach($questions as $q){
+            $options=explode(",",$q->options);
+            $ans=$options[$q->answer-1];
+            // dd($answers[$ind]== $ans);
+            if($answers[$ind]== $ans){
+                CourseExam::create([
+                    'user_id'=>auth()->user()->id,
+                    'course_id'=>$cid,
+                    'lession_id'=>$lid,
+                    'question_id'=>$q->id,
+                    'marks'=>1
+                ]);
+            }else{
+                CourseExam::create([
+                    'user_id'=>auth()->user()->id,
+                    'course_id'=>$cid,
+                    'lession_id'=>$lid,
+                    'question_id'=>$q->id,
+                    'marks'=>0
+                ]);
+            }
+            $ind++;
+        }
+        //progress part
+        $quiz_info=CourseExam::all()->where('user_id',auth()->user()->id)->where('course_id',$cid)->where('lession_id',$lid);
+        $marks=0;
+        foreach($quiz_info as $qz){
+            $marks+=$qz->marks;
+        }
+        $marks_percent=$marks / $quiz_info->count() * 100;
+        $prev=CourseProgressReport::all()->where('user_id',auth()->user()->id)->where('course_id',$cid)->where('lession_id',$lid);
+        if($prev->isEmpty()){
+            CourseProgressReport::create([
+                'user_id'=>auth()->user()->id,
+                'course_id'=>$cid,
+                'lession_id'=>$lid,
+                'marks_percent'=>$marks_percent,
+                'status'=>$marks_percent>=70?1:0,
+            ]);
+        }else{
+            $trmp=CourseProgressReport::findOrFail($prev[0]->id);
+            $trmp->update([
+                'marks_percent'=>$marks_percent,
+                'status'=>$marks_percent>=70?1:0,
+            ]);
+        }
+
+        dd( $quiz_info);
     }
 }

@@ -140,7 +140,7 @@ class CourseLessonController extends Controller
         $p_status=CourseProgressReport::where('lession_id',$cid)->where('lession_id',$lid)->get();
 
         if($p_status->isEmpty()){
-            return response(['message'=>'Take The Exam For Next Lesson','question'=>$lessons_questions]);
+            return response(['message'=>'Take The Exam For Next Lesson','questions'=>$lessons_questions]);
         }
         return response(['message'=>'Elegible for next lesson','questions'=>[]]);
 

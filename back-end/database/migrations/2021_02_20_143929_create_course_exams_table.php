@@ -18,6 +18,7 @@ class CreateCourseExamsTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('course_id')->constrained('courses');
             $table->foreignId('lession_id')->constrained('course_lessons');
+            $table->foreignId('question_id')->constrained('exam_questions');
             $table->integer('marks');
             $table->timestamps();
         });
