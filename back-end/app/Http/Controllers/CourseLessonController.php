@@ -137,12 +137,16 @@ class CourseLessonController extends Controller
     }
     public function check_eligible($cid,$lid){
         $lessons_questions=ExamQuestion::all()->where('course_id',$cid)->where('lession_id',$lid);
-        $p_status=CourseProgressReport::where('lession_id',$cid)->where('lession_id',$lid)->get();
+        $p_status=CourseProgressReport::where('course_id',$cid)->where('lession_id',$lid)->get();
 
         if($p_status->isEmpty()){
             return response(['message'=>'Take The Exam For Next Lesson','questions'=>$lessons_questions]);
+        }else{
+            if($p_status[0]->status==0){
+                return response(['message'=>'Take The Exam Again For Next Lesson','questions'=>$lessons_questions]);
+            }
         }
-        return response(['message'=>'Elegible for next lesson','questions'=>[]]);
+        return response(['message'=>'You are elegible for next lesson','questions'=>[]]);
 
     }
 }

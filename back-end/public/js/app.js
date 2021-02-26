@@ -2121,10 +2121,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit_paper: function submit_paper() {
+      var _this = this;
+
       var formData = new FormData();
       formData.append("answers", this.picked);
       axios.post("/course-lesson-exam/".concat(this.questions[0].course_id, "/").concat(this.questions[0].lession_id, "/evaluate"), formData).then(function (res) {
-        console.log(res);
+        _this.$alert(res.data.message, "", "success");
+
+        location.replace("/course/".concat(res.data.course_id, "/getLessons"));
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -3696,9 +3700,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/course/".concat(cid, "/lesson/").concat(id, "/check_status")).then(function (res) {
         console.log(res);
 
-        _this2.$confirm(res.data.message).then(function (text) {
-          location.replace("/course-lesson-exam/".concat(cid, "/").concat(id)); // do somthing with text
-        });
+        if (res.data.questions.length != 0) {
+          _this2.$confirm(res.data.message).then(function (text) {
+            location.replace("/course-lesson-exam/".concat(cid, "/").concat(id)); // do somthing with text
+          });
+        }
       })["catch"](function (err) {
         console.log(err);
       });
@@ -64012,9 +64018,7 @@ var render = function() {
         },
         [
           _vm._v(
-            "\r\n                " +
-              _vm._s(_vm.lesson_body) +
-              "\r\n            "
+            "\n                " + _vm._s(_vm.lesson_body) + "\n            "
           )
         ]
       ),

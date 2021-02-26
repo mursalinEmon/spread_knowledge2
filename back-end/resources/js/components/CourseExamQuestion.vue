@@ -55,7 +55,12 @@ export default {
                     formData
                 )
                 .then(res => {
-                    console.log(res);
+                    this.$alert(
+                        res.data.message,
+                        "",
+                        "success"
+                    );
+                    location.replace(`/course/${res.data.course_id}/getLessons`);
                 })
                 .catch(err => console.log(err));
         }

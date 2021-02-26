@@ -78,6 +78,8 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/lesson/{id}/body','CourseLessonController@fetch_body')->name('lesson.body');
     Route::get('/course/{cid}/lesson/{lid}/check_status','CourseLessonController@check_eligible')->name('lesson.check.eligible');
 
+    Route::get('/course/{id}/getLessons', 'CourseController@fawMethod');
+
 
     //lesson quiz
 

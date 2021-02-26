@@ -89,9 +89,12 @@ if (this.count>0){
 check_elegible(cid,id){
       axios.get(`/course/${cid}/lesson/${id}/check_status`).then((res)=>{
             console.log(res);
-            this.$confirm(res.data.message).then(text => {
+            if(res.data.questions.length!=0){
+                this.$confirm(res.data.message).then(text => {
                        location.replace(`/course-lesson-exam/${cid}/${id}`);  // do somthing with text
                 });
+            }
+
         }).catch((err)=>{console.log(err);});
 
 },

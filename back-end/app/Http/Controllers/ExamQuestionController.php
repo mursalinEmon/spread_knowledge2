@@ -115,23 +115,39 @@ class ExamQuestionController extends Controller
             $options=explode(",",$q->options);
             $ans=$options[$q->answer-1];
             // dd($answers[$ind]== $ans);
-            if($answers[$ind]== $ans){
-                CourseExam::create([
-                    'user_id'=>auth()->user()->id,
-                    'course_id'=>$cid,
-                    'lession_id'=>$lid,
-                    'question_id'=>$q->id,
-                    'marks'=>1
-                ]);
-            }else{
-                CourseExam::create([
-                    'user_id'=>auth()->user()->id,
-                    'course_id'=>$cid,
-                    'lession_id'=>$lid,
-                    'question_id'=>$q->id,
-                    'marks'=>0
-                ]);
-            }
+            $fetchedQues = CourseExam::where('question_id',$q->id)->get();
+            // dd($fetchedQues);
+                if($fetchedQues->isEmpty()){
+                    if($answers[$ind]== $ans){
+                        CourseExam::create([
+                            'user_id'=>auth()->user()->id,
+                            'course_id'=>$cid,
+                            'lession_id'=>$lid,
+                            'question_id'=>$q->id,
+                            'marks'=>1
+                        ]);
+                    }else{
+                        CourseExam::create([
+                            'user_id'=>auth()->user()->id,
+                            'course_id'=>$cid,
+                            'lession_id'=>$lid,
+                            'question_id'=>$q->id,
+                            'marks'=>0
+                        ]);
+                    }
+                }else{
+                    if($answers[$ind]== $ans){
+                        //
+                        $fetchedQues[0]->update([
+                            'marks'=>1
+                        ]);
+                    }else{
+                        $fetchedQues[0]->update([
+                            'marks'=>0
+                        ]);
+                    }
+                }
+
             $ind++;
         }
         //progress part
@@ -148,16 +164,19 @@ class ExamQuestionController extends Controller
                 'course_id'=>$cid,
                 'lession_id'=>$lid,
                 'marks_percent'=>$marks_percent,
-                'status'=>$marks_percent>=70?1:0,
+                'status'=>$marks_percent>=100?1:0,
             ]);
         }else{
             $trmp=CourseProgressReport::findOrFail($prev[0]->id);
             $trmp->update([
                 'marks_percent'=>$marks_percent,
-                'status'=>$marks_percent>=70?1:0,
+                'status'=>$marks_percent>=100?1:0,
             ]);
         }
 
-        dd( $quiz_info);
+
+
+        return response(['message'=> 'Your response has been recorded.', 'course_id'=> $cid]);
+        // dd( $quiz_info);
     }
 }
