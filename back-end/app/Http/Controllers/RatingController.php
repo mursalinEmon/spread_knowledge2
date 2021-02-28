@@ -152,7 +152,8 @@ class RatingController extends Controller
                 array_push($final_rec,$temp);
 
             }
-            dd($final_rec);
+            // dd($final_rec);
+            return response(['rating_based_courses'=>$final_rec]);
        }else{
            return response[null];
        }
