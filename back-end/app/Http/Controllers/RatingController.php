@@ -138,7 +138,21 @@ class RatingController extends Controller
                     unset($rec[$key]);
                 }
             }
-            dd($rec);
+            foreach($rec as $key=>$val){
+                    if($val<4){
+                        // dd($rec[$key]);
+                        unset($rec[$key]);
+                    }
+                    // dd($val);
+            }
+            $crs=new Course();
+            $final_rec=[];
+            foreach($rec as $key=>$val){
+                $temp=$crs->where('course_title',$key)->first();
+                array_push($final_rec,$temp);
+
+            }
+            dd($final_rec);
        }else{
            return response[null];
        }
