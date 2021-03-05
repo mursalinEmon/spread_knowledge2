@@ -102,13 +102,13 @@ class RatingController extends Controller
         $is_rated=$check->isEmpty() ?false:true ;
         return response(['is_rated'=>$is_rated]);
     }
-    public function hybrid_rec($count){
+    public function hybrid_rec(){
         $status=[];
         $association_count=0;
         $colaborative_count=0;
         $course_count=0;
 
-        $random_students=StudentProfile::inRandomOrder()->limit($count)->get();
+        $random_students=StudentProfile::orderBy('id', 'ASC')->take(50)->get();
 
         foreach($random_students as $student){
             $single_stat=[];
@@ -129,7 +129,7 @@ class RatingController extends Controller
             $colaborative_count+=$colaborative_filtering;
 
         }
-        $status["student_count"]=(int)$count;
+        $status["student_count"]=50;
         $status["enrolled_courses"]=$course_count;
         $status["associative_rule_minig"]=$association_count;
         $status["colaborative_filtering"]=$colaborative_count;

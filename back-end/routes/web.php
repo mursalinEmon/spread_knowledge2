@@ -112,7 +112,7 @@ Route::get('/rating-rec','RatingController@rec')->name('courses.ratings.rec');
 
 
 //paper statics function of hybrid recomendation
-Route::get('/hybrid-rec/{count}','RatingController@hybrid_rec');
+Route::get('/hybrid-rec','RatingController@hybrid_rec');
 
 
 Route::get('/recomended-courses','CourseController@apriori');
