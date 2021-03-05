@@ -102,20 +102,40 @@ class RatingController extends Controller
         $is_rated=$check->isEmpty() ?false:true ;
         return response(['is_rated'=>$is_rated]);
     }
-    public function hybrid_rec(){
-        $random_students=StudentProfile::inRandomOrder()->limit(100)->get();
-        // // dd($random_students);
-        // dd( $this->apriori($random_students[0]->user_id));
-        // dd( $this->rec_stat($random_students[0]->user_id));
-        $association_rule=$this->apriori($random_students[0]->user_id);
-        $colaborative_filtering=$this->rec_stat($random_students[0]->user_id);
-        // dd( count($association_rule), count($colaborative_filtering));
-        $association_rule=$association_rule["recomended_courses"]!=[]?count($association_rule["recomended_courses"]):0;
-        $colaborative_filtering=$colaborative_filtering["rating_based_courses"]!=[]?count($colaborative_filtering["rating_based_courses"]):0;
+    public function hybrid_rec($count){
+        $status=[];
+        $association_count=0;
+        $colaborative_count=0;
+        $course_count=0;
 
-         dd($association_rule,$colaborative_filtering);
+        $random_students=StudentProfile::inRandomOrder()->limit($count)->get();
+
+        foreach($random_students as $student){
+            $single_stat=[];
+            $association_rule=$this->apriori($student->user_id);
+            $colaborative_filtering=$this->rec_stat($student->user_id);
+            // dd( count($association_rule), count($colaborative_filtering));
+            $association_rule=$association_rule["recomended_courses"]!=[]?count($association_rule["recomended_courses"]):0;
+
+            $colaborative_filtering=$colaborative_filtering["rating_based_courses"]!=[]?count($colaborative_filtering["rating_based_courses"]):0;
+
+            //  dd($association_rule,$colaborative_filtering);
+            //  $single_stat["user_id"]=$student->user_id;
+            //  $single_stat["association_count"]=$association_rule;
+            //  $single_stat["collaborative_count"]=$colaborative_filtering;
+            //  $single_stat["total"]=$association_rule+$colaborative_filtering;
+            $course_count += count($student->enrolled_courses);
+            $association_count+=$association_rule;
+            $colaborative_count+=$colaborative_filtering;
+
+        }
+        $status["student_count"]=(int)$count;
+        $status["enrolled_courses"]=$course_count;
+        $status["associative_rule_minig"]=$association_count;
+        $status["colaborative_filtering"]=$colaborative_count;
 
 
+        dd($status);
     }
 
     public function rec(){
@@ -318,6 +338,7 @@ class RatingController extends Controller
             $final_rec=[];
             foreach($rec as $key=>$val){
                 $temp=$crs->where('course_title',$key)->first();
+                $temp=$temp==null?[]:$temp;
                 array_push($final_rec,$temp);
 
             }
