@@ -111,6 +111,10 @@ Route::middleware(['verified'])->group(function(){
 Route::get('/rating-rec','RatingController@rec')->name('courses.ratings.rec');
 
 
+//paper statics function of hybrid recomendation
+Route::get('/hybrid-rec','RatingController@hybrid_rec');
+
+
 Route::get('/recomended-courses','CourseController@apriori');
 Route::get('/top-courses-this-month','CourseController@top_course_month');
 Route::get('/contributor_dashboard','HomeController@contributor_dashboard')->name('contributor_dashboard');
