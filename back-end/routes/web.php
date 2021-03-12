@@ -1,5 +1,6 @@
 <?php
 
+use App\CareerPath;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -106,6 +107,16 @@ Route::middleware(['verified'])->group(function(){
 Route::middleware(['verified'])->group(function(){
     Route::post('/courses/{course}/ratings','RatingController@store')->name('courses.ratings.store');
     Route::get('/check/rating/{id}','RatingController@check_rating')->name('rating.check');
+});
+
+
+
+
+
+// CareerPath
+
+Route::middleware(['verified'])->group(function(){
+    Route::get('/careet-path-create','CareerPathController@create')->name('careetpath.create');
 });
 
 Route::get('/rating-rec','RatingController@rec')->name('courses.ratings.rec');
