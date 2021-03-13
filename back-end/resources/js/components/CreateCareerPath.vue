@@ -51,6 +51,14 @@
                         <option v-for="(category, index) in categories"  :key="index" >{{ category.name  }}</option>
                     </select>
             </div>
+
+            <div v-if="courses!=null" class="form-group">
+                <label>Select Course </label>
+                    <select class="form-group form-control" v-model="course" id="level2" name="level2">
+                        <option class="text-center"  value="">Select</option>
+                        <option v-for="(course, index) in courses"  :key="index" >{{ course.course_title}}</option>
+                    </select>
+            </div>
       </div>
   </div>
 </template>
@@ -67,6 +75,9 @@ export default {
             reveal:false,
             categories:null,
             category:"",
+            courses:null,
+            course:null,
+            selecte_cpurses:[],
 
 
         }
@@ -156,7 +167,8 @@ export default {
             });
             // console.log(cat_id[0].id);
             axios.get(`/filtered-course/${cat_id[0].id}`).then((res)=>{
-                console.log(res.data.f_courses);
+                // console.log(res.data.f_courses);
+                this.courses=res.data.f_courses;
             }).catch((err)=>(console.log(err)));
         },
 

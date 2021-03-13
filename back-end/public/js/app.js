@@ -2293,6 +2293,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2303,7 +2311,10 @@ __webpack_require__.r(__webpack_exports__);
       path_id: null,
       reveal: false,
       categories: null,
-      category: ""
+      category: "",
+      courses: null,
+      course: null,
+      selecte_cpurses: []
     };
   },
   created: function created() {
@@ -2370,6 +2381,8 @@ __webpack_require__.r(__webpack_exports__);
       this.reveal = true;
     },
     fetch_course: function fetch_course(category) {
+      var _this4 = this;
+
       var cat_id = this.categories.filter(function (item) {
         if (item.name == category) {
           console.log("gto");
@@ -2378,7 +2391,8 @@ __webpack_require__.r(__webpack_exports__);
       }); // console.log(cat_id[0].id);
 
       axios.get("/filtered-course/".concat(cat_id[0].id)).then(function (res) {
-        console.log(res.data.f_courses);
+        // console.log(res.data.f_courses);
+        _this4.courses = res.data.f_courses;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -62255,7 +62269,58 @@ var render = function() {
               ],
               2
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.courses != null
+            ? _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Select Course ")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.course,
+                        expression: "course"
+                      }
+                    ],
+                    staticClass: "form-group form-control",
+                    attrs: { id: "level2", name: "level2" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.course = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { staticClass: "text-center", attrs: { value: "" } },
+                      [_vm._v("Select")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.courses, function(course, index) {
+                      return _c("option", { key: index }, [
+                        _vm._v(_vm._s(course.course_title))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            : _vm._e()
         ])
       : _vm._e()
   ])
