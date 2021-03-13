@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CareerPath;
+use Countable;
 use Illuminate\Http\Request;
 
 class CareerPathController extends Controller
@@ -35,7 +36,22 @@ class CareerPathController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if($request->file('file')){
+            $image = $request->file;
+            $imagePath = $request->file('file');
+            $imageName=time().'.'.$request->file->getClientOriginalExtension();
+            $image->move(public_path('image/'.auth()->user()->name.'/'.'career-path/'),$imageName);
+
+        }
+        $careerPath=CareerPath::create([
+            'title'=>$request->title,
+            'creator_id'=>auth()->user()->id,
+            'banner'=>'image/'.auth()->user()->name.'/'.'career-path/'.$imageName,
+            'description'=>$request->description
+        ]);
+
+            return response(['message'=>'added','careetpath'=>$careerPath->id]);
     }
 
     /**

@@ -268,4 +268,8 @@ class CourseController extends Controller
         $selected_course_lessons = CourseLesson::all()->where('course_id',$id);
         return view('student.courseLessonsView', compact('selected_course_lessons'));
     }
+    public function filtered_courses($id){
+            $flt_courses=Course::all()->where('category_id',$id);
+            return response(['f_courses'=>$flt_courses]);
+    }
 }

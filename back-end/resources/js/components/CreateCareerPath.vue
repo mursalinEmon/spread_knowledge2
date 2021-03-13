@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-       <form class="card-body" @submit.prevent="submitFile()">
+      <div v-if="reveal==false">
+           <form class="card-body" @submit.prevent="submitFile()">
                             <div class="form-group">
                                 <label for="blogTitle">Path Title</label>
                                 <input v-model="title" type="text" class="form-control" id="blogTitle" aria-describedby="emailHelp" placeholder="Title" required>
@@ -26,13 +27,7 @@
 
                             </div>
 
-                            <!-- <div class="form-group">
-                                <label>Course Category</label>
-                                <select class="form-group form-control" v-model="category" id="level" name="level">
-                                    <option class="text-center"  value="">Select</option>
-                                    <option v-for="(category, index) in categories"  :key="index" >{{ category.id  }}.{{ category.name  }}</option>
-                                </select>
-                            </div> -->
+
 
                            <div class="form-group">
                                <div>
@@ -41,7 +36,22 @@
 
                             </div>
 
-                        </form>
+        </form>
+        <br>
+        <br>
+        <div>
+            <button v-if="next=='true'" @click="openSection()" class="btn btn-success float-right pr-4 mr-2">Next ></button>
+        </div>
+      </div>
+      <div v-if="reveal==true">
+           <div class="form-group">
+                <label>Course Category</label>
+                    <select class="form-group form-control" v-model="category" id="level" name="level">
+                        <option class="text-center"  value="">Select</option>
+                        <option v-for="(category, index) in categories"  :key="index" >{{ category.name  }}</option>
+                    </select>
+            </div>
+      </div>
   </div>
 </template>
 
@@ -52,8 +62,25 @@ export default {
             file:"",
             description:"",
             previewImage: null,
+            next:false,
+            path_id:null,
+            reveal:false,
+            categories:null,
+            category:"",
+
+
         }
     ),
+    created(){
+        this.fetch_category();
+    },
+     watch: {
+
+        category: function (newCategory, oldCategory) {
+
+            this.fetch_course( newCategory);
+        }
+    },
     methods:{
       processFile(){
            this.file = this.$refs.file.files[0];
@@ -75,6 +102,64 @@ export default {
         this.file=null;
         this.$refs.file.value="";
       },
+      submitFile(){
+
+            let formData = new FormData();
+            formData.append('file', this.file);
+            formData.append('title', this.title);
+            formData.append('description', this.description);
+
+
+            axios.post( '/careet-path-create',
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then((res)=>{
+
+              this.file="";
+              this.previewImage = null;
+              this.$alert(
+              res.data.message,
+              "",
+              "success"
+            );
+
+            this.path_id=res.data.careetpath;
+            if (res.data.careetpath ){
+                   this.next='true';
+            }
+
+            }).catch();
+
+        },
+
+        fetch_category(){
+            axios.get('/categories').then((res)=>{
+                this.categories=res.data.categories;
+            }).catch((err)=>(console.log(err)));
+        },
+        openSection(){
+            this.reveal=true;
+        },
+        fetch_course(category){
+
+           let cat_id = this.categories.filter((item)=>{
+                if(item.name==category){
+                console.log("gto");
+
+                    return item.id
+
+                }
+            });
+            // console.log(cat_id[0].id);
+            axios.get(`/filtered-course/${cat_id[0].id}`).then((res)=>{
+                console.log(res.data.f_courses);
+            }).catch((err)=>(console.log(err)));
+        },
+
     }
 }
 </script>
