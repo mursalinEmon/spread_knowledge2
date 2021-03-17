@@ -62374,9 +62374,9 @@ var render = function() {
             ? _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
                   _vm._v(
-                    "\r\n                " +
+                    "\n                " +
                       _vm._s(lesson.lesson_title) +
-                      "\r\n            "
+                      "\n            "
                   )
                 ]),
                 _vm._v(" "),
@@ -64127,9 +64127,7 @@ var render = function() {
         },
         [
           _vm._v(
-            "\r\n                " +
-              _vm._s(_vm.lesson_body) +
-              "\r\n            "
+            "\n                " + _vm._s(_vm.lesson_body) + "\n            "
           )
         ]
       ),
@@ -80708,8 +80706,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Shuvo\Desktop\client_projects\mursalin\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Capstone_Project\spread_knowledge2\back-end\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
