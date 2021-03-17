@@ -83,9 +83,14 @@ class CareerPathController extends Controller
      * @param  \App\CareerPath  $careerPath
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CareerPath $careerPath)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request,$id);
+        $path=CareerPath::findOrFail((int)$id);
+        $path->update([
+            'course_list'=>$request->course_id_list,
+        ]);
+        return response(['message'=>'success']);
     }
 
     /**

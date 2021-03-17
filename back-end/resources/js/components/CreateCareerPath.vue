@@ -59,6 +59,15 @@
                         <option v-for="(course, index) in courses"  :key="index" >{{ course.course_title}}</option>
                     </select>
             </div>
+            <div v-if="course!=null" class="form-group">
+                <button @click="addCourse()" class="btn btn-success float-right mr-4 mt-2">Add</button>
+            </div>
+             <div class="form-group">
+                <button @click="deleteBadge(index)" class="btn btn-secondary ml-2 p-2" v-for="(course,index) in selected_courses" :key="index">{{ course }} <span class="badge badge-light crossButton">x</span></button>
+            </div>
+      </div>
+      <div v-if="selected_courses_id.length>0" class="float-right mr-4 mt-4">
+          <button @click="finish()" class="btn btn-success">Done..!</button>
       </div>
   </div>
 </template>
@@ -75,9 +84,11 @@ export default {
             reveal:false,
             categories:null,
             category:"",
-            courses:null,
+            courses:[],
             course:null,
-            selecte_cpurses:[],
+            selected_courses:[],
+            selected_courses_id:[],
+
 
 
         }
@@ -159,19 +170,43 @@ export default {
 
            let cat_id = this.categories.filter((item)=>{
                 if(item.name==category){
-                console.log("gto");
-
                     return item.id
 
                 }
             });
             // console.log(cat_id[0].id);
             axios.get(`/filtered-course/${cat_id[0].id}`).then((res)=>{
-                // console.log(res.data.f_courses);
+                console.log(res.data.f_courses);
                 this.courses=res.data.f_courses;
             }).catch((err)=>(console.log(err)));
         },
+        addCourse(){
+             Object.values(this.courses).filter((item)=>{
+                if(item.course_title==this.course){
+                    console.log(item.id);
+                    this.selected_courses_id.push(item.id);
+                }
+            });
+            this.selected_courses.push(this.course);
 
+            this.course=null;
+        },
+        deleteBadge(index){
+             this. selected_courses.splice(index,1);
+             this. selected_courses_id.splice(index,1);
+
+        },
+        finish(){
+            axios.post(`/careet-path-update/${this.path_id}`,{
+                course_id_list:this.selected_courses_id
+            }).then((res)=>{
+                if(res.data.message=='success'){
+                    location.reload();
+                }else{
+
+                }
+            }).catch(err=>console.log(err));
+        }
     }
 }
 </script>

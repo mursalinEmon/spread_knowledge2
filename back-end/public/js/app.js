@@ -2301,6 +2301,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2312,9 +2321,10 @@ __webpack_require__.r(__webpack_exports__);
       reveal: false,
       categories: null,
       category: "",
-      courses: null,
+      courses: [],
       course: null,
-      selecte_cpurses: []
+      selected_courses: [],
+      selected_courses_id: []
     };
   },
   created: function created() {
@@ -2385,14 +2395,41 @@ __webpack_require__.r(__webpack_exports__);
 
       var cat_id = this.categories.filter(function (item) {
         if (item.name == category) {
-          console.log("gto");
           return item.id;
         }
       }); // console.log(cat_id[0].id);
 
       axios.get("/filtered-course/".concat(cat_id[0].id)).then(function (res) {
-        // console.log(res.data.f_courses);
+        console.log(res.data.f_courses);
         _this4.courses = res.data.f_courses;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    addCourse: function addCourse() {
+      var _this5 = this;
+
+      Object.values(this.courses).filter(function (item) {
+        if (item.course_title == _this5.course) {
+          console.log(item.id);
+
+          _this5.selected_courses_id.push(item.id);
+        }
+      });
+      this.selected_courses.push(this.course);
+      this.course = null;
+    },
+    deleteBadge: function deleteBadge(index) {
+      this.selected_courses.splice(index, 1);
+      this.selected_courses_id.splice(index, 1);
+    },
+    finish: function finish() {
+      axios.post("/careet-path-update/".concat(this.path_id), {
+        course_id_list: this.selected_courses_id
+      }).then(function (res) {
+        if (res.data.message == 'success') {
+          location.reload();
+        } else {}
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -62320,7 +62357,67 @@ var render = function() {
                   2
                 )
               ])
-            : _vm._e()
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.course != null
+            ? _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success float-right mr-4 mt-2",
+                    on: {
+                      click: function($event) {
+                        return _vm.addCourse()
+                      }
+                    }
+                  },
+                  [_vm._v("Add")]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            _vm._l(_vm.selected_courses, function(course, index) {
+              return _c(
+                "button",
+                {
+                  key: index,
+                  staticClass: "btn btn-secondary ml-2 p-2",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteBadge(index)
+                    }
+                  }
+                },
+                [
+                  _vm._v(_vm._s(course) + " "),
+                  _c("span", { staticClass: "badge badge-light crossButton" }, [
+                    _vm._v("x")
+                  ])
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.selected_courses_id.length > 0
+      ? _c("div", { staticClass: "float-right mr-4 mt-4" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success",
+              on: {
+                click: function($event) {
+                  return _vm.finish()
+                }
+              }
+            },
+            [_vm._v("Done..!")]
+          )
         ])
       : _vm._e()
   ])

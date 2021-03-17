@@ -123,6 +123,9 @@ Route::middleware(['verified'])->group(function(){
 Route::middleware(['verified'])->group(function(){
     Route::get('/careet-path-create','CareerPathController@create')->name('careetpath.create');
     Route::post('/careet-path-create','CareerPathController@store')->name('careetpath.store');
+    Route::post('/careet-path-update/{id}','CareerPathController@update')->name('careetpath.upate');
+
+
 
 });
 
