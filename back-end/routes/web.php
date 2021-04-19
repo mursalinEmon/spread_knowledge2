@@ -83,6 +83,7 @@ Route::middleware(['verified'])->group(function(){
 
     Route::get('/course/{id}/getLessons', 'CourseController@fawMethod');
     Route::get('/filtered-course/{id}', 'CourseController@filtered_courses');
+    Route::get('/course-performance', 'CourseController@course_performance')->name('course.performance');
 
 
 

@@ -272,4 +272,7 @@ class CourseController extends Controller
             $flt_courses=Course::all()->where('category_id',$id);
             return response(['f_courses'=>$flt_courses]);
     }
+    public function course_performance(){
+        return view('student.course_performance');
+    }
 }
