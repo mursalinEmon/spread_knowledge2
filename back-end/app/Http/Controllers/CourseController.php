@@ -274,7 +274,7 @@ class CourseController extends Controller
             return response(['f_courses'=>$flt_courses]);
     }
     public function course_performance(){
-        $courses_model=[];
+        $courses_models=[];
         $progress_report=[];
         $courses=StudentProfile::where('user_id',auth()->user()->id)->get('enrolled_courses');
         $courses=$courses[0]->enrolled_courses;
@@ -282,12 +282,12 @@ class CourseController extends Controller
         foreach ($courses as $course){
             $lesson_count=CourseLesson::where('course_id',$course)->get()->count();
             $course_model=Course::findOrFail($course);
-            array_push($courses_model,$course_model);
+            array_push($courses_models,$course_model);
             $passed_lessons_count=CourseProgressReport::where('course_id',$course)->where('status',1)->get()->count();
             $completed=( $passed_lessons_count/$lesson_count )*100;
             $progress_report[$course]=$completed;
         }
-        dd($courses_model);
-        return view('student.course_performance');
+
+        return view('student.course_performance',compact('progress_report','courses_models'));
     }
 }
