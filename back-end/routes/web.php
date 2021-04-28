@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/','HomeController@landing')->name('landing');
 Route::get('/question-list','QuestionController@index')->name('question.list');
 
 Auth::routes(['verify'=>true]);

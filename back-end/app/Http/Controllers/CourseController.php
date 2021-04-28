@@ -265,6 +265,7 @@ class CourseController extends Controller
         return response(['top_courses_month'=>$top_courses]);
     }
 
+
     public function fawMethod($id){
         $selected_course_lessons = CourseLesson::all()->where('course_id',$id);
         return view('student.courseLessonsView', compact('selected_course_lessons'));
@@ -284,7 +285,7 @@ class CourseController extends Controller
             $course_model=Course::findOrFail($course);
             array_push($courses_models,$course_model);
             $passed_lessons_count=CourseProgressReport::where('course_id',$course)->where('status',1)->get()->count();
-            $completed=( $passed_lessons_count/$lesson_count )*100;
+            $completed=number_format(( $passed_lessons_count/$lesson_count )*100, 2, '.', ',');
             $progress_report[$course]=$completed;
         }
 
