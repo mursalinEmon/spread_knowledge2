@@ -37,4 +37,7 @@ class HomeController extends Controller
 
         return view('contributor.contributor_dashboard',compact('posts_count','tags_count','course_count'));
     }
+    public function landing(){
+        return view('welcome');
+    }
 }
