@@ -265,6 +265,7 @@ class CourseController extends Controller
         return response(['top_courses_month'=>$top_courses]);
     }
 
+
     public function fawMethod($id){
         $selected_course_lessons = CourseLesson::all()->where('course_id',$id);
         return view('student.courseLessonsView', compact('selected_course_lessons'));

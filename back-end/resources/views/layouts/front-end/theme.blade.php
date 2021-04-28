@@ -8,7 +8,7 @@
     <title>Mentor Bootstrap Template - Index</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Favicons -->
     <link href={{asset("assets/img/favicon.png")}} rel="icon">
     <link href={{asset("assets/img/apple-touch-icon.png")}} rel="apple-touch-icon">
@@ -90,8 +90,10 @@
     </div>
 </section><!-- End Hero -->
 
+<div id="app1">
+    @yield('content')
+</div>
 
-@yield('content')
 
 
 

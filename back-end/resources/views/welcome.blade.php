@@ -1,7 +1,7 @@
 @extends('layouts.front-end.theme')
 
 @section('content')
-
+    
 <main id="main">
 
     <!-- ======= About Section ======= -->
