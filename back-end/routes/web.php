@@ -131,6 +131,15 @@ Route::middleware(['verified'])->group(function(){
 
 });
 
+
+// precedures
+Route::middleware(['verified','admin'])->group(function(){
+
+    Route::get('/admin-dashboard','AdminProfileController@index')->name('admin.dashboard');
+
+});
+
+
 Route::get('/rating-rec','RatingController@rec')->name('courses.ratings.rec');
 
 
