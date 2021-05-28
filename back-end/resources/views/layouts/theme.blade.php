@@ -294,6 +294,16 @@
 
   <script src="{{ asset('js/demo/chart-area-demo.js') }}" ></script>
   <script  src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+  <script>
+      function runproc(){
+          document.getElementById("fader").style.display="block";
+          window.axios.get(`/admin-procedure`).then((res)=>{
+              if(res.data.stat=='success'){
+                document.getElementById("fader").style.display="none";
+              }
+          }).catch((err)=>console.log(err));
+      }
+  </script>
 
 </body>
 

@@ -136,6 +136,9 @@ Route::middleware(['verified'])->group(function(){
 Route::middleware(['verified','admin'])->group(function(){
 
     Route::get('/admin-dashboard','AdminProfileController@index')->name('admin.dashboard');
+    Route::get('/admin-procedure','AdminProfileController@suggestionprocedure')->name('admin.procedure');
+
+
 
 });
 
