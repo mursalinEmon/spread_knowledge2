@@ -13,6 +13,7 @@ use App\Feedback;
 use App\Course;
 use App\User;
 
+
 class AdminProfileController extends Controller
 {
     /**
@@ -93,11 +94,17 @@ class AdminProfileController extends Controller
 
     public function suggestionprocedure(){
         $status=[];
+        $feedback_ids=[];
         $association_count=0;
         $colaborative_count=0;
         $course_count=0;
         $total=0;
-        $students=  $students=StudentProfile::all();
+        $students=StudentProfile::all();
+        // DB::table('feedback')->delete();
+        $feedbacks=Feedback::all();
+        foreach($feedbacks as $f){
+            array_push($feedback_ids,$f->student_id);
+        }
 
         foreach($students as $student){
             $single_stat=[];
@@ -111,10 +118,16 @@ class AdminProfileController extends Controller
 
             // $course_count += count($student->enrolled_courses);
             $total=$association_rule+ $colaborative_filtering;
-            Feedback::create([
-                'student_id'=>$student->id,
-                'suggested'=>$total,
-            ]);
+            if(in_array($student->id , $feedback_ids)){
+
+            }else{
+                Feedback::create([
+                    'student_id'=>$student->id,
+                    'suggested'=>$total,
+                ]);
+            }
+
+
 
 
         }

@@ -300,6 +300,7 @@
           window.axios.get(`/admin-procedure`).then((res)=>{
               if(res.data.stat=='success'){
                 document.getElementById("fader").style.display="none";
+                window.toastr.success('', 'Process Ran Successfully..!!');
               }
           }).catch((err)=>console.log(err));
       }
