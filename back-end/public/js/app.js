@@ -2101,6 +2101,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2171,6 +2172,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       });
+      console.log(this.$refs);
     },
     makeactive: function makeactive(val) {
       this.selected = val;
@@ -2182,6 +2184,7 @@ __webpack_require__.r(__webpack_exports__);
       if (val == 'yes') {
         window.toastr.success('', 'Thanks For Your Feedback..!!');
         this.isactive = !this.isactive;
+        this.selected = null;
       } else {
         axios.post("/suggestion-feedback", {
           course_id: this.selected
@@ -2189,6 +2192,7 @@ __webpack_require__.r(__webpack_exports__);
           if (res.data.message == 'success') {
             window.toastr.success('', 'Thanks For Your Feedback..!!');
             _this5.isactive = !_this5.isactive;
+            _this5.selected = null;
           }
         });
       }

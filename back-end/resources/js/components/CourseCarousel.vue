@@ -92,6 +92,7 @@
                 v-for="(course, index) in rating_based_courses"
                 :key="index"
                 :index="index"
+
             >
                 <!-- <h6>{{course.course_title}}</h6> -->
                 <div class="card" style="width:10vw;margin-right:1rem;">
@@ -100,7 +101,7 @@
                         :src="'/' + course.image"
                         alt="Card image"
                     />
-                    <div class="card-body">
+                    <div class="card-body"  >
                         <div v-bind:class="{active: !isactive}" >
                             <h6 class="card-title">{{ course.course_title }}</h6>
                             <div class="row">
@@ -111,7 +112,7 @@
                         <div  v-bind:class="{active: isactive}">
                             <form>
                                 <label for="">Was It Helpful?</label>
-                                <input type="radio" value="yes" v-model="feedback" name="" >Yes
+                                <input type="radio"  value="yes" v-model="feedback" name="" >Yes
                                 <input type="radio" value="no" v-model="feedback" name="">No
                             </form>
                         </div>
@@ -199,6 +200,8 @@ export default {
             axios.get('/rating-rec').then((res)=>{
                 this.rating_based_courses=res.data.rating_based_courses;
             }).catch((err)=>console.log(err));
+        console.log(this.$refs);
+
         },
         makeactive(val){
             this.selected=val;
@@ -208,11 +211,13 @@ export default {
             if(val == 'yes'){
                  window.toastr.success('', 'Thanks For Your Feedback..!!');
                  this.isactive = !this.isactive;
+                  this.selected=null;
             }else{
                 axios.post(`/suggestion-feedback`,{course_id:this.selected}).then((res)=>{
                   if(res.data.message == 'success'){
                     window.toastr.success('', 'Thanks For Your Feedback..!!');
                     this.isactive = !this.isactive;
+                    this.selected=null;
                   }
                 })
             }
