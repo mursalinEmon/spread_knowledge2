@@ -17,7 +17,8 @@ class CreateFeedbackTable extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->integer('suggested');
-            $table->integer('wrong')->nulalble();
+            $table->integer('wrong')->nullable();
+            $table->json('wrong_ids')->nullable();
             $table->integer('right')->nullable();
             $table->integer('feedback')->nullable();
             $table->timestamps();

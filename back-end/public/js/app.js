@@ -2085,6 +2085,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2099,7 +2115,10 @@ __webpack_require__.r(__webpack_exports__);
       top_courses: [],
       recomended_courses: [],
       top_courses_month: [],
-      rating_based_courses: []
+      rating_based_courses: [],
+      isactive: true,
+      feedback: null,
+      selected: null
     };
   },
   created: function created() {
@@ -2107,6 +2126,11 @@ __webpack_require__.r(__webpack_exports__);
     this.fetch_Recomended_Courses();
     this.fetch_Top_Courses_month();
     this.fetch_Ratingbased_courses();
+  },
+  watch: {
+    feedback: function feedback(val) {
+      this.record_feedback(val);
+    }
   },
   methods: {
     fetch_Top_Courses: function fetch_Top_Courses() {
@@ -2147,6 +2171,27 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       });
+    },
+    makeactive: function makeactive(val) {
+      this.selected = val;
+      this.isactive = !this.isactive;
+    },
+    record_feedback: function record_feedback(val) {
+      var _this5 = this;
+
+      if (val == 'yes') {
+        window.toastr.success('', 'Thanks For Your Feedback..!!');
+        this.isactive = !this.isactive;
+      } else {
+        axios.post("/suggestion-feedback", {
+          course_id: this.selected
+        }).then(function (res) {
+          if (res.data.message == 'success') {
+            window.toastr.success('', 'Thanks For Your Feedback..!!');
+            _this5.isactive = !_this5.isactive;
+          }
+        });
+      }
     }
   }
 });
@@ -10744,7 +10789,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".card_image {\n  height: 20px;\n  width: 20px;\n}", ""]);
+exports.push([module.i, ".card_image {\n  height: 20px;\n  width: 20px;\n}\n.active {\n  display: none;\n}", ""]);
 
 // exports
 
@@ -61759,7 +61804,7 @@ var render = function() {
                                   staticClass: "btn btn-primary",
                                   attrs: { href: "#" }
                                 },
-                                [_vm._v("Brouse Course")]
+                                [_vm._v("Browse")]
                               )
                             ])
                           ]
@@ -61826,7 +61871,7 @@ var render = function() {
                                   staticClass: "btn btn-primary",
                                   attrs: { href: "#" }
                                 },
-                                [_vm._v("Brouse Course")]
+                                [_vm._v("Browse")]
                               )
                             ])
                           ]
@@ -61888,12 +61933,30 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c(
-                                "a",
+                                "div",
                                 {
-                                  staticClass: "btn btn-primary",
-                                  attrs: { href: "#" }
+                                  staticClass:
+                                    "row d-flex justify-content-around"
                                 },
-                                [_vm._v("Brouse Course")]
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("Browse")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("Feedback")]
+                                  )
+                                ]
                               )
                             ])
                           ]
@@ -61950,18 +62013,95 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("div", { staticClass: "card-body" }, [
-                              _c("h6", { staticClass: "card-title" }, [
-                                _vm._v(_vm._s(course.course_title))
+                              _c("div", { class: { active: !_vm.isactive } }, [
+                                _c("h6", { staticClass: "card-title" }, [
+                                  _vm._v(_vm._s(course.course_title))
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "col-md-6 btn btn-primary",
+                                      staticStyle: { "font-size": "8px" },
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("Browse")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "col-md-6 btn btn-primary",
+                                      staticStyle: { "font-size": "8px" },
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.makeactive(course.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Feedback")]
+                                  )
+                                ])
                               ]),
                               _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  attrs: { href: "#" }
-                                },
-                                [_vm._v("Brouse Course")]
-                              )
+                              _c("div", { class: { active: _vm.isactive } }, [
+                                _c("form", [
+                                  _c("label", { attrs: { for: "" } }, [
+                                    _vm._v("Was It Helpful?")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.feedback,
+                                        expression: "feedback"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      value: "yes",
+                                      name: ""
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(_vm.feedback, "yes")
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        _vm.feedback = "yes"
+                                      }
+                                    }
+                                  }),
+                                  _vm._v("Yes\n                            "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.feedback,
+                                        expression: "feedback"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      value: "no",
+                                      name: ""
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(_vm.feedback, "no")
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        _vm.feedback = "no"
+                                      }
+                                    }
+                                  }),
+                                  _vm._v("No\n                        ")
+                                ])
+                              ])
                             ])
                           ]
                         )

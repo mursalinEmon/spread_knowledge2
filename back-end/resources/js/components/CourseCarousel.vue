@@ -18,7 +18,7 @@
                     />
                     <div class="card-body">
                         <h6 class="card-title">{{ course.course_title }}</h6>
-                        <a href="#" class="btn btn-primary">Brouse Course</a>
+                        <a href="#" class="btn btn-primary">Browse</a>
                     </div>
                 </div>
             </slide>
@@ -44,7 +44,7 @@
                     />
                     <div class="card-body">
                         <h6 class="card-title">{{ course[0].course_title }}</h6>
-                        <a href="#" class="btn btn-primary">Brouse Course</a>
+                        <a href="#" class="btn btn-primary">Browse</a>
                     </div>
                 </div>
             </slide>
@@ -71,7 +71,10 @@
                     />
                     <div class="card-body">
                         <h6 class="card-title">{{ course.course_title }}</h6>
-                        <a href="#" class="btn btn-primary">Brouse Course</a>
+                        <div class="row d-flex justify-content-around">
+                            <a href="#" class="btn btn-primary">Browse</a>
+                            <a href="#" class="btn btn-primary">Feedback</a>
+                        </div>
                     </div>
                 </div>
             </slide>
@@ -98,8 +101,21 @@
                         alt="Card image"
                     />
                     <div class="card-body">
-                        <h6 class="card-title">{{ course.course_title }}</h6>
-                        <a href="#" class="btn btn-primary">Brouse Course</a>
+                        <div v-bind:class="{active: !isactive}" >
+                            <h6 class="card-title">{{ course.course_title }}</h6>
+                            <div class="row">
+                                <a href="#" style="font-size:8px;2" class="col-md-6 btn btn-primary">Browse</a>
+                                <a href="#" style="font-size:8px;" class="col-md-6 btn btn-primary" @click="makeactive(course.id)">Feedback</a>
+                            </div>
+                        </div>
+                        <div  v-bind:class="{active: isactive}">
+                            <form>
+                                <label for="">Was It Helpful?</label>
+                                <input type="radio" value="yes" v-model="feedback" name="" >Yes
+                                <input type="radio" value="no" v-model="feedback" name="">No
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </slide>
@@ -127,7 +143,10 @@ export default {
         top_courses: [],
         recomended_courses: [],
         top_courses_month: [],
-        rating_based_courses: []
+        rating_based_courses: [],
+        isactive:true,
+        feedback:null,
+        selected:null,
 
     }),
     created() {
@@ -135,6 +154,11 @@ export default {
         this.fetch_Recomended_Courses();
         this.fetch_Top_Courses_month();
         this.fetch_Ratingbased_courses();
+    },
+    watch:{
+         feedback: function (val) {
+             this.record_feedback(val);
+        },
     },
     methods: {
         fetch_Top_Courses() {
@@ -175,7 +199,25 @@ export default {
             axios.get('/rating-rec').then((res)=>{
                 this.rating_based_courses=res.data.rating_based_courses;
             }).catch((err)=>console.log(err));
+        },
+        makeactive(val){
+            this.selected=val;
+            this.isactive = !this.isactive;
+        },
+        record_feedback(val){
+            if(val == 'yes'){
+                 window.toastr.success('', 'Thanks For Your Feedback..!!');
+                 this.isactive = !this.isactive;
+            }else{
+                axios.post(`/suggestion-feedback`,{course_id:this.selected}).then((res)=>{
+                  if(res.data.message == 'success'){
+                    window.toastr.success('', 'Thanks For Your Feedback..!!');
+                    this.isactive = !this.isactive;
+                  }
+                })
+            }
         }
+
     }
 };
 </script>
@@ -184,5 +226,8 @@ export default {
 .card_image {
     height: 20px;
     width: 20px;
+}
+.active{
+    display: none;
 }
 </style>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Feedback;
 use Illuminate\Http\Request;
+use App\StudentProfile;
 
 class FeedbackController extends Controller
 {
@@ -12,9 +13,33 @@ class FeedbackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
+    }
+
+    public function feedback(Request $request){
+        $user_id=auth()->user()->id;
+        $tmp=[];
+        $student_id=StudentProfile::where('user_id',$user_id)->get();
+        // dd($student_id);
+        $feedback =Feedback::where('student_id',$student_id[0]->id)->get();
+        // dd($feedback);
+        $wrong=$feedback[0]->wrong;
+        $w_course=$request->course_id;
+        if($feedback[0]->wrong_ids ==null){
+            array_push($tmp,$w_course);
+        }else{
+            array_merge($tmp,$feedback[0]->wrong_ids);
+            array_push($tmp,$w_course);
+        }
+
+        $feedback[0]->update([
+            'wrong'=>$wrong+1,
+            'wrong_ids'=>$tmp
+        ]);
+        return response(['message'=>'success']);
     }
 
     /**
